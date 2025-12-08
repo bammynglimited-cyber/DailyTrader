@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - DailyTrader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen flex items-center justify-center p-6">
+  
+  <div class="w-full max-w-md">
+    <!-- Logo -->
+    <div class="text-center mb-8">
+      <h1 class="text-5xl font-bold mb-2" style="background: linear-gradient(to right, #10b981, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">DailyTrader</h1>
+      <p class="text-gray-300">Create your account and start earning</p>
+    </div>
+
+    <!-- Signup Card -->
+    <div class="bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-3xl p-8 shadow-2xl">
+      <h2 class="text-3xl font-bold mb-6 text-center">Create an Account</h2>
+      <p class="text-gray-300 text-sm mb-6 text-center">You can create account using email or username and the registration is fully free</p>
+      
+      <!-- Referral Banner (shows when ref code in URL) -->
+      <div id="referralBanner" class="hidden mb-6 bg-gradient-to-r from-green-500/20 to-blue-500/20 border-2 border-green-400/50 rounded-xl p-4 animate-pulse">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-green-300">🎉 You've been invited!</p>
+            <p class="text-xs text-gray-300">Referral Code: <span id="referredByCode" class="font-mono font-bold text-blue-300"></span></p>
+            <p class="text-xs text-green-400 mt-1">Make your first deposit to activate referral rewards!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Message -->
+      <div id="status" class="mb-4 p-3 rounded-lg hidden"></div>
+
+      <!-- Signup Form -->
+      <form id="signup-form" class="space-y-4">
+        <!-- Username -->
+        <div>
+          <label class="block text-sm font-medium mb-2">Full name<span class="text-red-500">*</span></label>
+          <input type="text" id="signup-username" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="Enter Full name">
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block text-sm font-medium mb-2">E-Mail Address<span class="text-red-500">*</span></label>
+          <input type="email" id="signup-email" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="your@email.com">
+        </div>
+
+        <!-- Country and Mobile -->
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm text-blue-100 font-medium mb-2">Country</label>
+            <select id="signup-country" class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white ">
+              <option class="bg-blue-900">Afghanistan</option>
+              <option class="bg-blue-900">United States</option>
+              <option class="bg-blue-900">United Kingdom</option>
+              <option class="bg-blue-900">Canada</option>
+              <option class="bg-blue-900">Italy</option>
+              <option class="bg-blue-900">Ghana</option>
+              <option class="bg-blue-900">Kenya</option>
+              <option class="bg-blue-900">South Africa</option>
+              <option class="bg-blue-900">India</option>
+              <option class="bg-blue-900">Pakistan</option>
+              <option class="bg-blue-900">Australia</option>
+               <option class="bg-blue-900">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Mobile<span class="text-red-500">*</span></label>
+            <input type="tel" id="signup-mobile" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="+">
+          </div>
+        </div>
+
+        <!-- Referral Code Input -->
+        <div>
+          <label class="block text-sm font-medium mb-2">
+            Referral Code 
+            <span class="text-gray-400 font-normal text-xs">(Optional)</span>
+          </label>
+          <input type="text" id="referral-code" maxlength="10" class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-green-500 focus:outline-none text-white placeholder-gray-400 uppercase" placeholder="Enter referral code">
+          <p class="text-xs text-gray-400 mt-1">💡 Have a referral code? Enter it to get bonus when you deposit!</p>
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label class="block text-sm font-medium mb-2">Password<span class="text-red-500">*</span></label>
+          <input type="password" id="signup-password" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="••••••••">
+        </div>
+
+        <!-- Confirm Password -->
+        <div>
+          <label class="block text-sm font-medium mb-2">Confirm Password<span class="text-red-500">*</span></label>
+          <input type="password" id="signup-confirm-password" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="••••••••">
+        </div>
+
+        <!-- Captcha -->
+        <div>
+          <div class="bg-slate-900 p-4 rounded-xl mb-2 text-center">
+            <canvas id="captcha-canvas" width="280" height="60" class="mx-auto"></canvas>
+          </div>
+          <label class="block text-sm font-medium mb-2">Captcha<span class="text-red-500">*</span></label>
+          <input type="text" id="captcha-input" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="Enter captcha code">
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="flex items-start">
+          <input type="checkbox" id="terms-checkbox" required class="mt-1 mr-2 w-4 h-4">
+          <label for="terms-checkbox" class="text-sm text-gray-300">
+            I agree with <a href="#" class="text-blue-400 hover:underline">Privacy Policy</a>, <a href="#" class="text-blue-400 hover:underline">Terms and Service</a>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-blue-500 py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-blue-600 transition">
+          Create Account
+        </button>
+      </form>
+
+      <div class="mt-6 text-center">
+        <p class="text-gray-300">Already have an account? <a href="login.html" class="text-blue-400 hover:underline font-bold">Login Account</a></p>
+      </div>
+    </div>
+
+    <div class="text-center mt-6">
+      <a href="index.html" class="text-gray-400 hover:text-white transition">← Back to Home</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
+    let supabase;
+    let captchaText = '';
+    const REFERRAL_BONUS_PERCENTAGE = 10.00; // 10% of first deposit
+
+    // Check for referral code in URL
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const refCode = urlParams.get('ref');
+      
+      if (refCode) {
+        const referralInput = document.getElementById('referral-code');
+        referralInput.value = refCode.toUpperCase();
+        document.getElementById('referredByCode').textContent = refCode.toUpperCase();
+        document.getElementById('referralBanner').classList.remove('hidden');
+      }
+    });
+
+    // Auto-uppercase referral code input
+    document.getElementById('referral-code').addEventListener('input', (e) => {
+      e.target.value = e.target.value.toUpperCase();
+    });
+
+    // Generate Captcha
+    function generateCaptcha() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+      captchaText = '';
+      for (let i = 0; i < 6; i++) {
+        captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      
+      const canvas = document.getElementById('captcha-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      for (let i = 0; i < 5; i++) {
+        ctx.strokeStyle = `rgba(${Math.random()*100+100}, ${Math.random()*100+100}, ${Math.random()*100+100}, 0.3)`;
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+        ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+        ctx.stroke();
+      }
+      
+      ctx.font = 'bold 32px Arial';
+      for (let i = 0; i < captchaText.length; i++) {
+        ctx.fillStyle = `hsl(${Math.random() * 360}, 70%, 60%)`;
+        ctx.save();
+        ctx.translate(20 + i * 40, 40);
+        ctx.rotate((Math.random() - 0.5) * 0.4);
+        ctx.fillText(captchaText[i], 0, 0);
+        ctx.restore();
+      }
+    }
+
+    function showStatus(message, type = 'info') {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = `mb-4 p-3 rounded-lg ${type === 'error' ? 'bg-red-600/20 border-2 border-red-500' : type === 'success' ? 'bg-green-600/20 border-2 border-green-500' : 'bg-blue-600/20 border-2 border-blue-500'}`;
+      status.classList.remove('hidden');
+    }
+
+    function waitForSupabase(callback) {
+      if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+        callback();
+      } else {
+        setTimeout(() => waitForSupabase(callback), 100);
+      }
+    }
+
+    waitForSupabase(() => {
+      supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+      generateCaptcha();
+    });
+
+    document.getElementById('captcha-canvas').addEventListener('click', generateCaptcha);
+
+    async function queueEmail(userId, recipientEmail, subject, emailType, emailData) {
+      try {
+        const { error } = await supabase
+          .from('email_queue')
+          .insert([{
+            user_id: userId,
+            recipient_email: recipientEmail,
+            subject: subject,
+            email_type: emailType,
+            email_data: emailData,
+            status: 'pending',
+            created_at: new Date().toISOString()
+          }]);
+        
+        if (error) {
+          console.error('Email queue error:', error);
+        } else {
+          console.log('Welcome email queued for:', recipientEmail);
+        }
+      } catch (err) {
+        console.error('Email queue error:', err);
+      }
+    }
+
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('signup-username').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const country = document.getElementById('signup-country').value;
+      const mobile = document.getElementById('signup-mobile').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirm-password').value;
+      const captchaInput = document.getElementById('captcha-input').value;
+      const termsAccepted = document.getElementById('terms-checkbox').checked;
+      const referralCode = document.getElementById('referral-code').value.trim().toUpperCase();
+
+      // Validation
+      if (!username) {
+        showStatus('Username is required!', 'error');
+        return;
+      }
+
+      if (!email) {
+        showStatus('Email is required!', 'error');
+        return;
+      }
+
+      if (!mobile) {
+        showStatus('Mobile number is required!', 'error');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showStatus('Passwords do not match!', 'error');
+        return;
+      }
+
+      if (password.length < 6) {
+        showStatus('Password must be at least 6 characters!', 'error');
+        return;
+      }
+
+      if (captchaInput !== captchaText) {
+        showStatus('Captcha is incorrect!', 'error');
+        generateCaptcha();
+        document.getElementById('captcha-input').value = '';
+        return;
+      }
+
+      if (!termsAccepted) {
+        showStatus('You must agree to the terms and conditions!', 'error');
+        return;
+      }
+
+      // Validate referral code if provided
+      let validReferralCode = null;
+      if (referralCode) {
+        showStatus('Validating referral code...', 'info');
+        
+        const { data: referrerData, error: refError } = await supabase
+          .from('users')
+          .select('id, referral_code, email')
+          .eq('referral_code', referralCode)
+          .single();
+
+        console.log('Referral validation:', { referrerData, refError });
+
+        if (refError || !referrerData) {
+          console.error('Referral code error:', refError);
+          showStatus('Invalid referral code! Please check and try again.', 'error');
+          return;
+        }
+        
+        validReferralCode = referralCode;
+        console.log('✅ Valid referral code from user:', referrerData.email);
+        showStatus('Referral code validated! ✓', 'success');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+
+      showStatus('Creating account...', 'info');
+
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            username: username,
+            country: country,
+            mobile: mobile,
+            referred_by: validReferralCode
+          }
+        }
+      });
+
+      if (error) {
+        showStatus('Error: ' + error.message, 'error');
+        generateCaptcha();
+        document.getElementById('captcha-input').value = '';
+        return;
+      }
+
+      const newUserId = data.user.id;
+
+      // Use database function to create user profile (bypasses RLS issues)
+      console.log('Creating user profile via database function...');
+      console.log('Profile data:', {
+        userId: newUserId,
+        email: email,
+        username: username,
+        country: country,
+        mobile: mobile,
+        referralCode: validReferralCode
+      });
+      
+      const { data: profileCreated, error: profileError } = await supabase
+        .rpc('create_user_profile', {
+          p_user_id: newUserId,
+          p_email: email,
+          p_full_name: username,
+          p_country: country,
+          p_mobile: mobile,
+          p_referral_code: validReferralCode
+        });
+
+      console.log('Profile creation result:', { profileCreated, profileError });
+
+      if (profileError) {
+        console.error('Profile creation error:', profileError);
+        showStatus('Account created but profile setup incomplete: ' + profileError.message, 'error');
+      } else if (profileCreated === false) {
+        console.error('Profile function returned false');
+        showStatus('Account created but profile setup incomplete. You can still login.', 'error');
+      } else {
+        console.log('✅ User profile created successfully');
+      }
+
+      // Link referral if valid code was used (bonus will be paid on first deposit)
+      if (validReferralCode) {
+        const { error: linkError } = await supabase.rpc('link_referral', {
+          p_referred_user_id: newUserId,
+          p_referral_code: validReferralCode,
+          p_bonus_percentage: REFERRAL_BONUS_PERCENTAGE
+        });
+
+        if (linkError) {
+          console.error('Error linking referral:', linkError);
+          // Don't fail signup if referral linking fails
+        } else {
+          console.log('Referral linked successfully! Bonus will be paid on first deposit.');
+        }
+      }
+
+      showStatus('Account created successfully! Redirecting...', 'success');
+      
+  
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

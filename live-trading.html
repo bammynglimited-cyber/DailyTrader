@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Trading - DailyTrader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+  
+  <div class="container mx-auto px-6 py-8 max-w-full">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-4xl font-bold">Live Trading</h1>
+        <p class="text-gray-400">Real-time cryptocurrency market data</p>
+      </div>
+      <div class="text-right">
+        <p class="text-sm text-gray-400">Your Balance</p>
+        <p id="user-balance" class="text-3xl font-bold text-green-400">$0.00</p>
+      </div>
+    </div>
+
+    <!-- Chart Selection -->
+    <div class="bg-gray-800 rounded-xl p-6 mb-6">
+      <div class="flex flex-wrap gap-4">
+        <button onclick="changeChart('BTCUSD')" class="chart-btn active bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-bold transition">
+          BTC/USD
+        </button>
+        <button onclick="changeChart('ETHUSD')" class="chart-btn bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-bold transition">
+          ETH/USD
+        </button>
+        <button onclick="changeChart('BNBUSD')" class="chart-btn bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-bold transition">
+          BNB/USD
+        </button>
+        <button onclick="changeChart('SOLUSD')" class="chart-btn bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-bold transition">
+          SOL/USD
+        </button>
+        <button onclick="changeChart('XRPUSD')" class="chart-btn bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-bold transition">
+          XRP/USD
+        </button>
+      </div>
+    </div>
+
+    <!-- TradingView Chart -->
+    <div class="bg-gray-800 rounded-xl p-4 mb-8">
+      <div id="tradingview-widget" style="height: 600px;"></div>
+    </div>
+
+    <!-- Trading Stats -->
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-gradient-to-br from-green-600 to-green-800 rounded-xl p-6">
+        <h3 class="text-lg mb-2 opacity-90">Active Plans</h3>
+        <p id="active-plans-count" class="text-4xl font-bold">0</p>
+      </div>
+      <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl p-6">
+        <h3 class="text-lg mb-2 opacity-90">Total Invested</h3>
+        <p id="total-invested" class="text-4xl font-bold">$0.00</p>
+      </div>
+      <div class="bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl p-6">
+        <h3 class="text-lg mb-2 opacity-90">Expected Monthly Profit</h3>
+        <p id="expected-profit" class="text-4xl font-bold">$0.00</p>
+      </div>
+    </div>
+    <div>
+     <a href="trading-plan.html" class="inline-block bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-6 px-12 rounded-xl text-xl transition transform hover:scale-105">
+        🚀 Go to Trading Plan
+      </a>
+    </div>
+  </div>
+
+    <!-- Back Button -->
+    <div class="text-center">
+      <a href="dashboard.html" class="inline-block bg-gray-700 hover:bg-gray-600 px-8 py-3 rounded-lg transition">
+        ← Back to Dashboard
+      </a>
+    </div>
+  </div>
+<!-- TradingView Widget Script -->
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // === SUPABASE CONFIG ===
+  const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
+  let supabase;
+
+  let currentUser = null;
+  let widget = null;
+  let currentSymbol = 'BTCUSD';
+
+  // === WAIT FOR SUPABASE ===
+  function waitForSupabase(callback) {
+    if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+      callback();
+    } else {
+      setTimeout(() => waitForSupabase(callback), 100);
+    }
+  }
+
+  // === INIT ===
+  waitForSupabase(async () => {
+    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      
+      if (error || !session) {
+        console.log('No session, redirecting...');
+        window.location.href = 'index.html';
+        return;
+      }
+      
+      currentUser = session.user;
+      console.log('User authenticated:', currentUser.email);
+      
+      await loadUserData();
+      await loadTradingStats();
+      initChart('BTCUSD');
+      
+    } catch (err) {
+      console.error('Auth error:', err);
+      window.location.href = 'index.html';
+    }
+  });
+
+async function loadUserData() {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .select('trading_balance') // Changed
+      .eq('id', currentUser.id)
+      .single();
+    
+    if (!error && data) {
+      document.getElementById('user-balance').textContent = `$${parseFloat(data.trading_balance || 0).toFixed(2)}`;
+    }
+  } catch (err) {
+    console.error('Load user error:', err);
+  }
+}
+  // === LOAD TRADING STATS ===
+  async function loadTradingStats() {
+    try {
+      const { data, error } = await supabase
+        .from('live_trade_purchases')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .eq('status', 'active');
+      
+      if (error || !data) return;
+
+      const activePlans = data.length;
+      const totalInvested = data.reduce((sum, p) => sum + parseFloat(p.amount), 0);
+      const expectedProfit = data.reduce((sum, p) => sum + (parseFloat(p.amount) * parseFloat(p.return_rate) / 100), 0);
+
+      document.getElementById('active-plans-count').textContent = activePlans;
+      document.getElementById('total-invested').textContent = `$${totalInvested.toFixed(2)}`;
+      document.getElementById('expected-profit').textContent = `$${expectedProfit.toFixed(2)}`;
+    } catch (err) {
+      console.error('Load stats error:', err);
+    }
+  }
+
+  // === INIT TRADINGVIEW CHART ===
+  function initChart(symbol) {
+    const container = document.getElementById('tradingview-widget');
+    container.innerHTML = '';
+    
+    widget = new TradingView.widget({
+      width: '100%',
+      height: 600,
+      symbol: 'BINANCE:' + symbol,
+      interval: '15',
+      timezone: 'Etc/UTC',
+      theme: 'dark',
+      style: '1',
+      locale: 'en',
+      toolbar_bg: '#1e293b',
+      enable_publishing: false,
+      hide_side_toolbar: false,
+      allow_symbol_change: true,
+      container_id: 'tradingview-widget'
+    });
+  }
+
+  // === CHANGE CHART ===
+  function changeChart(symbol) {
+    currentSymbol = symbol;
+    
+    // Update button styles
+    document.querySelectorAll('.chart-btn').forEach(btn => {
+      btn.classList.remove('active', 'bg-blue-600');
+      btn.classList.add('bg-gray-700');
+    });
+    event.target.classList.add('active', 'bg-blue-600');
+    event.target.classList.remove('bg-gray-700');
+    
+    // Reload chart
+    initChart(symbol);
+  }
+</script>
+</body>
+</html>

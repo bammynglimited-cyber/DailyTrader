@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - DailyTrader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen flex items-center justify-center p-6">
+  
+  <div class="w-full max-w-md">
+    <!-- Logo -->
+    <div class="text-center mb-8">
+      <h1 class="text-5xl font-bold mb-2" style="background: linear-gradient(to right, #10b981, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">DailyTrader</h1>
+      <p class="text-gray-300">Welcome back! Login to your account</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-3xl p-8 shadow-2xl">
+      <h2 class="text-3xl font-bold mb-4 text-center">Login to your account</h2>
+      <p class="text-gray-300 text-sm mb-6 text-center">You can sign in to your account using email or username</p>
+      
+      <!-- Status Message -->
+      <div id="status" class="mb-4 p-3 rounded-lg hidden"></div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="space-y-4">
+        <!-- Username or Email -->
+        <div>
+          <label class="block text-sm font-medium mb-2">Username or Email</label>
+          <input type="text" id="login-email" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="Enter email or username">
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label class="block text-sm font-medium mb-2">Password</label>
+          <input type="password" id="login-password" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="••••••••">
+        </div>
+
+        <!-- Keep me logged in & Forgot Password -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input type="checkbox" id="keep-logged-in" class="mr-2 w-4 h-4">
+            <label for="keep-logged-in" class="text-sm text-gray-300">Keep me Logged in</label>
+          </div>
+          <a href="#" class="text-sm text-green-400 hover:underline">Forgot Password?</a>
+        </div>
+
+        <!-- Captcha -->
+        <div>
+          <div class="bg-slate-900 p-4 rounded-xl mb-2 text-center cursor-pointer" title="Click to refresh">
+            <canvas id="captcha-canvas" width="280" height="60" class="mx-auto"></canvas>
+          </div>
+          <label class="block text-sm font-medium mb-2">Captcha<span class="text-red-500">*</span></label>
+          <input type="text" id="captcha-input" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="Enter captcha code">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-blue-500 py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-blue-600 transition">
+          Login Account
+        </button>
+      </form>
+
+      <div class="mt-6 text-center">
+        <p class="text-gray-300">Don't have any account? <a href="signup.html" class="text-blue-400 hover:underline font-bold">Create Account</a></p>
+      </div>
+    </div>
+
+    <div class="text-center mt-6">
+      <a href="index.html" class="text-gray-400 hover:text-white transition">← Back to Home</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
+    let supabase;
+    let captchaText = '';
+
+    // Generate Captcha
+    function generateCaptcha() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+      captchaText = '';
+      for (let i = 0; i < 6; i++) {
+        captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      
+      const canvas = document.getElementById('captcha-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Background
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Add some noise lines
+      for (let i = 0; i < 5; i++) {
+        ctx.strokeStyle = `rgba(${Math.random()*100+100}, ${Math.random()*100+100}, ${Math.random()*100+100}, 0.3)`;
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+        ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+        ctx.stroke();
+      }
+      
+      // Draw captcha text
+      ctx.font = 'bold 32px Arial';
+      for (let i = 0; i < captchaText.length; i++) {
+        ctx.fillStyle = `hsl(${Math.random() * 360}, 70%, 60%)`;
+        ctx.save();
+        ctx.translate(20 + i * 40, 40);
+        ctx.rotate((Math.random() - 0.5) * 0.4);
+        ctx.fillText(captchaText[i], 0, 0);
+        ctx.restore();
+      }
+    }
+
+    function showStatus(message, type = 'info') {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = `mb-4 p-3 rounded-lg ${type === 'error' ? 'bg-red-600/20 border-2 border-red-500' : type === 'success' ? 'bg-green-600/20 border-2 border-green-500' : 'bg-blue-600/20 border-2 border-blue-500'}`;
+      status.classList.remove('hidden');
+    }
+
+    function waitForSupabase(callback) {
+      if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+        callback();
+      } else {
+        setTimeout(() => waitForSupabase(callback), 100);
+      }
+    }
+
+    waitForSupabase(() => {
+      supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+      generateCaptcha(); // Generate captcha after supabase is loaded
+    });
+
+    // Regenerate captcha on click
+    document.getElementById('captcha-canvas').addEventListener('click', generateCaptcha);
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const emailOrUsername = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const captchaInput = document.getElementById('captcha-input').value;
+
+      // Validate captcha
+      if (captchaInput !== captchaText) {
+        showStatus('Captcha is incorrect!', 'error');
+        generateCaptcha(); // Regenerate captcha
+        document.getElementById('captcha-input').value = '';
+        return;
+      }
+
+      showStatus('Logging in...', 'info');
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: emailOrUsername,
+        password: password
+      });
+
+      if (error) {
+        showStatus('Error: ' + error.message, 'error');
+        generateCaptcha(); // Regenerate captcha on error
+        document.getElementById('captcha-input').value = '';
+      } else {
+        showStatus('Login successful! Redirecting...', 'success');
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1500);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trading Plans - DailyTrader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+  
+  <div class="container mx-auto px-6 py-12 max-w-7xl">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
+        Choose Your Trading Plan
+      </h1>
+      <p class="text-xl text-gray-300">Start earning passive income with our professional trading strategies</p>
+      <p class="text-gray-400 mt-2">Your Balance: <span id="user-balance" class="text-green-400 font-bold">$0.00</span></p>
+    </div>
+      <div class="text-center">
+    
+     <a href="add-balance.html" class="inline-block bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-6 px-12 rounded-xl text-xl transition transform hover:scale-105">
+        🚀 Add Balance To Purchase A Plan
+      </a>
+    </div>
+  </div>
+
+    <!-- Status Message -->
+    <div id="status" class="mb-6 p-4 rounded-lg hidden"></div>
+
+    <!-- Trading Plans Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      
+      <!-- Bronze Plan -->
+      <div class="bg-gradient-to-br from-orange-600 to-orange-800 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition">
+        <div class="text-center">
+          <div class="text-4xl mb-4">🥉</div>
+          <h3 class="text-3xl font-bold mb-2">Bronze</h3>
+          <div class="text-5xl font-bold mb-4">$100</div>
+          <div class="text-xl mb-6">5% Monthly Returns</div>
+          <ul class="text-left space-y-3 mb-8">
+            <li>✓ $5/month profit</li>
+            <li>✓ Basic trading strategies</li>
+            <li>✓ Email support</li>
+            <li>✓ Weekly reports</li>
+          </ul>
+          <button onclick="purchasePlan('Bronze', 100, 5)" class="w-full bg-white text-orange-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition">
+            Get Bronze
+          </button>
+        </div>
+      </div>
+
+      <!-- Silver Plan -->
+      <div class="bg-gradient-to-br from-gray-400 to-gray-600 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition border-4 border-blue-400">
+        <div class="text-center">
+          <div class="text-4xl mb-4">🥈</div>
+          <h3 class="text-3xl font-bold mb-2">Silver</h3>
+          <div class="text-5xl font-bold mb-4">$500</div>
+          <div class="text-xl mb-6">8% Monthly Returns</div>
+          <ul class="text-left space-y-3 mb-8">
+            <li>✓ $40/month profit</li>
+            <li>✓ Advanced strategies</li>
+            <li>✓ Priority support</li>
+            <li>✓ Daily reports</li>
+            <li>✓ Risk management</li>
+          </ul>
+          <button onclick="purchasePlan('Silver', 500, 8)" class="w-full bg-white text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition">
+            Get Silver
+          </button>
+        </div>
+      </div>
+
+      <!-- Gold Plan (POPULAR) -->
+      <div class="bg-gradient-to-br from-yellow-500 to-yellow-700 rounded-2xl p-8 shadow-2xl transform hover:scale-110 transition border-4 border-green-400 relative">
+        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-1 rounded-full text-sm font-bold">
+          MOST POPULAR
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">🥇</div>
+          <h3 class="text-3xl font-bold mb-2">Gold</h3>
+          <div class="text-5xl font-bold mb-4">$1,000</div>
+          <div class="text-xl mb-6">12% Monthly Returns</div>
+          <ul class="text-left space-y-3 mb-8">
+            <li>✓ $120/month profit</li>
+            <li>✓ Pro trading algorithms</li>
+            <li>✓ VIP support 24/7</li>
+            <li>✓ Real-time updates</li>
+            <li>✓ Dedicated account manager</li>
+            <li>✓ Custom strategies</li>
+          </ul>
+          <button onclick="purchasePlan('Gold', 1000, 12)" class="w-full bg-white text-yellow-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition">
+            Get Gold
+          </button>
+        </div>
+      </div>
+
+      <!-- Platinum Plan -->
+      <div class="bg-gradient-to-br from-purple-600 to-purple-900 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition">
+        <div class="text-center">
+          <div class="text-4xl mb-4">💎</div>
+          <h3 class="text-3xl font-bold mb-2">Platinum</h3>
+          <div class="text-5xl font-bold mb-4">$5,000</div>
+          <div class="text-xl mb-6">15% Monthly Returns</div>
+          <ul class="text-left space-y-3 mb-8">
+            <li>✓ $750/month profit</li>
+            <li>✓ Elite trading strategies</li>
+            <li>✓ Concierge support</li>
+            <li>✓ Live trading room access</li>
+            <li>✓ Personal trader assigned</li>
+            <li>✓ Custom portfolio management</li>
+            <li>✓ Exclusive market insights</li>
+          </ul>
+          <button onclick="purchasePlan('Platinum', 5000, 15)" class="w-full bg-white text-purple-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition">
+            Get Platinum
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Active Plans Section -->
+    <div class="bg-gray-800 rounded-2xl p-8 mb-8">
+      <h2 class="text-3xl font-bold mb-6">Your Active Plans</h2>
+      <div id="active-plans-list">
+        <p class="text-gray-400 text-center py-8">No active trading plans yet. Purchase a plan to start earning!</p>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <a href="live-trading.html" class="inline-block bg-gray-700 hover:bg-gray-600 px-8 py-3 rounded-lg transition">
+        ← Back to Live Trading
+      </a>
+    
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // === SUPABASE CONFIG ===
+  const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
+  let supabase;
+
+  let currentUser = null;
+  let userBalance = 0;
+
+  // === STATUS HELPER ===
+  function showStatus(message, type = 'info') {
+    const status = document.getElementById('status');
+    status.textContent = message;
+    status.className = `mb-6 p-4 rounded-lg ${type === 'error' ? 'bg-red-600/20 border-2 border-red-500' : type === 'success' ? 'bg-green-600/20 border-2 border-green-500' : 'bg-blue-600/20 border-2 border-blue-500'}`;
+    status.classList.remove('hidden');
+    setTimeout(() => status.classList.add('hidden'), 5000);
+  }
+
+  // === WAIT FOR SUPABASE TO LOAD ===
+  function waitForSupabase(callback) {
+    if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+      callback();
+    } else {
+      setTimeout(() => waitForSupabase(callback), 100);
+    }
+  }
+
+  // === INIT ===
+  waitForSupabase(async () => {
+    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      
+      if (error || !session) {
+        console.log('No session, redirecting...');
+        window.location.href = 'index.html';
+        return;
+      }
+      
+      currentUser = session.user;
+      console.log('User authenticated:', currentUser.email);
+      
+      await loadUserBalance();
+      await loadActivePlans();
+      
+    } catch (err) {
+      console.error('Auth error:', err);
+      window.location.href = 'index.html';
+    }
+  });
+
+// === LOAD USER BALANCE ===
+async function loadUserBalance() {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .select('trading_balance') // Changed from 'balance' to 'trading_balance'
+      .eq('id', currentUser.id)
+      .single();
+    
+    if (error) {
+      console.error('Error loading balance:', error);
+      return;
+    }
+    
+    userBalance = parseFloat(data.trading_balance || 0);
+    document.getElementById('user-balance').textContent = `$${userBalance.toFixed(2)}`;
+  } catch (err) {
+    console.error('Balance load error:', err);
+  }
+}
+
+// === PURCHASE PLAN ===
+async function purchasePlan(planName, amount, returnRate) {
+  if (!currentUser) {
+    showStatus('Please login first', 'error');
+    return;
+  }
+
+  if (userBalance < amount) {
+    showStatus(`Insufficient trading balance! You need $${amount} but have $${userBalance.toFixed(2)}. Please add more trading balance.`, 'error');
+    return;
+  }
+
+  const confirm = window.confirm(`Purchase ${planName} Plan for $${amount}?\n\nThis will deduct $${amount} from your trading balance.\nExpected monthly returns: ${returnRate}%`);
+  if (!confirm) return;
+
+  try {
+    // Deduct amount from TRADING balance
+    const newBalance = userBalance - amount;
+    const { error: balanceError } = await supabase
+      .from('users')
+      .update({ trading_balance: newBalance }) // Changed from 'balance'
+      .eq('id', currentUser.id);
+    
+    if (balanceError) throw balanceError;
+
+    // Create trading plan record
+    const { error: planError } = await supabase
+      .from('live_trade_purchases')
+      .insert([{
+        user_id: currentUser.id,
+        plan_name: planName,
+        amount: amount,
+        return_rate: returnRate,
+        status: 'active',
+        created_at: new Date().toISOString(),
+        purchased_at: new Date().toISOString(),
+        expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+      }]);
+    
+    if (planError) throw planError;
+
+    showStatus(`🎉 ${planName} Plan purchased successfully! You'll start earning ${returnRate}% monthly returns.`, 'success');
+    
+    // Reload data
+    await loadUserBalance();
+    await loadActivePlans();
+
+  } catch (err) {
+    console.error('Purchase error:', err);
+    showStatus('Purchase failed: ' + err.message, 'error');
+  }
+}
+
+  // === LOAD ACTIVE PLANS ===
+  async function loadActivePlans() {
+    try {
+      const { data, error } = await supabase
+        .from('live_trade_purchases')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .eq('status', 'active')
+        .order('purchased_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error loading plans:', error);
+        return;
+      }
+
+      const list = document.getElementById('active-plans-list');
+      
+      if (!data || data.length === 0) {
+        list.innerHTML = '<p class="text-gray-400 text-center py-8">No active trading plans yet. Purchase a plan to start earning!</p>';
+        return;
+      }
+
+      list.innerHTML = data.map(plan => {
+        const purchaseDate = new Date(plan.purchased_at);
+        const expiryDate = new Date(plan.expires_at);
+        const expectedProfit = (plan.amount * plan.return_rate / 100).toFixed(2);
+        
+        return `
+          <div class="bg-gray-700 rounded-xl p-6 mb-4">
+            <div class="grid md:grid-cols-4 gap-4">
+              <div>
+                <p class="text-gray-400 text-sm">Plan</p>
+                <p class="text-2xl font-bold">${plan.plan_name}</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-sm">Investment</p>
+                <p class="text-xl font-bold text-green-400">$${parseFloat(plan.amount).toFixed(2)}</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-sm">Monthly Returns</p>
+                <p class="text-xl font-bold text-blue-400">${plan.return_rate}% ($${expectedProfit})</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-sm">Status</p>
+                <p class="text-xl font-bold text-green-400">Active ✓</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-600">
+              <p class="text-sm text-gray-400">
+                Purchased: ${purchaseDate.toLocaleDateString()} • 
+                Expires: ${expiryDate.toLocaleDateString()}
+              </p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    } catch (err) {
+      console.error('Load plans error:', err);
+    }
+  }
+</script>
+</body>
+</html>

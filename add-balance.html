@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Balance - DailyTrader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white p-6">
+  
+  <div class="container mx-auto max-w-3xl">
+    <h1 class="text-4xl font-bold text-center mb-8">Add Trading Balance</h1>
+    
+    <!-- Current Balance -->
+    <div class="bg-gradient-to-r from-green-600 to-blue-600 rounded-xl p-6 mb-8 text-center">
+      <p class="text-lg opacity-90 mb-2">Current Balance</p>
+      <p id="current-balance" class="text-5xl font-bold">$0.00</p>
+    </div>
+
+    <!-- Status Message -->
+    <div id="status" class="mb-6 p-4 rounded-lg hidden"></div>
+
+    <!-- Quick Amounts -->
+    <div class="bg-gray-800 rounded-xl p-8 mb-6">
+      <h2 class="text-2xl font-bold mb-4">Quick Add</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <button onclick="selectAmount(100)" class="bg-blue-600 hover:bg-blue-700 py-6 px-4 rounded-lg font-bold text-2xl transition">
+          $100
+        </button>
+        <button onclick="selectAmount(500)" class="bg-blue-600 hover:bg-blue-700 py-6 px-4 rounded-lg font-bold text-2xl transition">
+          $500
+        </button>
+        <button onclick="selectAmount(1000)" class="bg-blue-600 hover:bg-blue-700 py-6 px-4 rounded-lg font-bold text-2xl transition">
+          $1,000
+        </button>
+        <button onclick="selectAmount(5000)" class="bg-blue-600 hover:bg-blue-700 py-6 px-4 rounded-lg font-bold text-2xl transition">
+          $5,000
+        </button>
+      </div>
+    </div>
+
+    <!-- Custom Amount -->
+    <div class="bg-gray-800 rounded-xl p-8 mb-6">
+      <h2 class="text-2xl font-bold mb-4">Or Enter Custom Amount</h2>
+      <input type="number" id="custom-amount" placeholder="Enter amount ($)" class="w-full p-4 bg-gray-700 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none text-white text-xl mb-4">
+    </div>
+
+    <!-- Payment Instructions -->
+    <div class="bg-gray-800 rounded-xl p-8 mb-6">
+      <h2 class="text-2xl font-bold mb-4">Payment Instructions</h2>
+      <div class="space-y-4">
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <p class="font-bold mb-2">Bitcoin (BTC)</p>
+          <p class="text-sm text-gray-300 break-all">bc1q969jpm4wjq90wyz0ur959wf7029d930a256ju3</p>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <p class="font-bold mb-2">Ethereum (ETH)</p>
+          <p class="text-sm text-gray-300 break-all">0xFF263A697641c4943a58296291f7f68607Da9F05</p>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <p class="font-bold mb-2">USDT (TRC20)</p>
+          <p class="text-sm text-gray-300 break-all">0xFF263A697641c4943a58296291f7f68607Da9F05</p>
+        </div>
+      </div>
+      <p class="text-sm text-yellow-400 mt-4">⚠️ Send ONLY crypto to these addresses. Other coins may be lost!</p>
+    </div>
+
+    <!-- Upload Proof -->
+    <div class="bg-gray-800 rounded-xl p-8 mb-6">
+      <h2 class="text-2xl font-bold mb-4">Upload Payment Proof</h2>
+      <input type="file" id="payment-proof" accept="image/*" class="w-full p-4 bg-gray-700 rounded-lg border border-gray-600 focus:border-blue-500 mb-4">
+      <p class="text-sm text-gray-400">Upload screenshot of your transaction</p>
+    </div>
+
+    <!-- Submit Button -->
+    <button onclick="submitTopUp()" id="submit-btn" class="w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-6 px-6 rounded-xl text-xl transition">
+      💰 Add Balance
+    </button>
+
+    <!-- Back Button -->
+    <div class="text-center mt-8">
+      <a href="trading-plan.html" class="inline-block bg-gray-700 hover:bg-gray-600 px-8 py-3 rounded-lg transition">
+        ← Back to Trading Plans
+      </a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
+  let supabase;
+  let currentUser = null;
+
+  function showStatus(message, type = 'info') {
+    const status = document.getElementById('status');
+    status.textContent = message;
+    status.className = `mb-6 p-4 rounded-lg ${type === 'error' ? 'bg-red-600/20 border-2 border-red-500' : type === 'success' ? 'bg-green-600/20 border-2 border-green-500' : 'bg-blue-600/20 border-2 border-blue-500'}`;
+    status.classList.remove('hidden');
+  }
+
+  function waitForSupabase(callback) {
+    if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+      callback();
+    } else {
+      setTimeout(() => waitForSupabase(callback), 100);
+    }
+  }
+
+  waitForSupabase(async () => {
+    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    
+    const { data: { session }, error } = await supabase.auth.getSession();
+    if (error || !session) {
+      window.location.href = 'index.html';
+      return;
+    }
+    
+    currentUser = session.user;
+    loadBalance();
+  });
+
+  async function loadBalance() {
+    const { data, error } = await supabase
+      .from('users')
+      .select('trading_balance')
+      .eq('id', currentUser.id)
+      .single();
+    
+    if (!error && data) {
+      document.getElementById('current-balance').textContent = `$${parseFloat(data.trading_balance || 0).toFixed(2)}`;
+    }
+  }
+
+  function selectAmount(amount) {
+    document.getElementById('custom-amount').value = amount;
+  }
+
+  async function submitTopUp() {
+    const amount = parseFloat(document.getElementById('custom-amount').value);
+    const proofFile = document.getElementById('payment-proof').files[0];
+
+    if (!amount || amount <= 0) {
+      showStatus('Please enter a valid amount', 'error');
+      return;
+    }
+
+    if (!proofFile) {
+      showStatus('Please upload payment proof', 'error');
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Uploading...';
+
+    try {
+      // Upload proof
+      const proofPath = `payment-proofs/${currentUser.id}/${Date.now()}.jpg`;
+      const { error: uploadError } = await supabase.storage
+        .from('payment-proofs')
+        .upload(proofPath, proofFile);
+      
+      if (uploadError) throw uploadError;
+
+      // Create trading deposit record with special flag
+      const { error: depositError } = await supabase
+        .from('deposits')
+        .insert([{
+          user_id: currentUser.id,
+          amount: amount,
+          proof_url: proofPath,
+          status: 'pending',
+          deposit_type: 'trading', // NEW: Mark as trading deposit
+          created_at: new Date().toISOString()
+        }]);
+      
+      if (depositError) throw depositError;
+
+      showStatus(`✅ Trading deposit submitted! Your trading balance will be updated once admin approves.`, 'success');
+      
+      // Clear form
+      document.getElementById('custom-amount').value = '';
+      document.getElementById('payment-proof').value = '';
+      
+      setTimeout(() => {
+        window.location.href = 'trading-plans.html';
+      }, 3000);
+
+    } catch (err) {
+      console.error('Top-up error:', err);
+      showStatus('Error: ' + err.message, 'error');
+      btn.disabled = false;
+      btn.textContent = '💰 Add Balance';
+    }
+  }
+</script>
+</body>
+</html>
