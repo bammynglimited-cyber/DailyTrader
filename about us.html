@@ -51,7 +51,7 @@
 
         <!-- Desktop Menu -->
         <div class="hidden md:flex items-center gap-8">
-          <a href="#home" class="text-gray-300 hover:text-white transition">Home</a>
+          <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
           <a href="#markets" class="text-gray-300 hover:text-white transition">Markets</a>
          <a href="about us.html" class="text-gray-300 hover:text-white transition">About Us</a>
           <a href="#performance" class="text-gray-300 hover:text-white transition">Performance</a>
@@ -68,9 +68,9 @@
 
       <!-- Mobile Menu -->
       <div id="mobile-menu" class="hidden md:hidden mt-4 bg-slate-800 rounded-lg p-4 space-y-3">
-        <a href="#home" class="block text-gray-300 hover:text-white transition" onclick="toggleMobileMenu()">Home</a>
+        <a href="index.html" class="block text-gray-300 hover:text-white transition" onclick="toggleMobileMenu()">Home</a>
         <a href="#markets" class="block text-gray-300 hover:text-white transition" onclick="toggleMobileMenu()">Markets</a>
-                  <a href="about us.html" class="text-gray-300 hover:text-white transition">About Us</a>
+          <a href="about us.html" class="block etext-gray-300 hover:text-white transition">About Us</a>
         <a href="#performance" class="block text-gray-300 hover:text-white transition" onclick="toggleMobileMenu()">Performance</a>
       <button onclick="window.location.href= 'signup.html'" class=" w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
             Get Started
@@ -298,8 +298,11 @@
         <h2 class="text-3xl font-bold mb-4">Ready to Start Investing?</h2>
         <p class="text-lg text-green-100 mb-6 max-w-2xl mx-auto">Join DailyTrader today and experience value investing redefined with cutting-edge technology and expert strategies.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button onclick="window.location.href='signup.html'" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition">
+           <button onclick="window.location.href='signup.html'" class="bg-white text-slate-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
             Create Account
+          </button>
+            <button onclick="window.location.href='about us.html'" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition">
+            Learn More
           </button>
          
         </div>
@@ -336,13 +339,13 @@
           <div>
             <h4 class="font-bold mb-3">Company</h4>
             <ul class="space-y-2 text-gray-400 text-sm">
-              <li><a href="#" class="hover:text-white transition">About</a></li>
+              <li><a href="about us.html" class="hover:text-white transition">About</a></li>
               <li><a href="#" class="hover:text-white transition">Careers</a></li>
             </ul>
           </div>
            <div class="space-y-2">
                         <div>
-                            <h4 class="font-semibold text-gray-200 mb-1">Contact Information</h4>
+                            <h4 class="font-semibold text-gray-100 mb-1">Contact Information</h4>
                             <p class="text-gray-300">support@dailytrader.site</p>
                         </div>
            </div>

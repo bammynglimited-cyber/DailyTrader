@@ -41,7 +41,7 @@
       <form id="signup-form" class="space-y-4">
         <!-- Username -->
         <div>
-          <label class="block text-sm font-medium mb-2">Full name<span class="text-red-500">*</span></label>
+          <label class="block text-sm font-medium mb-2">Username<span class="text-red-500">*</span></label>
           <input type="text" id="signup-username" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="Enter Full name">
         </div>
 
@@ -212,30 +212,6 @@
     });
 
     document.getElementById('captcha-canvas').addEventListener('click', generateCaptcha);
-
-    async function queueEmail(userId, recipientEmail, subject, emailType, emailData) {
-      try {
-        const { error } = await supabase
-          .from('email_queue')
-          .insert([{
-            user_id: userId,
-            recipient_email: recipientEmail,
-            subject: subject,
-            email_type: emailType,
-            email_data: emailData,
-            status: 'pending',
-            created_at: new Date().toISOString()
-          }]);
-        
-        if (error) {
-          console.error('Email queue error:', error);
-        } else {
-          console.log('Welcome email queued for:', recipientEmail);
-        }
-      } catch (err) {
-        console.error('Email queue error:', err);
-      }
-    }
 
     document.getElementById('signup-form').addEventListener('submit', async (e) => {
       e.preventDefault();
