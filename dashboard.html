@@ -1674,7 +1674,7 @@ async function loadSettings() {
     
     if (elements.joinedDate) {
       if (profile?.created_at) {
-        const joinDate = new Date(profile.created_at);
+        const joinDate = new Date(user.created_at);
         const formattedDate = joinDate.toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
@@ -2034,4 +2034,5 @@ function formatDate(d) {
  
   </script>
 </body>
+
 </html>
