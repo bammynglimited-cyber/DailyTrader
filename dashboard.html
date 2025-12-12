@@ -3,6 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Essential SEO -->
+<meta name="description" content="DailyTrader - Professional cryptocurrency trading platform. Trade Bitcoin, Ethereum, and earn profits with expert strategies.">
+<meta name="keywords" content="crypto trading, cryptocurrency, bitcoin, ethereum, trading platform, investment">
+<meta name="author" content="DailyTrader">
+
+<!-- Open Graph -->
+<meta property="og:title" content="DailyTrader - Cryptocurrency Trading Platform">
+<meta property="og:description" content="Trade cryptocurrencies, earn profits, and grow your wealth">
+<meta property="og:image" content="https://dailytrader.site/og-image.jpg">
+<meta property="og:url" content="https://dailytrader.site/">
+<meta property="og:type" content="website">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DailyTrader - Crypto Trading">
+<meta name="twitter:description" content="Professional cryptocurrency trading platform">
+<meta name="twitter:image" content="https://dailytrader.site/og-image.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://dailytrader.site/">
   <title>DailyTrader - Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -11,6 +31,13 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- TradingView Widget -->
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {}
+    }
+  }
+</script>
 
   <style>
     /* small extra for overlay scrollbar when sidebar open on mobile */
@@ -904,6 +931,46 @@
   </div>
 </div>
  <script>
+  // ========================================
+// SESSION REDIRECT FIX
+// ========================================
+ const SUPABASE_URL = "https://cgfkpokpiseaugcrqjbv.supabase.co";  // ← YOUR URL
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE";
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Check session IMMEDIATELY on page load
+(async function checkSession() {
+  const { data: { session } } = await supabase.auth.getSession();
+  
+  if (!session) {
+    console.log('No session found, redirecting to login...');
+    window.location.href = 'login.html';
+    return;
+  }
+  
+  console.log('✅ Session valid, loading dashboard...');
+  // HIDE all auth forms
+  document.getElementById('landing')?.classList.add('hidden');
+  document.getElementById('auth-signup')?.classList.add('hidden');
+  document.getElementById('auth-login')?.classList.add('hidden');
+  
+  // SHOW dashboard
+  document.getElementById('dashboard')?.classList.remove('hidden');
+  
+  // Load user data
+  showDashboard(session.user);
+})();
+
+// Listen for session changes
+supabase.auth.onAuthStateChange((event, session) => {
+  console.log('Auth event:', event);
+  
+  if (event === 'SIGNED_OUT' || !session) {
+    console.log('Session expired, redirecting to login...');
+    window.location.href = 'login.html';
+  }
+});
 
 // === 1. GLOBAL VARIABLES ===
 let selectedPlan = { name: '', price: 0 };
@@ -1117,15 +1184,77 @@ setInterval(async () => {
     }
   } catch (e) {}
 }, 3000);
+// === CACHE HELPER (Add this at the top of your dashboard.js) ===
+const cache = {
+  data: {},
+  timestamps: {},
+  
+  set(key, value, ttl = 60000) { // Cache for 60 seconds by default
+    this.data[key] = value;
+    this.timestamps[key] = Date.now() + ttl;
+  },
+  
+  get(key) {
+    if (this.timestamps[key] && Date.now() < this.timestamps[key]) {
+      return this.data[key];
+    }
+    return null;
+  },
+  
+  clear(key) {
+    delete this.data[key];
+    delete this.timestamps[key];
+  }
+};
 
-  </script>
-  <script>
-    // ---------- Supabase config (keep your values) ----------
-    const SUPABASE_URL = "https://cgfkpokpiseaugcrqjbv.supabase.co";  // ← YOUR URL
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE";
+// === OPTIMIZED DATA LOADING ===
+async function loadUserData() {
+  try {
+    // Check cache first
+    const cached = cache.get('userData');
+    if (cached) {
+      console.log('✅ Using cached data');
+      displayUserData(cached);
+      return cached;
+    }
+    
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      window.location.href = 'login.html';
+      return;
+    }
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // Fetch only necessary fields
+    const { data: userData, error } = await supabase
+      .from('users')
+      .select('id, email, username, balance, profit, trading_balance')
+      .eq('id', user.id)
+      .single();
+    
+    if (error) throw error;
 
+    // Cache the result
+    cache.set('userData', userData, 30000); // Cache for 30 seconds
+    
+    displayUserData(userData);
+    return userData;
+    
+  } catch (error) {
+    console.error('Error loading user data:', error);
+  }
+}
+
+// When user makes a transaction, clear cache
+async function makeDeposit(amount) {
+  // ... your deposit code ...
+  
+  // Clear cache so next load gets fresh data
+  cache.clear('userData');
+  cache.clear('transactions');
+  
+  await loadUserData(); // Reload with fresh data
+}
+ 
     // ---------- Captcha helpers ----------
     let signupCaptcha = generateCaptcha();
     let loginCaptcha = generateCaptcha();
@@ -1477,32 +1606,33 @@ async function loadRecentWithdrawals(userId) {
     console.error('Error loading withdrawals:', err);
   }
 }
+// ========================================
+// SIDEBAR PROFILE FIX
+// ========================================
 async function loadSidebarProfile(user) {
-  if (!supabase) return;
   try {
-    const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
-    document.getElementById('sidebar-username').textContent = profile?.username || user.email;
-    document.getElementById('sidebar-email').textContent = user.email;
-    const initials = getInitials(profile?.fullname || profile?.username || user.email);
+    const { data: profile } = await supabase
+      .from('users')
+      .select('username, email')
+      .eq('id', user.id)
+      .single();
+    
+    // ✅ FIX: Show username AND email (not email twice)
+    const username = profile?.username || user.email.split('@')[0];
+    const email = user.email;
+    
+    document.getElementById('sidebar-username').textContent = username;
+    document.getElementById('sidebar-email').textContent = email;
+    
+    // Initials
+    const initials = username.substring(0, 2).toUpperCase();
     document.getElementById('sidebar-initials').textContent = initials;
     document.getElementById('top-initials').textContent = initials;
     document.getElementById('mobile-profile-btn').textContent = initials;
-    // store profile in DOM dataset for quick edit
-    document.getElementById('sidebar').dataset.profile = JSON.stringify(profile || {});
+    
   } catch (err) {
-    console.error('Error loading profile:', err);
+    console.error('Sidebar profile error:', err);
   }
-}
-
-function getInitials(fullname) {
-  if (!fullname) return '--';
-  // take first two letters of the full name or username
-  return fullname.trim().slice(0,2).toUpperCase();
-}
-
-function setInitialsUI(user) {
-  const initials = '??';
-  // top-initials set in loadSidebarProfile
 }
 
 // ---------- Deposits / Withdrawals lists ----------
@@ -1621,6 +1751,8 @@ async function loadSettings() {
       return;
     }
     
+   
+
     console.log('User found:', user.id, user.email);
     
     // Step 2: Get user profile from database
@@ -1672,21 +1804,15 @@ async function loadSettings() {
       console.log('User ID set:', user.id);
     }
     
-    if (elements.joinedDate) {
-      if (profile?.created_at) {
-        const joinDate = new Date(user.created_at);
-        const formattedDate = joinDate.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
-        elements.joinedDate.textContent = formattedDate;
-        console.log('Join date set:', formattedDate);
-      } else {
-        elements.joinedDate.textContent = 'Not available';
-        console.log('No created_at date found');
-      }
-    }
+  // ✅ FIX: Member Since (use auth.users created_at)
+    const joinDate = new Date(user.created_at); // NOT profile.created_at
+    document.getElementById('settings-joined-date').textContent = joinDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
+   
     
     if (elements.kycStatus) {
       const kycStatus = profile?.kyc_status || 'Pending';
@@ -2034,5 +2160,4 @@ function formatDate(d) {
  
   </script>
 </body>
-
 </html>
