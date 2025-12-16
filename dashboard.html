@@ -42,6 +42,43 @@
   <style>
     /* small extra for overlay scrollbar when sidebar open on mobile */
     .no-scroll { overflow: hidden; }
+    /* Loading spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Fade in/out animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Pulse animation for text */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.pulse-text {
+  animation: pulse 1.5s ease-in-out infinite;
+}
   </style>
 </head>
 <body class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen">
@@ -54,152 +91,26 @@
     <i data-lucide="alert-circle"></i> <span id="toast-error-msg"></span>
   </div>
 
-  <!-- Landing -->
-  <div id="landing" class="min-h-screen flex flex-col justify-center items-center text-center p-6">
-    <h1 class="text-7xl font-bold mb-6">Dailytrader</h1>
-    <p class="text-xl mb-12 text-gray-300">Your trusted crypto investment platform</p>
-    <div class="flex gap-6">
-      <button id="btn-signup" class="bg-gradient-to-r from-blue-600 to-cyan-600 px-12 py-6 rounded-2xl text-2xl font-bold hover:scale-105 transition shadow-2xl">
-        Sign Up
-      </button>
-      <button id="btn-login" class="bg-white/10 backdrop-blur-xl border-2 border-white/30 px-12 py-6 rounded-2xl text-2xl font-bold hover:scale-105 transition shadow-2xl">
-        Login
-      </button>
+ <!-- Loading Screen Overlay -->
+<div id="loading-screen" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 fade-in">
+  <div class="text-center">
+    <!-- Spinner -->
+    <div class="mb-6 flex justify-center">
+      <div class="spinner w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+    </div>
+    
+    <!-- Loading Text -->
+    <h2 class="text-3xl font-bold text-white mb-2 pulse-text">DailyTrader</h2>
+    <p class="text-lg text-gray-300" id="loading-text">Loading...</p>
+    
+    <!-- Progress Dots -->
+    <div class="flex justify-center gap-2 mt-4">
+      <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+      <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+      <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
     </div>
   </div>
-  
-  
-<!-- Sign Up - NEW BLUE GRADIENT STYLE -->
-<div id="auth-signup" class="hidden min-h-screen flex items-center justify-center p-6">
-  <div class="bg-gradient-to-br from-blue-/90 via-blue-700/95 backdrop-blur-2xl rounded-3xl p-10 max-w-md w-full shadow-2xl border border-white/10">
- 
-    <h2 class="text-2xl font-semibold mb-2 text-blue-100">Create an Account</h2>
-    <p class="text-blue-200 mb-8 text-sm opacity-90">You can create account using email or username and the registration is fully free</p>
-    
-    <form id="signup-form" class="space-y-5">
-      <div>
-        <label class="block text-blue-100 mb-2 text-sm font-medium">Full name <span class="text-red-400">*</span></label>
-        <input type="text" id="signup-fullname" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 focus:border-cyan-400 text-white placeholder-blue-200 backdrop-blur-sm" required>
-      </div>
-
-      <div>
-        <label class="block text-blue-100 mb-2 text-sm font-medium">Username <span class="text-red-400">*</span></label>
-        <input type="text" id="signup-username" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 focus:border-cyan-400 text-white placeholder-blue-200 backdrop-blur-sm" required>
-      </div>
-
-      <div>
-        <label class="block text-blue-100 mb-2 text-sm font-medium">E-Mail Address <span class="text-red-400">*</span></label>
-        <input type="email" id="signup-email" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 focus:border-cyan-400 text-white placeholder-blue-200 backdrop-blur-sm" required>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-blue-100 mb-2 text-sm font-medium">Country</label>
-          <select id="signup-country" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 text-white backdrop-blur-sm">
-            <option class="bg-blue-900">United States</option>
-            <option class="bg-blue-900">United Kingdom</option>
-            <option class="bg-blue-900">Canada</option>
-            <option class="bg-blue-900">Germany</option>
-            <option class="bg-blue-900">South Africa</option>
-            <option class="bg-blue-900">Australia</option>
-            <option class="bg-blue-900">Other</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-blue-100 mb-2 text-sm font-medium">Mobile <span class="text-red-400">*</span></label>
-          <input type="tel" id="signup-mobile" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 focus:border-cyan-400 text-white placeholder-blue-200 backdrop-blur-sm" required>
-        </div>
-      </div>
-
-      <div>
-        <label class="block text-blue-100 mb-2 text-sm font-medium">Password <span class="text-red-400">*</span></label>
-        <input type="password" id="signup-password" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 focus:border-cyan-400 text-white placeholder-blue-200 backdrop-blur-sm" required>
-      </div>
-
-      <div>
-        <label class="block text-blue-100 mb-2 text-sm font-medium">Confirm Password <span class="text-red-400">*</span></label>
-        <input type="password" id="signup-confirm" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 focus:border-cyan-400 text-white placeholder-blue-200 backdrop-blur-sm" required>
-      </div>
-
-      <div class="bg-black/30 h-16 rounded-xl flex items-center justify-center cursor-pointer hover:bg-black/40 transition" id="signup-captcha-box">
-        <span class="text-cyan-400 text-3xl font-bold tracking-wider" id="signup-captcha">A7K9X</span>
-      </div>
-
-      <div>
-        <label class="block text-blue-100 mb-2 text-sm font-medium">Captcha <span class="text-red-400">*</span></label>
-        <input type="text" id="signup-captcha-input" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 text-white placeholder-blue-200 backdrop-blur-sm" required>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <input type="checkbox" id="signup-terms" class="w-5 h-5 rounded bg-white/20 border-white/30" required>
-        <label class="text-blue-100 text-sm">I agree with <a href="#" class="text-cyan-300 hover:text-cyan-200 underline">Privacy Policy</a> & <a href="#" class="text-cyan-300 hover:text-cyan-200 underline">Terms of Service</a></label>
-      </div>
-
-      <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-5 rounded-xl text-xl font-bold hover:from-cyan-400 hover:to-blue-500 transition shadow-xl">
-        Create Account
-      </button>
-    </form>
-    
-    <p class="text-center mt-8 text-blue-200">
-      Already have an account? 
-      <button type="button" id="goto-login" class="text-cyan-300 hover:text-white font-bold text-lg">Login Account</button>
-    </p>
-    <button type="button" id="signup-back" class="w-full mt-4 text-blue-300 hover:text-white text-lg">
-      ← Back to Home
-    </button>
-  </div>
 </div>
-
-<!-- Login - SAME STUNNING BLUE STYLE -->
-<div id="auth-login" class="hidden min-h-screen flex items-center justify-center p-6">
-  <div class="bg-gradient-to-br from-blue-/90 via-blue-700/95 to-indigo-800/90 backdrop-blur-2xl rounded-3xl p-10 max-w-md w-full shadow-2xl border border-white/10">
-  
-    <h2 class="text-2xl font-semibold mb-2 text-blue-100">Welcome Back</h2>
-    <p class="text-blue-200 mb-8 text-sm opacity-90">Sign in to continue to your account</p>
-    
-    <form id="login-form" class="space-y-5">
-      <div>
-        <label class="block text-blue-100 mb-2 text-sm font-medium">Username or Email</label>
-        <input type="text" id="login-email" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 text-white placeholder-blue-200 backdrop-blur-sm" required>
-      </div>
-
-      <div>
-        <label class="block text-blue-100 mb-2 text-sm font-medium">Password</label>
-        <input type="password" id="login-password" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 text-white placeholder-blue-200 backdrop-blur-sm" required>
-      </div>
-
-      <div class="flex items-center justify-between text-sm">
-        <div class="flex items-center gap-3">
-          <input type="checkbox" id="login-remember" class="w-5 h-5 rounded bg-white/20">
-          <label class="text-blue-100">Keep me logged in</label>
-        </div>
-        <a href="#" class="text-cyan-300 hover:text-white">Forgot Password?</a>
-      </div>
-
-      <div class="bg-black/30 h-16 rounded-xl flex items-center justify-center cursor-pointer hover:bg-black/40 transition" id="login-captcha-box">
-        <span class="text-cyan-400 text-3xl font-bold tracking-wider" id="login-captcha">9K2RS</span>
-      </div>
-
-      <div>
-        <label class="block text-blue-100 mb-2 text-sm font-medium">Captcha <span class="text-red-400">*</span></label>
-        <input type="text" id="login-captcha-input" class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl focus:ring-4 focus:ring-cyan-400 text-white placeholder-blue-200 backdrop-blur-sm" required>
-      </div>
-
-      <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-5 rounded-xl text-xl font-bold hover:from-cyan-400 hover:to-blue-500 transition shadow-xl">
-        Login Account
-      </button>
-    </form>
-    
-    <p class="text-center mt-8 text-blue-200">
-      Don't have an account? 
-      <button type="button" id="goto-signup" class="text-cyan-300 hover:text-white font-bold text-lg">Create Account</button>
-    </p>
-    <button type="button" id="login-back" class="w-full mt-4 text-blue-300 hover:text-white text-lg">
-      ← Back to Home
-    </button>
-  </div>
-</div>
-
   <!-- Dashboard -->
   <div id="dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
     <!-- mobile header: menu + title + profile initials -->
@@ -268,14 +179,14 @@
       <i data-lucide="camera" ></i>
       <span>KYC</span>
     </button>
-
-    <button onclick="window.location.href = 'referral-dashboard.html'" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-10">
-     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<button onclick="showLoading('Loading referrals...', 1000); setTimeout(() => window.location.href = 'referral-dashboard.html', 1000)" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-10">
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
       d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
   </svg>
-      <span> Referrals</span></button>
-    
+  <span>Referrals</span>
+</button>
+ 
     <button id="nav-settings" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex gap-4">
          <i data-lucide="settings" ></i>Account Settings
     </button>
@@ -641,9 +552,9 @@
         </p>
       </div>
       
-      <a href="live-trading.html" class="inline-block bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-6 px-12 rounded-xl text-xl transition transform hover:scale-105">
-        🚀 Go to Live Trading
-      </a>
+      <a href="#" onclick="showLoading('Loading live trading...', 1500); setTimeout(() => window.location.href = 'live-trading.html', 1500); return false;" class="inline-block bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-6 px-12 rounded-xl text-xl transition transform hover:scale-105">
+  🚀 Go to Live Trading
+</a>
       
       <div class="mt-12 grid md:grid-cols-3 gap-6 text-left">
         <div class="bg-gray-800 rounded-xl p-6">
@@ -932,6 +843,39 @@
 </div>
  <script>
   // ========================================
+// LOADING SCREEN FUNCTIONS
+// ========================================
+function showLoading(message = 'Loading...', duration = 2000) {
+  const loadingScreen = document.getElementById('loading-screen');
+  const loadingText = document.getElementById('loading-text');
+  
+  // Set custom message
+  loadingText.textContent = message;
+  
+  // Show loading screen
+  loadingScreen.classList.remove('hidden', 'fade-out');
+  loadingScreen.classList.add('fade-in');
+  
+  // Hide after duration
+  if (duration > 0) {
+    setTimeout(() => {
+      hideLoading();
+    }, duration);
+  }
+}
+
+function hideLoading() {
+  const loadingScreen = document.getElementById('loading-screen');
+  
+  loadingScreen.classList.remove('fade-in');
+  loadingScreen.classList.add('fade-out');
+  
+  // Remove from DOM after animation
+  setTimeout(() => {
+    loadingScreen.classList.add('hidden');
+  }, 300);
+}
+  // ========================================
 // SESSION REDIRECT FIX
 // ========================================
  const SUPABASE_URL = "https://cgfkpokpiseaugcrqjbv.supabase.co";  // ← YOUR URL
@@ -939,8 +883,10 @@
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Check session IMMEDIATELY on page load
 (async function checkSession() {
+  // Show loading immediately
+  showLoading('Loading dashboard...', 0); // 0 means manual hide
+  
   const { data: { session } } = await supabase.auth.getSession();
   
   if (!session) {
@@ -950,16 +896,17 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }
   
   console.log('✅ Session valid, loading dashboard...');
-  // HIDE all auth forms
-  document.getElementById('landing')?.classList.add('hidden');
-  document.getElementById('auth-signup')?.classList.add('hidden');
-  document.getElementById('auth-login')?.classList.add('hidden');
   
   // SHOW dashboard
   document.getElementById('dashboard')?.classList.remove('hidden');
   
-  // Load user data
+  // Load user data (this is synchronous, doesn't need await)
   showDashboard(session.user);
+  
+  // Hide loading after data starts loading
+  setTimeout(() => {
+    hideLoading();
+  }, 2000); // Give it 2 seconds to load data
 })();
 
 // Listen for session changes
@@ -1255,16 +1202,6 @@ async function makeDeposit(amount) {
   await loadUserData(); // Reload with fresh data
 }
  
-    // ---------- Captcha helpers ----------
-    let signupCaptcha = generateCaptcha();
-    let loginCaptcha = generateCaptcha();
-
-    function generateCaptcha() {
-      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-      let c = '';
-      for (let i = 0; i < 5; i++) c += chars.charAt(Math.floor(Math.random() * chars.length));
-      return c;
-    }
 
     // ---------- Helper UI ----------
     function showToast(msg) {
@@ -1284,39 +1221,8 @@ async function makeDeposit(amount) {
 
     // ---------- Page logic ----------
     document.addEventListener('DOMContentLoaded', async () => {
-      // captchas
-      document.getElementById('signup-captcha').textContent = signupCaptcha;
-      document.getElementById('login-captcha').textContent = loginCaptcha;
+   
       lucide.createIcons();
-
-      // check session
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) showDashboard(session.user);
-
-      supabase.auth.onAuthStateChange((event, session) => {
-        if (event === 'SIGNED_IN' && session) showDashboard(session.user);
-        if (event === 'SIGNED_OUT') location.reload();
-      });
-
-      // nav buttons
-      document.getElementById('btn-signup').addEventListener('click', () => showPage('auth-signup'));
-      document.getElementById('btn-login').addEventListener('click', () => showPage('auth-login'));
-      document.getElementById('goto-login').addEventListener('click', () => showPage('auth-login'));
-      document.getElementById('goto-signup').addEventListener('click', () => showPage('auth-signup'));
-      document.getElementById('signup-back').addEventListener('click', () => showPage('landing'));
-      document.getElementById('login-back').addEventListener('click', () => showPage('landing'));
-
-      // captcha refresh
-      document.getElementById('signup-captcha-box').addEventListener('click', () => {
-        signupCaptcha = generateCaptcha(); document.getElementById('signup-captcha').textContent = signupCaptcha;
-      });
-      document.getElementById('login-captcha-box').addEventListener('click', () => {
-        loginCaptcha = generateCaptcha(); document.getElementById('login-captcha').textContent = loginCaptcha;
-      });
-
-      // forms
-      document.getElementById('signup-form').addEventListener('submit', handleSignup);
-      document.getElementById('login-form').addEventListener('submit', handleLogin);
 
       // dashboard nav
       document.getElementById('nav-home').addEventListener('click', () => loadPage('home'));
@@ -1342,23 +1248,16 @@ async function makeDeposit(amount) {
       document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
       document.getElementById('overlay').addEventListener('click', closeSidebar);
 
-    
-      // btc modal
-      document.getElementById('btc-close').addEventListener('click', closeBTCModal);
-      document.getElementById('btc-paid').addEventListener('click', notifyAdminPaid);
-
+  
       // realtime: subscribe to deposits/withdrawals changes so user's dashboard auto-refreshes
       setupRealtime();
 
     });
-
-    function showPage(p) {
-      ['landing', 'auth-signup', 'auth-login', 'dashboard'].forEach(page => {
-        document.getElementById(page)?.classList.add('hidden');
-      });
-      document.getElementById(p)?.classList.remove('hidden');
-      lucide.createIcons();
-    }
+function showPage(p) {
+  // Simply show the dashboard
+  document.getElementById('dashboard')?.classList.remove('hidden');
+  lucide.createIcons();
+}
 
     function loadPage(p) {
       ['home','deposit','withdraw','trade','live-trade','bot','kyc','transactions','settings'].forEach(x => {
@@ -1370,83 +1269,6 @@ async function makeDeposit(amount) {
       lucide.createIcons();
     }
 
-    // ---------- Auth handlers ----------
-    async function handleSignup(e) {
-      e.preventDefault();
-      const fullname = document.getElementById('signup-fullname').value.trim();
-      const username = document.getElementById('signup-username').value.trim();
-      const email = document.getElementById('signup-email').value.trim();
-      const password = document.getElementById('signup-password').value;
-      const confirm = document.getElementById('signup-confirm').value;
-      const country = document.getElementById('signup-country').value;
-      const mobile = document.getElementById('signup-mobile').value;
-      const captchaInput = document.getElementById('signup-captcha-input').value;
-      const terms = document.getElementById('signup-terms').checked;
-
-      if (!supabase) { showToastError('Database not connected'); return; }
-      if (password !== confirm) { showToastError('Passwords do not match!'); return; }
-      if (captchaInput.toUpperCase() !== signupCaptcha) {
-        showToastError('Incorrect captcha!'); signupCaptcha = generateCaptcha();
-        document.getElementById('signup-captcha').textContent = signupCaptcha;
-        document.getElementById('signup-captcha-input').value = '';
-        return;
-      }
-      if (!terms) { showToastError('Accept terms and conditions'); return; }
-
-      try {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { data: { username, fullname, country, mobile } }
-        });
-        if (error) throw error;
-        if (data.user) {
-          // create wallets + profiles rows
-          await supabase.from('wallets').insert({ user_id: data.user.id, balance_usd: 0, profit: 0 });
-          await supabase.from('profiles').insert({
-            id: data.user.id,
-            username,
-            fullname,
-            country,
-            mobile,
-            kyc_status: 'pending'
-          });
-          showToast('Account created! Check your email.');
-          setTimeout(() => showPage('auth-login'), 1800);
-        }
-      } catch (err) {
-        showToastError(err.message || 'Signup error');
-      }
-    }
-
-    async function handleLogin(e) {
-      e.preventDefault();
-      const emailOrUsername = document.getElementById('login-email').value;
-      const password = document.getElementById('login-password').value;
-      const captchaInput = document.getElementById('login-captcha-input').value;
-
-      if (!supabase) { showToastError('Database not connected'); return; }
-      if (captchaInput.toUpperCase() !== loginCaptcha) {
-        showToastError('Incorrect captcha!'); loginCaptcha = generateCaptcha();
-        document.getElementById('login-captcha').textContent = loginCaptcha;
-        document.getElementById('login-captcha-input').value = '';
-        return;
-      }
-
-      try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: emailOrUsername,
-          password
-        });
-        if (error) throw error;
-        if (data.user) {
-          showToast('Login successful!');
-          showDashboard(data.user);
-        }
-      } catch (err) {
-        showToastError('Invalid credentials');
-      }
-    }
 
     async function logout() {
       if (!supabase) return;
@@ -1468,7 +1290,12 @@ async function makeDeposit(amount) {
       loadDepositsAndWithdrawals(user);
       loadTransactions(user);
       // show initials on buttons
-      setInitialsUI(user);
+      function setInitialsUI(user) {
+  // This function is called by showDashboard
+  // Initials are already set in loadSidebarProfile, so this can be empty
+  // or we can use it to ensure initials are shown
+  lucide.createIcons();
+}
       //ADD THIS LINE 
       setupRealtime ();
     }
@@ -1848,13 +1675,6 @@ document.getElementById('nav-settings')?.addEventListener('click', () => {
   setTimeout(() => {
     loadSettings();
   }, 100);
-});
-
-// Call loadSettings when user clicks Account Settings
-document.getElementById('nav-settings').addEventListener('click', () => {
-  showSection('settings');
-  updateActiveNav('nav-settings');
-  loadSettings(); // Load settings data
 });
 
 // Save profile changes
