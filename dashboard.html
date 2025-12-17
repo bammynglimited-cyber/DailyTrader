@@ -881,13 +881,12 @@ function hideLoading() {
  const SUPABASE_URL = "https://cgfkpokpiseaugcrqjbv.supabase.co";  // ← YOUR URL
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE";
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 (async function checkSession() {
-  // Show loading immediately
-  showLoading('Loading dashboard...', 0); // 0 means manual hide
+  showLoading('Loading dashboard...', 0);
   
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { session } } = await supabaseClient.auth.getSession(); // ✅ Changed
   
   if (!session) {
     console.log('No session found, redirecting to login...');
@@ -897,20 +896,16 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   
   console.log('✅ Session valid, loading dashboard...');
   
-  // SHOW dashboard
   document.getElementById('dashboard')?.classList.remove('hidden');
-  
-  // Load user data (this is synchronous, doesn't need await)
   showDashboard(session.user);
   
-  // Hide loading after data starts loading
   setTimeout(() => {
     hideLoading();
-  }, 2000); // Give it 2 seconds to load data
+  }, 2000);
 })();
 
 // Listen for session changes
-supabase.auth.onAuthStateChange((event, session) => {
+supabaseClient.auth.onAuthStateChange((event, session) => { // ✅ Changed
   console.log('Auth event:', event);
   
   if (event === 'SIGNED_OUT' || !session) {
@@ -918,7 +913,6 @@ supabase.auth.onAuthStateChange((event, session) => {
     window.location.href = 'login.html';
   }
 });
-
 // === 1. GLOBAL VARIABLES ===
 let selectedPlan = { name: '', price: 0 };
 
@@ -984,19 +978,19 @@ document.getElementById('purchase-proof-form')?.addEventListener('submit', async
   submitBtn.disabled = true;
 
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) throw new Error('You must be logged in');
 
     const fileExt = file.name.split('.').pop();
     const fileName = `${user.id}_${Date.now()}.${fileExt}`;
 
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    const { data: uploadData, error: uploadError } = await supabaseClient.storage
       .from('payment-proofs')
       .upload(`purchases/${fileName}`, file);
 
     if (uploadError) throw uploadError;
 
-    const { error: insertError } = await supabase
+    const { error: insertError } = await supabaseClient
       .from('live_trade_purchases')
       .insert({
         user_id: user.id,
@@ -1041,13 +1035,13 @@ async function submitDeposit() {
   submitBtn.disabled = true;
   
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) throw new Error('Login required');
     
     console.log('👤 User:', user.email);
     
     // Check if this is user's first deposit
-    const { data: userData, error: userError } = await supabase
+    const { data: userData, error: userError } = await supabaseClient
       .from('users')
       .select('first_deposit_made, referred_by')
       .eq('id', user.id)
@@ -1077,7 +1071,7 @@ async function submitDeposit() {
     const transactionId = 'TXN' + Date.now();
     
     console.log('💾 Saving deposit...');
-    const { error: insertError } = await supabase
+    const { error: insertError } = await supabaseClient
       .from('deposits')
       .insert({
         user_id: user.id,
@@ -1116,10 +1110,10 @@ async function submitDeposit() {
 // LIVE BALANCE UPDATE — FINAL VICTORY
 setInterval(async () => {
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) return;
 
-    const { data } = await supabase
+    const { data } = await supabaseClient
       .from('users')
       .select('balance')
       .eq('id', user.id)
@@ -1165,14 +1159,14 @@ async function loadUserData() {
       return cached;
     }
     
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) {
       window.location.href = 'login.html';
       return;
     }
 
     // Fetch only necessary fields
-    const { data: userData, error } = await supabase
+    const { data: userData, error } = await supabaseClient
       .from('users')
       .select('id, email, username, balance, profit, trading_balance')
       .eq('id', user.id)
@@ -1271,9 +1265,9 @@ function showPage(p) {
 
 
     async function logout() {
-      if (!supabase) return;
+      if (!supabaseClient) return;
       try {
-        await supabase.auth.signOut();
+        await supabaseClient.auth.signOut();
         location.href = 'index.html';// redirect to login page
       } catch (err) {
         showToastError('Logout failed');
@@ -1300,10 +1294,10 @@ function showPage(p) {
       setupRealtime ();
     }
 async function loadUserData(user) {
-  if (!supabase) return;
+  if (!supabaseClient) return;
   try {
     // Fetch from users table
-    const { data: userData, error: userError } = await supabase
+    const { data: userData, error: userError } = await supabaseClient
       .from('users')
       .select('balance, profit, email, full_name')
       .eq('id', user.id)
@@ -1368,7 +1362,7 @@ async function loadUserData(user) {
 // Load deposits function
 async function loadRecentDeposits(userId) {
   try {
-    const { data: deposits, error } = await supabase
+    const { data: deposits, error } = await supabaseClient
       .from('deposits')
       .select('*')
       .eq('user_id', userId)
@@ -1403,7 +1397,7 @@ async function loadRecentDeposits(userId) {
 // Load withdrawals function
 async function loadRecentWithdrawals(userId) {
   try {
-    const { data: withdrawals, error } = await supabase
+    const { data: withdrawals, error } = await supabaseClient
       .from('withdrawals')
       .select('*')
       .eq('user_id', userId)
@@ -1438,7 +1432,7 @@ async function loadRecentWithdrawals(userId) {
 // ========================================
 async function loadSidebarProfile(user) {
   try {
-    const { data: profile } = await supabase
+    const { data: profile } = await supabaseClient
       .from('users')
       .select('username, email')
       .eq('id', user.id)
@@ -1467,8 +1461,8 @@ async function loadDepositsAndWithdrawals(user) {
   if (!supabase || !user) return;
   try {
     // counts
-    const { data: deposits } = await supabase.from('deposits').select('*').eq('user_id', user.id).order('created_at', {ascending: false});
-    const { data: withdrawals } = await supabase.from('withdrawals').select('*').eq('user_id', user.id).order('created_at', {ascending: false});
+    const { data: deposits } = await supabaseClient.from('deposits').select('*').eq('user_id', user.id).order('created_at', {ascending: false});
+    const { data: withdrawals } = await supabaseClient.from('withdrawals').select('*').eq('user_id', user.id).order('created_at', {ascending: false});
 
     document.getElementById('count-deposits').textContent = deposits?.length ? deposits.length : '';
     document.getElementById('count-withdrawals').textContent = withdrawals?.length ? withdrawals.length : '';
@@ -1499,7 +1493,7 @@ function setupRealtime() {
   if (!currentUser) return;
   
   // Listen for wallet balance changes
-  supabase
+  supabaseClient
     .channel('wallet-changes')
     .on('postgres_changes', 
       { 
@@ -1516,7 +1510,7 @@ function setupRealtime() {
     .subscribe();
 
   // Listen for deposit status changes
-  supabase
+  supabaseClient
     .channel('deposit-changes')
     .on('postgres_changes', 
       { 
@@ -1564,7 +1558,7 @@ async function loadSettings() {
   try {
     // Step 1: Get current user
     console.log('Step 1: Getting user...');
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
     
     if (userError) {
       console.error('User error:', userError);
@@ -1584,7 +1578,7 @@ async function loadSettings() {
     
     // Step 2: Get user profile from database
     console.log('Step 2: Fetching profile from database...');
-    const { data: profile, error: profileError } = await supabase
+    const { data: profile, error: profileError } = await supabaseClient
       .from('users')
       .select('*')
       .eq('id', user.id)
@@ -1690,7 +1684,7 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
   }
   
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
     
     if (!user) {
       alert('Please log in first');
@@ -1698,7 +1692,7 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
     }
     
     // Update user profile in database
-    const { error } = await supabase
+    const { error } = await supabaseClient
       .from('users')
       .update({
         username: username,
@@ -1748,7 +1742,7 @@ document.getElementById('password-form').addEventListener('submit', async (e) =>
   
   try {
     // Update password in Supabase
-    const { error } = await supabase.auth.updateUser({
+    const { error } = await supabaseClient.auth.updateUser({
       password: newPassword
     });
     
@@ -1771,16 +1765,16 @@ document.getElementById('nav-settings').addEventListener('click', async () => {
   showSection('settings');
   updateActiveNav('nav-settings');
   
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user } } = await supabaseClient.auth.getUser();
   loadSettings(user);
 });
 
 async function loadTransactions(user) {
-  if (!supabase || !user) return;
+  if (!supabaseClient || !user) return;
   try {
     // Example: join deposits + withdrawals into transactions list
-    const { data: deposits } = await supabase.from('deposits').select('*').eq('user_id', user.id);
-    const { data: withdrawals } = await supabase.from('withdrawals').select('*').eq('user_id', user.id);
+    const { data: deposits } = await supabaseClient.from('deposits').select('*').eq('user_id', user.id);
+    const { data: withdrawals } = await supabaseClient.from('withdrawals').select('*').eq('user_id', user.id);
     const tx = [];
     (deposits || []).forEach(d => tx.push({ type: 'Deposit', amount: d.amount, status: d.status, created_at: d.created_at }));
     (withdrawals || []).forEach(w => tx.push({ type: 'Withdraw', amount: w.amount, status: w.status, created_at: w.created_at }));
@@ -1815,21 +1809,21 @@ async function submitWithdraw() {
   const destination = document.getElementById('withdraw-destination').value.trim();
   if (!amount || amount < 50) { showToastError('Minimum withdrawal is $50'); return; }
   if (!destination) { showToastError('Please enter destination wallet/bank details'); return; }
-  if (!supabase) { showToastError('Database not connected'); return; }
+  if (!supabaseClient) { showToastError('Database not connected'); return; }
 
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) { showToastError('Not signed in'); return; }
 
     // KYC check
-    const { data: profile } = await supabase.from('profiles').select('kyc_status').eq('id', user.id).single();
+    const { data: profile } = await supabaseClient.from('profiles').select('kyc_status').eq('id', user.id).single();
     if (!profile || profile.kyc_status !== 'approved') {
       document.getElementById('kyc-warning').classList.remove('hidden');
       showToastError('KYC verification required');
       return;
     }
 
-    const { error } = await supabase.from('withdrawals').insert({
+    const { error } = await supabaseClient.from('withdrawals').insert({
       user_id: user.id,
       amount,
       destination,
@@ -1849,9 +1843,9 @@ async function saveWithdrawInfo() {
   const dest = document.getElementById('withdraw-destination').value.trim();
   if (!dest) { showToastError('Enter details first'); return; }
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) { showToastError('Not signed in'); return; }
-    const { error } = await supabase.from('profiles').update({ withdraw_info: dest }).eq('id', user.id);
+    const { error } = await supabaseClient.from('profiles').update({ withdraw_info: dest }).eq('id', user.id);
     if (error) throw error;
     showToast('Withdraw info saved to profile');
   } catch (err) {
@@ -1867,13 +1861,13 @@ async function uploadKYC() {
     showToastError('Upload both ID images'); 
     return; 
   }
-  if (!supabase) { 
+  if (!supabaseClient) { 
     showToastError('Database not connected'); 
     return; 
   }
   
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) { 
       showToastError('Not signed in'); 
       return; 
@@ -1884,20 +1878,20 @@ async function uploadKYC() {
     const backName = `users/${user.id}/back_${timestamp}.jpg`;
 
     // Upload files
-    const { error: frontError } = await supabase.storage
+    const { error: frontError } = await supabaseClient.storage
       .from('kyc')
       .upload(frontName, front);
     
     if (frontError) throw new Error('Front upload failed: ' + frontError.message);
 
-    const { error: backError } = await supabase.storage
+    const { error: backError } = await supabaseClient.storage
       .from('kyc')
       .upload(backName, back);
     
     if (backError) throw new Error('Back upload failed: ' + backError.message);
 
     // Save to kyc_files table (using YOUR column names)
-    const { error: dbError } = await supabase
+    const { error: dbError } = await supabaseClient
       .from('kyc_files')
       .insert([{
         user_id: user.id,
@@ -1938,12 +1932,12 @@ function setupRealtime() {
   try {
     // subscribe to changes on deposits & withdrawals (public schema)
     // When admin updates deposit status to 'confirmed', update wallet and lists automatically.
-    const channel = supabase.channel('public-changes')
+    const channel = supabaseClient.channel('public-changes')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'deposits' }, payload => {
         // If deposit changed for current user, refresh lists and wallet
         const rec = payload.record;
         const userId = rec?.user_id;
-        supabase.auth.getUser().then(({ data: { user }}) => {
+        supabaseClient.auth.getUser().then(({ data: { user }}) => {
           if (user && user.id === userId) {
             // if confirmed, we must update wallet display (wallet update likely handled by backend - here we just re-fetch)
             loadUserData(user);
@@ -1955,7 +1949,7 @@ function setupRealtime() {
       .on('postgres_changes', { event: '*', schema: 'public', table: 'withdrawals' }, payload => {
         const rec = payload.record;
         const userId = rec?.user_id;
-        supabase.auth.getUser().then(({ data: { user }}) => {
+        supabaseClient.auth.getUser().then(({ data: { user }}) => {
           if (user && user.id === userId) {
             loadDepositsAndWithdrawals(user);
             loadTransactions(user);
