@@ -135,7 +135,7 @@
 <script>
     const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
-    let supabase;
+    let supabaseClient = null;
     let captchaText = '';
     const REFERRAL_BONUS_PERCENTAGE = 10.00;
 
@@ -338,4 +338,5 @@
     });
   </script>
 </body>
+
 </html>
