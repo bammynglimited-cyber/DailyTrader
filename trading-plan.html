@@ -138,7 +138,7 @@
   // === SUPABASE CONFIG ===
   const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
   const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
-  let supabase;
+  let supabaseClient; // Changed variable name to avoid conflict
 
   let currentUser = null;
   let userBalance = 0;
@@ -163,10 +163,10 @@
 
   // === INIT ===
   waitForSupabase(async () => {
-    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey); // Use supabaseClient consistently
     
     try {
-      const { data: { session }, error } = await supabase.auth.getSession();
+      const { data: { session }, error } = await supabaseClient.auth.getSession();
       
       if (error || !session) {
         console.log('No session, redirecting...');
@@ -186,84 +186,84 @@
     }
   });
 
-// === LOAD USER BALANCE ===
-async function loadUserBalance() {
-  try {
-    const { data, error } = await supabase
-      .from('users')
-      .select('trading_balance') // Changed from 'balance' to 'trading_balance'
-      .eq('id', currentUser.id)
-      .single();
-    
-    if (error) {
-      console.error('Error loading balance:', error);
+  // === LOAD USER BALANCE ===
+  async function loadUserBalance() {
+    try {
+      const { data, error } = await supabaseClient
+        .from('users')
+        .select('trading_balance')
+        .eq('id', currentUser.id)
+        .single();
+      
+      if (error) {
+        console.error('Error loading balance:', error);
+        return;
+      }
+      
+      userBalance = parseFloat(data.trading_balance || 0);
+      document.getElementById('user-balance').textContent = `$${userBalance.toFixed(2)}`;
+    } catch (err) {
+      console.error('Balance load error:', err);
+    }
+  }
+
+  // === PURCHASE PLAN ===
+  async function purchasePlan(planName, amount, returnRate) {
+    if (!currentUser) {
+      showStatus('Please login first', 'error');
       return;
     }
-    
-    userBalance = parseFloat(data.trading_balance || 0);
-    document.getElementById('user-balance').textContent = `$${userBalance.toFixed(2)}`;
-  } catch (err) {
-    console.error('Balance load error:', err);
+
+    if (userBalance < amount) {
+      showStatus(`Insufficient trading balance! You need $${amount} but have $${userBalance.toFixed(2)}. Please add more trading balance.`, 'error');
+      return;
+    }
+
+    const confirm = window.confirm(`Purchase ${planName} Plan for $${amount}?\n\nThis will deduct $${amount} from your trading balance.\nExpected monthly returns: ${returnRate}%`);
+    if (!confirm) return;
+
+    try {
+      // Deduct amount from TRADING balance
+      const newBalance = userBalance - amount;
+      const { error: balanceError } = await supabaseClient
+        .from('users')
+        .update({ trading_balance: newBalance })
+        .eq('id', currentUser.id);
+      
+      if (balanceError) throw balanceError;
+
+      // Create trading plan record
+      const { error: planError } = await supabaseClient
+        .from('live_trade_purchases')
+        .insert([{
+          user_id: currentUser.id,
+          plan_name: planName,
+          amount: amount,
+          return_rate: returnRate,
+          status: 'active',
+          created_at: new Date().toISOString(),
+          purchased_at: new Date().toISOString(),
+          expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+        }]);
+      
+      if (planError) throw planError;
+
+      showStatus(`🎉 ${planName} Plan purchased successfully! You'll start earning ${returnRate}% monthly returns.`, 'success');
+      
+      // Reload data
+      await loadUserBalance();
+      await loadActivePlans();
+
+    } catch (err) {
+      console.error('Purchase error:', err);
+      showStatus('Purchase failed: ' + err.message, 'error');
+    }
   }
-}
-
-// === PURCHASE PLAN ===
-async function purchasePlan(planName, amount, returnRate) {
-  if (!currentUser) {
-    showStatus('Please login first', 'error');
-    return;
-  }
-
-  if (userBalance < amount) {
-    showStatus(`Insufficient trading balance! You need $${amount} but have $${userBalance.toFixed(2)}. Please add more trading balance.`, 'error');
-    return;
-  }
-
-  const confirm = window.confirm(`Purchase ${planName} Plan for $${amount}?\n\nThis will deduct $${amount} from your trading balance.\nExpected monthly returns: ${returnRate}%`);
-  if (!confirm) return;
-
-  try {
-    // Deduct amount from TRADING balance
-    const newBalance = userBalance - amount;
-    const { error: balanceError } = await supabase
-      .from('users')
-      .update({ trading_balance: newBalance }) // Changed from 'balance'
-      .eq('id', currentUser.id);
-    
-    if (balanceError) throw balanceError;
-
-    // Create trading plan record
-    const { error: planError } = await supabase
-      .from('live_trade_purchases')
-      .insert([{
-        user_id: currentUser.id,
-        plan_name: planName,
-        amount: amount,
-        return_rate: returnRate,
-        status: 'active',
-        created_at: new Date().toISOString(),
-        purchased_at: new Date().toISOString(),
-        expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
-      }]);
-    
-    if (planError) throw planError;
-
-    showStatus(`🎉 ${planName} Plan purchased successfully! You'll start earning ${returnRate}% monthly returns.`, 'success');
-    
-    // Reload data
-    await loadUserBalance();
-    await loadActivePlans();
-
-  } catch (err) {
-    console.error('Purchase error:', err);
-    showStatus('Purchase failed: ' + err.message, 'error');
-  }
-}
 
   // === LOAD ACTIVE PLANS ===
   async function loadActivePlans() {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('live_trade_purchases')
         .select('*')
         .eq('user_id', currentUser.id)
@@ -320,6 +320,7 @@ async function purchasePlan(planName, amount, returnRate) {
       console.error('Load plans error:', err);
     }
   }
+
 </script>
 </body>
 </html>
