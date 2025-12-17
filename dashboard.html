@@ -1061,7 +1061,7 @@ async function submitDeposit() {
     const fileName = `${user.id}_${Date.now()}.${fileExt}`;
     
     console.log('📤 Uploading file...');
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    const { data: uploadData, error: uploadError } = await supabaseClient.storage
       .from('payment-proofs')
       .upload(`deposits/${fileName}`, file);
     
@@ -1975,3 +1975,4 @@ function formatDate(d) {
   </script>
 </body>
 </html>
+
