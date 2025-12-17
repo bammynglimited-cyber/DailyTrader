@@ -85,11 +85,11 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
   const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
-  let supabaseClient;
+  let supabaseClient; // ✅ Use consistent name
   let currentUser = null;
 
   function showStatus(message, type = 'info') {
@@ -108,20 +108,22 @@
   }
 
   waitForSupabase(async () => {
-    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey); // ✅ Fixed
     
-    const { data: { session }, error } = await supabase.auth.getSession();
+    const { data: { session }, error } = await supabaseClient.auth.getSession(); // ✅ Fixed
     if (error || !session) {
-      window.location.href = 'index.html';
+      window.location.href = 'login.html'; // ✅ Changed to login.html
       return;
     }
     
-    currentUser = session.user;
+    currentUser = session.user; // ✅ Now properly set
     loadBalance();
   });
 
   async function loadBalance() {
-    const { data, error } = await supabase
+    if (!currentUser) return; // ✅ Safety check
+    
+    const { data, error } = await supabaseClient
       .from('users')
       .select('trading_balance')
       .eq('id', currentUser.id)
@@ -137,6 +139,11 @@
   }
 
   async function submitTopUp() {
+    if (!currentUser) { // ✅ Safety check
+      showStatus('Please log in first', 'error');
+      return;
+    }
+
     const amount = parseFloat(document.getElementById('custom-amount').value);
     const proofFile = document.getElementById('payment-proof').files[0];
 
@@ -157,14 +164,14 @@
     try {
       // Upload proof
       const proofPath = `payment-proofs/${currentUser.id}/${Date.now()}.jpg`;
-      const { error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabaseClient.storage // ✅ Fixed
         .from('payment-proofs')
         .upload(proofPath, proofFile);
       
       if (uploadError) throw uploadError;
 
       // Create trading deposit record with special flag
-      const { error: depositError } = await supabase
+      const { error: depositError } = await supabaseClient // ✅ Fixed
         .from('deposits')
         .insert([{
           user_id: currentUser.id,
@@ -196,5 +203,4 @@
   }
 </script>
 </body>
-
 </html>
