@@ -65,6 +65,26 @@
         <p class="text-gray-300">Don't have any account? <a href="signup.html" class="text-blue-400 hover:underline font-bold">Create Account</a></p>
       </div>
     </div>
+    <!-- 2FA Code Section (Hidden by default) -->
+<div id="twofa-section" class="hidden">
+  <h2 class="text-3xl font-bold mb-6 text-center">Enter Verification Code</h2>
+  <p class="text-gray-300 text-sm mb-6 text-center">We've sent a 6-digit code to your email</p>
+  
+  <form id="twofa-form" class="space-y-4">
+    <div>
+      <label class="block text-sm font-medium mb-2">Verification Code</label>
+      <input type="text" id="twofa-code" maxlength="6" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400 text-center text-2xl tracking-widest" placeholder="000000">
+    </div>
+
+    <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-blue-500 py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-blue-600 transition">
+      Verify & Login
+    </button>
+
+    <button type="button" id="resend-2fa-btn" class="w-full text-blue-400 hover:underline text-sm">
+      Resend Code
+    </button>
+  </form>
+</div>
 
     <div class="text-center mt-6">
       <a href="index.html" class="text-gray-400 hover:text-white transition">← Back to Home</a>
@@ -72,107 +92,210 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
-    let supabase;
-    let captchaText = '';
+<script>
+  const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
+  let supabase;
+  let captchaText = '';
+  let pendingSession = null;
 
-    // Generate Captcha
-    function generateCaptcha() {
-      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
-      captchaText = '';
-      for (let i = 0; i < 6; i++) {
-        captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      
-      const canvas = document.getElementById('captcha-canvas');
-      const ctx = canvas.getContext('2d');
-      
-      // Clear canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Background
-      ctx.fillStyle = '#1e293b';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      // Add some noise lines
-      for (let i = 0; i < 5; i++) {
-        ctx.strokeStyle = `rgba(${Math.random()*100+100}, ${Math.random()*100+100}, ${Math.random()*100+100}, 0.3)`;
-        ctx.beginPath();
-        ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
-        ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-        ctx.stroke();
-      }
-      
-      // Draw captcha text
-      ctx.font = 'bold 32px Arial';
-      for (let i = 0; i < captchaText.length; i++) {
-        ctx.fillStyle = `hsl(${Math.random() * 360}, 70%, 60%)`;
-        ctx.save();
-        ctx.translate(20 + i * 40, 40);
-        ctx.rotate((Math.random() - 0.5) * 0.4);
-        ctx.fillText(captchaText[i], 0, 0);
-        ctx.restore();
-      }
+  // Generate Captcha
+  function generateCaptcha() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+    captchaText = '';
+    for (let i = 0; i < 6; i++) {
+      captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    
+    const canvas = document.getElementById('captcha-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#1e293b';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    for (let i = 0; i < 5; i++) {
+      ctx.strokeStyle = `rgba(${Math.random()*100+100}, ${Math.random()*100+100}, ${Math.random()*100+100}, 0.3)`;
+      ctx.beginPath();
+      ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+      ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+      ctx.stroke();
+    }
+    
+    ctx.font = 'bold 32px Arial';
+    for (let i = 0; i < captchaText.length; i++) {
+      ctx.fillStyle = `hsl(${Math.random() * 360}, 70%, 60%)`;
+      ctx.save();
+      ctx.translate(20 + i * 40, 40);
+      ctx.rotate((Math.random() - 0.5) * 0.4);
+      ctx.fillText(captchaText[i], 0, 0);
+      ctx.restore();
+    }
+  }
+
+  function showStatus(message, type = 'info') {
+    const status = document.getElementById('status');
+    status.textContent = message;
+    status.className = `mb-4 p-3 rounded-lg ${type === 'error' ? 'bg-red-600/20 border-2 border-red-500' : type === 'success' ? 'bg-green-600/20 border-2 border-green-500' : 'bg-blue-600/20 border-2 border-blue-500'}`;
+    status.classList.remove('hidden');
+  }
+
+  function waitForSupabase(callback) {
+    if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+      callback();
+    } else {
+      setTimeout(() => waitForSupabase(callback), 100);
+    }
+  }
+
+  waitForSupabase(() => {
+    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    generateCaptcha();
+  });
+
+  document.getElementById('captcha-canvas').addEventListener('click', generateCaptcha);
+
+  // ✅ SINGLE LOGIN FORM HANDLER
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const captchaInput = document.getElementById('captcha-input').value;
+
+    if (captchaInput !== captchaText) {
+      showStatus('Incorrect captcha!', 'error');
+      generateCaptcha();
+      document.getElementById('captcha-input').value = '';
+      return;
     }
 
-    function showStatus(message, type = 'info') {
-      const status = document.getElementById('status');
-      status.textContent = message;
-      status.className = `mb-4 p-3 rounded-lg ${type === 'error' ? 'bg-red-600/20 border-2 border-red-500' : type === 'success' ? 'bg-green-600/20 border-2 border-green-500' : 'bg-blue-600/20 border-2 border-blue-500'}`;
-      status.classList.remove('hidden');
-    }
+    showStatus('Logging in...', 'info');
 
-    function waitForSupabase(callback) {
-      if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
-        callback();
-      } else {
-        setTimeout(() => waitForSupabase(callback), 100);
-      }
-    }
-
-    waitForSupabase(() => {
-      supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-      generateCaptcha(); // Generate captcha after supabase is loaded
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password
     });
 
-    // Regenerate captcha on click
-    document.getElementById('captcha-canvas').addEventListener('click', generateCaptcha);
+    if (error) {
+      showStatus('Login failed: ' + error.message, 'error');
+      generateCaptcha();
+      document.getElementById('captcha-input').value = '';
+      return;
+    }
 
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const emailOrUsername = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value;
-      const captchaInput = document.getElementById('captcha-input').value;
+    // Check if email is verified
+    if (!data.user.email_confirmed_at) {
+      showStatus('Please verify your email first!', 'error');
+      setTimeout(() => {
+        window.location.href = `verify-email.html?email=${encodeURIComponent(email)}`;
+      }, 2000);
+      return;
+    }
 
-      // Validate captcha
-      if (captchaInput !== captchaText) {
-        showStatus('Captcha is incorrect!', 'error');
-        generateCaptcha(); // Regenerate captcha
-        document.getElementById('captcha-input').value = '';
-        return;
-      }
-
-      showStatus('Logging in...', 'info');
-
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: emailOrUsername,
-        password: password
-      });
-
-      if (error) {
-        showStatus('Error: ' + error.message, 'error');
-        generateCaptcha(); // Regenerate captcha on error
-        document.getElementById('captcha-input').value = '';
-      } else {
-        showStatus('Login successful! Redirecting...', 'success');
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1500);
-      }
+    // Generate and send 2FA code
+    showStatus('Sending verification code...', 'info');
+    
+    const twoFACode = Math.floor(100000 + Math.random() * 900000).toString();
+    
+    // Store 2FA code in database
+    const { error: codeError } = await supabase.rpc('store_2fa_code', {
+      p_user_id: data.user.id,
+      p_code: twoFACode
     });
-  </script>
+
+    if (codeError) {
+      console.error('2FA code storage error:', codeError);
+      showStatus('Error generating verification code', 'error');
+      return;
+    }
+
+
+// Send 2FA code via email
+console.log('📧 Attempting to send 2FA code to:', email);
+console.log('🔢 Code:', twoFACode);
+
+const { data: emailResult, error: emailError } = await supabase.rpc('send_2fa_code', {
+  p_user_email: email,
+  p_code: twoFACode
+});
+
+console.log('📬 Email send result:', emailResult);
+console.log('❌ Email error:', emailError);
+
+if (emailError) {
+  console.error('Email send error details:', emailError);
+  showStatus('Warning: Code sent but email may be delayed', 'info');
+} else {
+  console.log('✅ Email function completed successfully');
+}
+    // Store session for after 2FA verification
+    pendingSession = data.session;
+
+    // Hide login form, show 2FA form
+    document.getElementById('login-form').classList.add('hidden');
+    document.getElementById('twofa-section').classList.remove('hidden');
+    showStatus('Code sent to your email!', 'success');
+  });
+
+  // Handle 2FA verification
+  document.getElementById('twofa-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const code = document.getElementById('twofa-code').value;
+    
+    if (!pendingSession) {
+      showStatus('Session expired. Please login again.', 'error');
+      window.location.reload();
+      return;
+    }
+
+    showStatus('Verifying code...', 'info');
+
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    const { data: isValid, error } = await supabase.rpc('verify_2fa_code', {
+      p_user_id: user.id,
+      p_code: code
+    });
+
+    if (error || !isValid) {
+      showStatus('Invalid or expired code!', 'error');
+      return;
+    }
+
+    showStatus('Login successful!', 'success');
+    
+    setTimeout(() => {
+      window.location.href = 'dashboard.html';
+    }, 1000);
+  });
+
+  // Resend 2FA code
+  document.getElementById('resend-2fa-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('resend-2fa-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    const { data: { user } } = await supabase.auth.getUser();
+    const twoFACode = Math.floor(100000 + Math.random() * 900000).toString();
+
+    await supabase.rpc('store_2fa_code', {
+      p_user_id: user.id,
+      p_code: twoFACode
+    });
+
+    await supabase.rpc('send_2fa_code', {
+      p_user_email: user.email,
+      p_code: twoFACode
+    });
+
+    btn.textContent = '✓ Code Sent!';
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = 'Resend Code';
+    }, 5000);
+  });
+</script>
 </body>
 </html>

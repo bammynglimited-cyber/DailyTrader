@@ -132,12 +132,12 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
+<script>
     const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
     let supabase;
     let captchaText = '';
-    const REFERRAL_BONUS_PERCENTAGE = 10.00; // 10% of first deposit
+    const REFERRAL_BONUS_PERCENTAGE = 10.00;
 
     // Check for referral code in URL
     window.addEventListener('DOMContentLoaded', () => {
@@ -152,12 +152,10 @@
       }
     });
 
-    // Auto-uppercase referral code input
     document.getElementById('referral-code').addEventListener('input', (e) => {
       e.target.value = e.target.value.toUpperCase();
     });
 
-    // Generate Captcha
     function generateCaptcha() {
       const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
       captchaText = '';
@@ -227,18 +225,8 @@
       const referralCode = document.getElementById('referral-code').value.trim().toUpperCase();
 
       // Validation
-      if (!username) {
-        showStatus('Username is required!', 'error');
-        return;
-      }
-
-      if (!email) {
-        showStatus('Email is required!', 'error');
-        return;
-      }
-
-      if (!mobile) {
-        showStatus('Mobile number is required!', 'error');
+      if (!username || !email || !mobile) {
+        showStatus('All required fields must be filled!', 'error');
         return;
       }
 
@@ -275,26 +263,24 @@
           .eq('referral_code', referralCode)
           .single();
 
-        console.log('Referral validation:', { referrerData, refError });
-
         if (refError || !referrerData) {
-          console.error('Referral code error:', refError);
           showStatus('Invalid referral code! Please check and try again.', 'error');
           return;
         }
         
         validReferralCode = referralCode;
-        console.log('✅ Valid referral code from user:', referrerData.email);
         showStatus('Referral code validated! ✓', 'success');
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
 
       showStatus('Creating account...', 'info');
 
+      // ✅ ENABLE EMAIL VERIFICATION
       const { data, error } = await supabase.auth.signUp({
         email: email,
         password: password,
         options: {
+          emailRedirectTo: `${window.location.origin}/login.html?verified=true`,
           data: {
             username: username,
             country: country,
@@ -313,17 +299,7 @@
 
       const newUserId = data.user.id;
 
-      // Use database function to create user profile (bypasses RLS issues)
-      console.log('Creating user profile via database function...');
-      console.log('Profile data:', {
-        userId: newUserId,
-        email: email,
-        username: username,
-        country: country,
-        mobile: mobile,
-        referralCode: validReferralCode
-      });
-      
+      // Create user profile
       const { data: profileCreated, error: profileError } = await supabase
         .rpc('create_user_profile', {
           p_user_id: newUserId,
@@ -334,39 +310,30 @@
           p_referral_code: validReferralCode
         });
 
-      console.log('Profile creation result:', { profileCreated, profileError });
-
       if (profileError) {
         console.error('Profile creation error:', profileError);
-        showStatus('Account created but profile setup incomplete: ' + profileError.message, 'error');
-      } else if (profileCreated === false) {
-        console.error('Profile function returned false');
-        showStatus('Account created but profile setup incomplete. You can still login.', 'error');
-      } else {
-        console.log('✅ User profile created successfully');
       }
 
-      // Link referral if valid code was used (bonus will be paid on first deposit)
+      // Link referral if valid
       if (validReferralCode) {
-        const { error: linkError } = await supabase.rpc('link_referral', {
+        await supabase.rpc('link_referral', {
           p_referred_user_id: newUserId,
           p_referral_code: validReferralCode,
           p_bonus_percentage: REFERRAL_BONUS_PERCENTAGE
         });
-
-        if (linkError) {
-          console.error('Error linking referral:', linkError);
-          // Don't fail signup if referral linking fails
-        } else {
-          console.log('Referral linked successfully! Bonus will be paid on first deposit.');
-        }
       }
 
-      showStatus('Account created successfully! Redirecting...', 'success');
+      // ✅ SEND WELCOME EMAIL
+      await supabase.rpc('send_welcome_email', {
+        p_user_email: email,
+        p_username: username
+      });
+
+      showStatus('✅ Account created! Please check your email to verify your account.', 'success');
       
-  
+      // Redirect to verification page
       setTimeout(() => {
-        window.location.href = 'index.html';
+        window.location.href = `verify-email.html?email=${encodeURIComponent(email)}`;
       }, 2000);
     });
   </script>

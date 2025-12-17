@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Email - DailyTrader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen flex items-center justify-center p-6">
+  
+  <div class="w-full max-w-md text-center">
+    <div class="bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-3xl p-8 shadow-2xl">
+      <div class="mb-6">
+        <svg class="w-24 h-24 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"></path>
+        </svg>
+      </div>
+
+      <h1 class="text-3xl font-bold mb-4">Check Your Email!</h1>
+      <p class="text-gray-300 mb-6">
+        We've sent a verification link to<br>
+        <span id="user-email" class="font-bold text-blue-400"></span>
+      </p>
+
+      <div class="bg-blue-600/20 border-2 border-blue-500 rounded-xl p-4 mb-6">
+        <p class="text-sm text-gray-200">
+          📧 Click the verification link in your email to activate your account.
+        </p>
+      </div>
+
+      <p class="text-sm text-gray-400 mb-4">Didn't receive the email? Check your spam folder.</p>
+
+      <button id="resend-btn" class="w-full bg-gradient-to-r from-green-500 to-blue-500 py-3 rounded-xl font-bold hover:from-green-600 hover:to-blue-600 transition mb-4">
+        Resend Verification Email
+      </button>
+
+      <a href="login.html" class="block text-blue-400 hover:underline">Back to Login</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabase = window.supabase.createClient(
+      'https://cgfkpokpiseaugcrqjbv.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE'
+    );
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get('email');
+    document.getElementById('user-email').textContent = email || 'your email';
+
+    document.getElementById('resend-btn').addEventListener('click', async () => {
+      const btn = document.getElementById('resend-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: email
+      });
+
+      if (error) {
+        alert('Error: ' + error.message);
+        btn.disabled = false;
+        btn.textContent = 'Resend Verification Email';
+      } else {
+        btn.textContent = '✓ Email Sent!';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = 'Resend Verification Email';
+        }, 5000);
+      }
+    });
+  </script>
+</body>
+</html>
