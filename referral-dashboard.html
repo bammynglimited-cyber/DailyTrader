@@ -1,326 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trading Plans - DailyTrader</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+<body class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen flex items-center justify-center p-6">
   
-  <div class="container mx-auto px-6 py-12 max-w-7xl">
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
-        Choose Your Trading Plan
-      </h1>
-      <p class="text-xl text-gray-300">Start earning passive income with our professional trading strategies</p>
-      <p class="text-gray-400 mt-2">Your Balance: <span id="user-balance" class="text-green-400 font-bold">$0.00</span></p>
+    <div class="container mx-auto px-6 py-8 max-w-full">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="bg-white/10 backdrop-blur-xl rounded-lg shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold mb-2">Referral Program</h1>
+                <p>Share your referral code and earn bonuses!</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
+                    <p class="text-blue-100 text-sm mb-1">Total Referrals</p>
+                    <p class="text-3xl font-bold" id="totalReferrals">0</p>
+                </div>
+                <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
+                    <p class="text-green-100 text-sm mb-1">Total Earned</p>
+                    <p class="text-3xl font-bold" id="totalEarned">$0.00</p>
+                </div>
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
+                    <p class="text-purple-100 text-sm mb-1">Available Balance</p>
+                    <p class="text-3xl font-bold" id="availableBalance">$0.00</p>
+                </div>
+                <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
+                    <p class="text-orange-100 text-sm mb-1">Withdrawn</p>
+                    <p class="text-3xl font-bold" id="totalWithdrawn">$0.00</p>
+                </div>
+            </div>
+
+            <!-- Referral Code Section -->
+            <div class="bg-white/10 backdrop-blur-xl rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-bold mb-4">Your Referral Code</h2>
+                <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <div class="flex-1">
+                        <div class="bg-gray-100 rounded-lg p-4 border-2 border-dashed border-gray-300">
+                            <p class="text-sm text-gray-600 mb-1">Share this code:</p>
+                            <p class="text-3xl font-mono font-bold text-blue-600" id="referralCode">--------</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="copyReferralCode()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition">
+                            Copy Code
+                        </button>
+                        <button onclick="shareReferralLink()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition">
+                            Share Link
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <p class="text-sm text-blue-800">
+                        <strong>Referral Link:</strong> <span id="referralLink" class="font-mono">-</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Withdraw Section -->
+            <div class="bg-white/10 backdrop-blur-xl rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-bold  mb-4">Withdraw Bonus</h2>
+                <form id="withdrawForm" class="space-y-4 text-black">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-200 mb-2">Amount ($)</label>
+                            <input type="number" id="withdrawAmount" step="0.01" min="10" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                placeholder="Enter amount">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-200 mb-2">Withdrawal Method</label>
+                            <select id="withdrawMethod" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="">Select method</option>
+                                <option value="bank_transfer">Bank Transfer</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="crypto">Cryptocurrency</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-200 mb-2">Account Details</label>
+                        <textarea id="accountDetails" rows="3" 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                            placeholder="Enter your account details..."></textarea>
+                    </div>
+                    <button type="submit" 
+                        class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition">
+                        Request Withdrawal
+                    </button>
+                </form>
+            </div>
+
+            <!-- Referral History -->
+            <div class="bg-white/10 backdrop-blur-xl rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-200 mb-4">Referral History</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left py-3 px-4 text-gray-200 font-semibold">Date</th>
+                                <th class="text-left py-3 px-4 text-gray-200 font-semibold">User</th>
+                                <th class="text-left py-3 px-4 text-gray-200 font-semibold">Bonus</th>
+                                <th class="text-left py-3 px-4 text-gray-200 font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="referralHistory">
+                            <tr>
+                                <td colspan="4" class="text-center py-8 text-gray-100">No referrals yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Withdrawal History -->
+            <div class="bg-white/10 backdrop-blur-xl rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-200 mb-4">Withdrawal History</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left py-3 px-4 text-gray-200 font-semibold">Date</th>
+                                <th class="text-left py-3 px-4 text-gray-200 font-semibold">Amount</th>
+                                <th class="text-left py-3 px-4 text-gray-200 font-semibold">Method</th>
+                                <th class="text-left py-3 px-4 text-gray-200 font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="withdrawalHistory">
+                            <tr>
+                                <td colspan="4" class="text-center py-8 text-gray-100">No withdrawals yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-      <div class="text-center">
-    
-     <a href="add-balance.html" class="inline-block bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-6 px-12 rounded-xl text-xl transition transform hover:scale-105">
-        🚀 Add Balance To Purchase A Plan
-      </a>
-    </div>
-  </div>
 
-    <!-- Status Message -->
-    <div id="status" class="mb-6 p-4 rounded-lg hidden"></div>
-
-    <!-- Trading Plans Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-      
-      <!-- Bronze Plan -->
-      <div class="bg-gradient-to-br from-orange-600 to-orange-800 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition">
-        <div class="text-center">
-          <div class="text-4xl mb-4">🥉</div>
-          <h3 class="text-3xl font-bold mb-2">Bronze</h3>
-          <div class="text-5xl font-bold mb-4">$100</div>
-          <div class="text-xl mb-6">5% Monthly Returns</div>
-          <ul class="text-left space-y-3 mb-8">
-            <li>✓ $5/month profit</li>
-            <li>✓ Basic trading strategies</li>
-            <li>✓ Email support</li>
-            <li>✓ Weekly reports</li>
-          </ul>
-          <button onclick="purchasePlan('Bronze', 100, 5)" class="w-full bg-white text-orange-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition">
-            Get Bronze
-          </button>
-        </div>
-      </div>
-
-      <!-- Silver Plan -->
-      <div class="bg-gradient-to-br from-gray-400 to-gray-600 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition border-4 border-blue-400">
-        <div class="text-center">
-          <div class="text-4xl mb-4">🥈</div>
-          <h3 class="text-3xl font-bold mb-2">Silver</h3>
-          <div class="text-5xl font-bold mb-4">$500</div>
-          <div class="text-xl mb-6">8% Monthly Returns</div>
-          <ul class="text-left space-y-3 mb-8">
-            <li>✓ $40/month profit</li>
-            <li>✓ Advanced strategies</li>
-            <li>✓ Priority support</li>
-            <li>✓ Daily reports</li>
-            <li>✓ Risk management</li>
-          </ul>
-          <button onclick="purchasePlan('Silver', 500, 8)" class="w-full bg-white text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition">
-            Get Silver
-          </button>
-        </div>
-      </div>
-
-      <!-- Gold Plan (POPULAR) -->
-      <div class="bg-gradient-to-br from-yellow-500 to-yellow-700 rounded-2xl p-8 shadow-2xl transform hover:scale-110 transition border-4 border-green-400 relative">
-        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-1 rounded-full text-sm font-bold">
-          MOST POPULAR
-        </div>
-        <div class="text-center">
-          <div class="text-4xl mb-4">🥇</div>
-          <h3 class="text-3xl font-bold mb-2">Gold</h3>
-          <div class="text-5xl font-bold mb-4">$1,000</div>
-          <div class="text-xl mb-6">12% Monthly Returns</div>
-          <ul class="text-left space-y-3 mb-8">
-            <li>✓ $120/month profit</li>
-            <li>✓ Pro trading algorithms</li>
-            <li>✓ VIP support 24/7</li>
-            <li>✓ Real-time updates</li>
-            <li>✓ Dedicated account manager</li>
-            <li>✓ Custom strategies</li>
-          </ul>
-          <button onclick="purchasePlan('Gold', 1000, 12)" class="w-full bg-white text-yellow-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition">
-            Get Gold
-          </button>
-        </div>
-      </div>
-
-      <!-- Platinum Plan -->
-      <div class="bg-gradient-to-br from-purple-600 to-purple-900 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition">
-        <div class="text-center">
-          <div class="text-4xl mb-4">💎</div>
-          <h3 class="text-3xl font-bold mb-2">Platinum</h3>
-          <div class="text-5xl font-bold mb-4">$5,000</div>
-          <div class="text-xl mb-6">15% Monthly Returns</div>
-          <ul class="text-left space-y-3 mb-8">
-            <li>✓ $750/month profit</li>
-            <li>✓ Elite trading strategies</li>
-            <li>✓ Concierge support</li>
-            <li>✓ Live trading room access</li>
-            <li>✓ Personal trader assigned</li>
-            <li>✓ Custom portfolio management</li>
-            <li>✓ Exclusive market insights</li>
-          </ul>
-          <button onclick="purchasePlan('Platinum', 5000, 15)" class="w-full bg-white text-purple-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition">
-            Get Platinum
-          </button>
-        </div>
-      </div>
-
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-4 right-4 bg-green-600 text-white px-6 py-4 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300">
+        <p id="toastMessage"></p>
     </div>
 
-    <!-- Active Plans Section -->
-    <div class="bg-gray-800 rounded-2xl p-8 mb-8">
-      <h2 class="text-3xl font-bold mb-6">Your Active Plans</h2>
-      <div id="active-plans-list">
-        <p class="text-gray-400 text-center py-8">No active trading plans yet. Purchase a plan to start earning!</p>
-      </div>
-    </div>
-
-    <div class="text-center">
-      <a href="live-trading.html" class="inline-block bg-gray-700 hover:bg-gray-600 px-8 py-3 rounded-lg transition">
-        ← Back to Live Trading
-      </a>
-    
-  </div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  // === SUPABASE CONFIG ===
-  const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
-  let supabaseClient; // Changed variable name to avoid conflict
-
-  let currentUser = null;
-  let userBalance = 0;
-
-  // === STATUS HELPER ===
-  function showStatus(message, type = 'info') {
-    const status = document.getElementById('status');
-    status.textContent = message;
-    status.className = `mb-6 p-4 rounded-lg ${type === 'error' ? 'bg-red-600/20 border-2 border-red-500' : type === 'success' ? 'bg-green-600/20 border-2 border-green-500' : 'bg-blue-600/20 border-2 border-blue-500'}`;
-    status.classList.remove('hidden');
-    setTimeout(() => status.classList.add('hidden'), 5000);
-  }
-
-  // === WAIT FOR SUPABASE TO LOAD ===
-  function waitForSupabase(callback) {
-    if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
-      callback();
-    } else {
-      setTimeout(() => waitForSupabase(callback), 100);
-    }
-  }
-
-  // === INIT ===
-  waitForSupabase(async () => {
-    supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey); // Use supabaseClient consistently
-    
-    try {
-      const { data: { session }, error } = await supabaseClient.auth.getSession();
-      
-      if (error || !session) {
-        console.log('No session, redirecting...');
-        window.location.href = 'index.html';
-        return;
-      }
-      
-      currentUser = session.user;
-      console.log('User authenticated:', currentUser.email);
-      
-      await loadUserBalance();
-      await loadActivePlans();
-      
-    } catch (err) {
-      console.error('Auth error:', err);
-      window.location.href = 'index.html';
-    }
-  });
-
-  // === LOAD USER BALANCE ===
-  async function loadUserBalance() {
-    try {
-      const { data, error } = await supabaseClient
-        .from('users')
-        .select('trading_balance')
-        .eq('id', currentUser.id)
-        .single();
-      
-      if (error) {
-        console.error('Error loading balance:', error);
-        return;
-      }
-      
-      userBalance = parseFloat(data.trading_balance || 0);
-      document.getElementById('user-balance').textContent = `$${userBalance.toFixed(2)}`;
-    } catch (err) {
-      console.error('Balance load error:', err);
-    }
-  }
-
-  // === PURCHASE PLAN ===
-  async function purchasePlan(planName, amount, returnRate) {
-    if (!currentUser) {
-      showStatus('Please login first', 'error');
-      return;
-    }
-
-    if (userBalance < amount) {
-      showStatus(`Insufficient trading balance! You need $${amount} but have $${userBalance.toFixed(2)}. Please add more trading balance.`, 'error');
-      return;
-    }
-
-    const confirm = window.confirm(`Purchase ${planName} Plan for $${amount}?\n\nThis will deduct $${amount} from your trading balance.\nExpected monthly returns: ${returnRate}%`);
-    if (!confirm) return;
-
-    try {
-      // Deduct amount from TRADING balance
-      const newBalance = userBalance - amount;
-      const { error: balanceError } = await supabaseClient
-        .from('users')
-        .update({ trading_balance: newBalance })
-        .eq('id', currentUser.id);
-      
-      if (balanceError) throw balanceError;
-
-      // Create trading plan record
-      const { error: planError } = await supabaseClient
-        .from('live_trade_purchases')
-        .insert([{
-          user_id: currentUser.id,
-          plan_name: planName,
-          amount: amount,
-          return_rate: returnRate,
-          status: 'active',
-          created_at: new Date().toISOString(),
-          purchased_at: new Date().toISOString(),
-          expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
-        }]);
-      
-      if (planError) throw planError;
-
-      showStatus(`🎉 ${planName} Plan purchased successfully! You'll start earning ${returnRate}% monthly returns.`, 'success');
-      
-      // Reload data
-      await loadUserBalance();
-      await loadActivePlans();
-
-    } catch (err) {
-      console.error('Purchase error:', err);
-      showStatus('Purchase failed: ' + err.message, 'error');
-    }
-  }
-
-  // === LOAD ACTIVE PLANS ===
-  async function loadActivePlans() {
-    try {
-      const { data, error } = await supabaseClient
-        .from('live_trade_purchases')
-        .select('*')
-        .eq('user_id', currentUser.id)
-        .eq('status', 'active')
-        .order('purchased_at', { ascending: false });
-      
-      if (error) {
-        console.error('Error loading plans:', error);
-        return;
-      }
-
-      const list = document.getElementById('active-plans-list');
-      
-      if (!data || data.length === 0) {
-        list.innerHTML = '<p class="text-gray-400 text-center py-8">No active trading plans yet. Purchase a plan to start earning!</p>';
-        return;
-      }
-
-      list.innerHTML = data.map(plan => {
-        const purchaseDate = new Date(plan.purchased_at);
-        const expiryDate = new Date(plan.expires_at);
-        const expectedProfit = (plan.amount * plan.return_rate / 100).toFixed(2);
+    <script>
+        // Initialize Supabase client
+        const SUPABASE_URL = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
         
-        return `
-          <div class="bg-gray-700 rounded-xl p-6 mb-4">
-            <div class="grid md:grid-cols-4 gap-4">
-              <div>
-                <p class="text-gray-400 text-sm">Plan</p>
-                <p class="text-2xl font-bold">${plan.plan_name}</p>
-              </div>
-              <div>
-                <p class="text-gray-400 text-sm">Investment</p>
-                <p class="text-xl font-bold text-green-400">$${parseFloat(plan.amount).toFixed(2)}</p>
-              </div>
-              <div>
-                <p class="text-gray-400 text-sm">Monthly Returns</p>
-                <p class="text-xl font-bold text-blue-400">${plan.return_rate}% ($${expectedProfit})</p>
-              </div>
-              <div>
-                <p class="text-gray-400 text-sm">Status</p>
-                <p class="text-xl font-bold text-green-400">Active ✓</p>
-              </div>
-            </div>
-            <div class="mt-4 pt-4 border-t border-gray-600">
-              <p class="text-sm text-gray-400">
-                Purchased: ${purchaseDate.toLocaleDateString()} • 
-                Expires: ${expiryDate.toLocaleDateString()}
-              </p>
-            </div>
-          </div>
-        `;
-      }).join('');
-    } catch (err) {
-      console.error('Load plans error:', err);
-    }
-  }
+         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-</script>
+        let currentUser = null;
+        let userData = null;
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuth();
+            if (currentUser) {
+                await loadDashboardData();
+            }
+        });
+
+        // Check authentication
+        async function checkAuth() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) {
+                window.location.href = '/login.html';
+                return;
+            }
+            currentUser = user;
+        }
+
+        // Load all dashboard data
+        async function loadDashboardData() {
+            await Promise.all([
+                loadUserData(),
+                loadReferralHistory(),
+                loadWithdrawalHistory()
+            ]);
+        }
+
+        // Load user data and stats
+        async function loadUserData() {
+            const { data, error } = await supabaseClient
+                .from('users')
+                .select('*')
+                .eq('id', currentUser.id)
+                .single();
+
+            if (error) {
+                showToast('Error loading user data', 'error');
+                return;
+            }
+
+            userData = data;
+            
+            // Update UI
+            document.getElementById('referralCode').textContent = data.referral_code || '--------';
+            document.getElementById('totalReferrals').textContent = data.total_referrals || 0;
+            document.getElementById('totalEarned').textContent = `$${(data.referral_bonus || 0).toFixed(2)}`;
+            document.getElementById('availableBalance').textContent = `$${(data.referral_bonus || 0).toFixed(2)}`;
+            
+            // Update referral link
+            const baseUrl = window.location.origin;
+            const referralLink = `${baseUrl}/signup.html?ref=${data.referral_code}`;
+            document.getElementById('referralLink').textContent = referralLink;
+
+            // Calculate total withdrawn
+            await calculateTotalWithdrawn();
+        }
+
+        // Calculate total withdrawn amount
+        async function calculateTotalWithdrawn() {
+            const { data, error } = await supabaseClient
+                .from('referral_withdrawals')
+                .select('amount')
+                .eq('user_id', currentUser.id)
+                .eq('status', 'completed');
+
+            if (!error && data) {
+                const total = data.reduce((sum, w) => sum + parseFloat(w.amount), 0);
+                document.getElementById('totalWithdrawn').textContent = `$${total.toFixed(2)}`;
+            }
+        }
+
+        // Load referral history
+        async function loadReferralHistory() {
+            const { data, error } = await supabaseClient
+                .from('referrals')
+                .select(`
+                    *,
+                    referred_user:referred_user_id(email, full_name)
+                `)
+                .eq('referrer_user_id', currentUser.id)
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error loading referrals:', error);
+                return;
+            }
+
+            const tbody = document.getElementById('referralHistory');
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-gray-500">No referrals yet</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map(ref => `
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">${new Date(ref.created_at).toLocaleDateString()}</td>
+                    <td class="py-3 px-4">${ref.referred_user?.email || 'Unknown'}</td>
+                    <td class="py-3 px-4 font-semibold text-green-600">$${parseFloat(ref.bonus_amount).toFixed(2)}</td>
+                    <td class="py-3 px-4">
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold ${ref.bonus_paid ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                            ${ref.bonus_paid ? 'Paid' : 'Pending'}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Load withdrawal history
+        async function loadWithdrawalHistory() {
+            const { data, error } = await supabaseClient
+                .from('referral_withdrawals')
+                .select('*')
+                .eq('user_id', currentUser.id)
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error loading withdrawals:', error);
+                return;
+            }
+
+            const tbody = document.getElementById('withdrawalHistory');
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-gray-500">No withdrawals yet</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map(w => {
+                const statusColors = {
+                    pending: 'bg-yellow-100 text-yellow-800',
+                    completed: 'bg-green-100 text-green-800',
+                    rejected: 'bg-red-100 text-red-800'
+                };
+                
+                return `
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="py-3 px-4">${new Date(w.created_at).toLocaleDateString()}</td>
+                        <td class="py-3 px-4 font-semibold">$${parseFloat(w.amount).toFixed(2)}</td>
+                        <td class="py-3 px-4">${w.withdrawal_method || '-'}</td>
+                        <td class="py-3 px-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold ${statusColors[w.status]}">
+                                ${w.status.charAt(0).toUpperCase() + w.status.slice(1)}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Copy referral code
+        function copyReferralCode() {
+            const code = document.getElementById('referralCode').textContent;
+            navigator.clipboard.writeText(code);
+            showToast('Referral code copied to clipboard!');
+        }
+
+        // Share referral link
+        function shareReferralLink() {
+            const link = document.getElementById('referralLink').textContent;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Join our investment platform',
+                    text: `Use my referral code: ${userData.referral_code}`,
+                    url: link
+                });
+            } else {
+                navigator.clipboard.writeText(link);
+                showToast('Referral link copied to clipboard!');
+            }
+        }
+// REPLACE the existing withdrawForm event listener with this:
+document.getElementById('withdrawForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const amount = parseFloat(document.getElementById('withdrawAmount').value);
+    const method = document.getElementById('withdrawMethod').value;
+    const details = document.getElementById('accountDetails').value;
+
+    // Validation
+    if (!amount || amount < 10) {
+        showToast('Minimum withdrawal amount is $10', 'error');
+        return;
+    }
+
+    if (amount > userData.referral_bonus) {
+        showToast('Insufficient balance', 'error');
+        return;
+    }
+
+    if (!method) {
+        showToast('Please select a withdrawal method', 'error');
+        return;
+    }
+
+    if (!details) {
+        showToast('Please provide account details', 'error');
+        return;
+    }
+
+    try {
+        // 1. Deduct from available balance IMMEDIATELY
+        const newBalance = userData.referral_bonus - amount;
+        
+        const { error: balanceError } = await supabaseClient
+            .from('users')
+            .update({ referral_bonus: newBalance })
+            .eq('id', currentUser.id);
+
+        if (balanceError) throw balanceError;
+
+        console.log(`💰 Deducted $${amount} from referral bonus`);
+
+        // 2. Submit withdrawal request
+        const { error: insertError } = await supabaseClient
+            .from('referral_withdrawals')
+            .insert([{
+                user_id: currentUser.id,
+                amount: amount,
+                status: 'pending',
+                withdrawal_method: method,
+                account_details: details,
+                created_at: new Date().toISOString()
+            }]);
+
+        if (insertError) throw insertError;
+
+        showToast('✅ Withdrawal request submitted successfully! Funds deducted from your balance.', 'success');
+        
+        // Reset form and reload data
+        e.target.reset();
+        await loadDashboardData();
+
+    } catch (error) {
+        console.error('Withdrawal error:', error);
+        showToast('Error: ' + error.message, 'error');
+    }
+});
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toast.className = `fixed top-4 right-4 px-6 py-4 rounded-lg shadow-lg transition-transform duration-300 ${
+                type === 'error' ? 'bg-red-600' : 'bg-green-600'
+            } text-white`;
+            
+            toastMessage.textContent = message;
+            toast.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(150%)';
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
