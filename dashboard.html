@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9CKEEJKSDQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9CKEEJKSDQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-9CKEEJKSDQ');
-</script>
+    gtag('config', 'G-9CKEEJKSDQ');
+  </script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Essential SEO -->
-<meta name="description" content="DailyTrader - Professional cryptocurrency trading platform. Trade Bitcoin, Ethereum, and earn profits with expert strategies.">
-<meta name="keywords" content="crypto trading, cryptocurrency, bitcoin, ethereum, trading platform, investment">
-<meta name="author" content="DailyTrader">
+  <meta name="description"
+    content="DailyTrader - Professional cryptocurrency trading platform. Trade Bitcoin, Ethereum, and earn profits with expert strategies.">
+  <meta name="keywords" content="crypto trading, cryptocurrency, bitcoin, ethereum, trading platform, investment">
+  <meta name="author" content="DailyTrader">
 
-<!-- Open Graph -->
-<meta property="og:title" content="DailyTrader - Cryptocurrency Trading Platform">
-<meta property="og:description" content="Trade cryptocurrencies, earn profits, and grow your wealth">
-<meta property="og:image" content="https://dailytrader.site/og-image.jpg">
-<meta property="og:url" content="https://dailytrader.site/">
-<meta property="og:type" content="website">
+  <!-- Open Graph -->
+  <meta property="og:title" content="DailyTrader - Cryptocurrency Trading Platform">
+  <meta property="og:description" content="Trade cryptocurrencies, earn profits, and grow your wealth">
+  <meta property="og:image" content="https://dailytrader.site/og-image.jpg">
+  <meta property="og:url" content="https://dailytrader.site/">
+  <meta property="og:type" content="website">
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="DailyTrader - Crypto Trading">
-<meta name="twitter:description" content="Professional cryptocurrency trading platform">
-<meta name="twitter:image" content="https://dailytrader.site/og-image.jpg">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DailyTrader - Crypto Trading">
+  <meta name="twitter:description" content="Professional cryptocurrency trading platform">
+  <meta name="twitter:image" content="https://dailytrader.site/og-image.jpg">
 
-<!-- Canonical -->
-<link rel="canonical" href="https://dailytrader.site/">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://dailytrader.site/">
   <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/icon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/icon.png">
@@ -44,85 +46,111 @@
   <!-- TradingView Widget -->
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <script>
-  tailwind.config = {
-    theme: {
-      extend: {}
+    tailwind.config = {
+      theme: {
+        extend: {}
+      }
     }
-  }
-</script>
+  </script>
 
   <style>
     /* small extra for overlay scrollbar when sidebar open on mobile */
-    .no-scroll { overflow: hidden; }
+    .no-scroll {
+      overflow: hidden;
+    }
+
     /* Loading spinner animation */
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-.spinner {
-  animation: spin 1s linear infinite;
-}
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
 
-/* Fade in/out animations */
-.fade-in {
-  animation: fadeIn 0.3s ease-in;
-}
+    /* Fade in/out animations */
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
 
-.fade-out {
-  animation: fadeOut 0.3s ease-out;
-}
+    .fade-out {
+      animation: fadeOut 0.3s ease-out;
+    }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
 
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
+      to {
+        opacity: 1;
+      }
+    }
 
-/* Pulse animation for text */
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
 
-.pulse-text {
-  animation: pulse 1.5s ease-in-out infinite;
-}
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* Pulse animation for text */
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .pulse-text {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
   </style>
 </head>
+
 <body class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen">
 
   <!-- Toasts -->
-  <div id="toast" class="fixed top-4 right-4 z-50 px-6 py-4 rounded-lg bg-green-600 shadow-2xl flex items-center gap-3 opacity-0 transition-opacity duration-300">
+  <div id="toast"
+    class="fixed top-4 right-4 z-50 px-6 py-4 rounded-lg bg-green-600 shadow-2xl flex items-center gap-3 opacity-0 transition-opacity duration-300">
     <i data-lucide="check-circle"></i> <span id="toast-msg"></span>
   </div>
-  <div id="toast-error" class="fixed top-4 right-4 z-50 px-6 py-4 rounded-lg bg-red-600 shadow-2xl flex items-center gap-3 opacity-0 transition-opacity duration-300">
+  <div id="toast-error"
+    class="fixed top-4 right-4 z-50 px-6 py-4 rounded-lg bg-red-600 shadow-2xl flex items-center gap-3 opacity-0 transition-opacity duration-300">
     <i data-lucide="alert-circle"></i> <span id="toast-error-msg"></span>
   </div>
 
- <!-- Loading Screen Overlay -->
-<div id="loading-screen" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 fade-in">
-  <div class="text-center">
-    <!-- Spinner -->
-    <div class="mb-6 flex justify-center">
-      <div class="spinner w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-    </div>
-    
-    <!-- Loading Text -->
-    <h2 class="text-3xl font-bold text-white mb-2 pulse-text">DailyTrader</h2>
-    <p class="text-lg text-gray-300" id="loading-text">Loading...</p>
-    
-    <!-- Progress Dots -->
-    <div class="flex justify-center gap-2 mt-4">
-      <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0s;"></div>
-      <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
-      <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+  <!-- Loading Screen Overlay -->
+  <div id="loading-screen"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 fade-in">
+    <div class="text-center">
+      <!-- Spinner -->
+      <div class="mb-6 flex justify-center">
+        <div class="spinner w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+      </div>
+
+      <!-- Loading Text -->
+      <h2 class="text-3xl font-bold text-white mb-2 pulse-text">DailyTrader</h2>
+      <p class="text-lg text-gray-300" id="loading-text">Loading...</p>
+
+      <!-- Progress Dots -->
+      <div class="flex justify-center gap-2 mt-4">
+        <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+        <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+        <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+      </div>
     </div>
   </div>
-</div>
   <!-- Dashboard -->
   <div id="dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
     <!-- mobile header: menu + title + profile initials -->
@@ -130,98 +158,114 @@
       <button id="mobile-menu-btn" class="p-2 rounded-md bg-slate-800/60">
         <i data-lucide="menu"></i>
       </button>
-     <div class="flex items-center gap-2 text-2xl font-bold">
-           <img src="icon.png" alt="DailyTrader Logo" class="w-8 h-8 rounded">
-          <span>DailyTrader</span>
-        </div>
-      <button id="mobile-profile-btn" class="w-9 h-9 rounded-full bg-green-600 flex items-center justify-center text-black font-bold">--</button>
+      <div class="flex items-center gap-2 text-2xl font-bold">
+        <img src="icon.png" alt="DailyTrader Logo" class="w-8 h-8 rounded">
+        <span>DailyTrader</span>
+      </div>
+      <button id="mobile-profile-btn"
+        class="w-9 h-9 rounded-full bg-green-600 flex items-center justify-center text-black font-bold">--</button>
     </header>
-<!-- Sidebar -->
-<aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-80 bg-slate-800/95 backdrop-blur-lg border-r border-slate-700 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col">
-  
-  <!-- Header (fixed) -->
- <div class="flex items-center justify-between p-8 pb-6">
-   <div class="flex items-center gap-2 text-2xl font-bold">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-80 bg-slate-800/95 backdrop-blur-lg border-r border-slate-700 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col">
+
+      <!-- Header (fixed) -->
+      <div class="flex items-center justify-between p-8 pb-6">
+        <div class="flex items-center gap-2 text-2xl font-bold">
           <img src="icon.png" alt="DailyTrader Logo" class="w-8 h-8 rounded">
           <span>DailyTrader</span>
-   </div>
-    <button id="sidebar-close" class="md:hidden p-2 rounded-md bg-slate-700/40">
-      <i data-lucide="x"></i>
-    </button>
-  </div>
-  
-  <!-- Scrollable Navigation -->
-  <nav class="flex-1 overflow-y-auto px-8 space-y-4">
-    <button id="nav-home" class="w-full text-left px-6 py-5 rounded-xl bg-blue-600/30 text-blue-400 text-xl hover:bg-blue-600/40 transition flex items-center justify-between">
-       <i data-lucide="layout-dashboard"></i>Dashboard
-      <span id="count-overall" class="text-sm text-white/80"></span>
-    </button>
-    
-    <button id="nav-deposit" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center justify-between gap-8">
-      <i data-lucide="arrow-down-circle"></i> <span>Deposit</span>
-      <span id="count-deposits" class="text-sm text-white/80"></span>
-    </button>
-    
-    <button id="nav-withdraw" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center justify-between">
-        <i data-lucide="arrow-up-circle"></i><span>Withdraw</span>
-      <span id="count-withdrawals" class="text-sm text-white/80"></span>
-    </button>
-    
-    <button id="nav-trade" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-12">
-      <i data-lucide="trending-up"></i>
-      <span>Trade</span>
-    </button>
-    
-    <button id="nav-live-trade" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-12">
-      <i data-lucide="activity" class="w-5 h-5"></i>
-      <span>Live Trade</span>
-    </button>
-    
-    <button id="nav-bot" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-12">
-      <i data-lucide="bot" class="w-5 h-5"></i>
-      <span>Bot</span>
-    </button>
-    
-    <button id="nav-transactions" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex item center gap-10">
-      <i data-lucide="history" ></i>
-      <span> Transactions</span> 
-    </button>
-    
-    <button id="nav-kyc" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-10">
-      <i data-lucide="camera" ></i>
-      <span>KYC</span>
-    </button>
-<button onclick="showLoading('Loading referrals...', 1000); setTimeout(() => window.location.href = 'referral-dashboard.html', 1000)" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-10">
-  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-  </svg>
-  <span>Referrals</span>
-</button>
- 
-    <button id="nav-settings" class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex gap-4">
-         <i data-lucide="settings" ></i>Account Settings
-    </button>
-    
-    <!-- Logout Button -->
-    <button id="btn-logout" class="w-full text-left px-6 py-5 rounded-xl hover:bg-red-600/20 text-red-400 text-xl transition flex items-center gap-7">
-      <i data-lucide="log-out" class="w-5 h-5"></i>
-      <span>Logout</span>
-    </button>
-  </nav>
-  
-  <!-- Profile Section (fixed at bottom) -->
-  <div class="p-8 pt-4 border-t border-slate-700 mt-auto">
-    <p class="text-sm text-gray-400 mb-3">Profile</p>
-    <div class="flex items-center gap-3">
-      <div id="sidebar-initials" class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center text-black font-bold text-lg">--</div>
-      <div class="flex-1 min-w-0">
-        <div id="sidebar-username" class="text-white font-semibold truncate">User</div>
-        <div id="sidebar-email" class="text-gray-400 text-xs truncate">user@email.com</div>
+        </div>
+        <button id="sidebar-close" class="md:hidden p-2 rounded-md bg-slate-700/40">
+          <i data-lucide="x"></i>
+        </button>
       </div>
-    </div>
-  </div>
-</aside>
+
+      <!-- Scrollable Navigation -->
+      <nav class="flex-1 overflow-y-auto px-8 space-y-4">
+        <button id="nav-home"
+          class="w-full text-left px-6 py-5 rounded-xl bg-blue-600/30 text-blue-400 text-xl hover:bg-blue-600/40 transition flex items-center justify-between">
+          <i data-lucide="layout-dashboard"></i>Dashboard
+          <span id="count-overall" class="text-sm text-white/80"></span>
+        </button>
+
+        <button id="nav-deposit"
+          class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center justify-between gap-8">
+          <i data-lucide="arrow-down-circle"></i> <span>Deposit</span>
+          <span id="count-deposits" class="text-sm text-white/80"></span>
+        </button>
+
+        <button id="nav-withdraw"
+          class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center justify-between">
+          <i data-lucide="arrow-up-circle"></i><span>Withdraw</span>
+          <span id="count-withdrawals" class="text-sm text-white/80"></span>
+        </button>
+
+        <button id="nav-trade"
+          class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-12">
+          <i data-lucide="trending-up"></i>
+          <span>Trade</span>
+        </button>
+
+        <button id="nav-live-trade"
+          class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-12">
+          <i data-lucide="activity" class="w-5 h-5"></i>
+          <span>Live Trade</span>
+        </button>
+
+        <button id="nav-bot"
+          class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-12">
+          <i data-lucide="bot" class="w-5 h-5"></i>
+          <span>Bot</span>
+        </button>
+
+        <button id="nav-transactions"
+          class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex item center gap-10">
+          <i data-lucide="history"></i>
+          <span> Transactions</span>
+        </button>
+
+        <button id="nav-kyc"
+          class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-10">
+          <i data-lucide="camera"></i>
+          <span>KYC</span>
+        </button>
+        <button
+          onclick="showLoading('Loading referrals...', 1000); setTimeout(() => window.location.href = 'referral-dashboard.html', 1000)"
+          class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex items-center gap-10">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span>Referrals</span>
+        </button>
+
+        <button id="nav-settings"
+          class="w-full text-left px-6 py-5 rounded-xl hover:bg-white/10 text-xl transition flex gap-4">
+          <i data-lucide="settings"></i>Account Settings
+        </button>
+
+        <!-- Logout Button -->
+        <button id="btn-logout"
+          class="w-full text-left px-6 py-5 rounded-xl hover:bg-red-600/20 text-red-400 text-xl transition flex items-center gap-7">
+          <i data-lucide="log-out" class="w-5 h-5"></i>
+          <span>Logout</span>
+        </button>
+      </nav>
+
+      <!-- Profile Section (fixed at bottom) -->
+      <div class="p-8 pt-4 border-t border-slate-700 mt-auto">
+        <p class="text-sm text-gray-400 mb-3">Profile</p>
+        <div class="flex items-center gap-3">
+          <div id="sidebar-initials"
+            class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center text-black font-bold text-lg">--
+          </div>
+          <div class="flex-1 min-w-0">
+            <div id="sidebar-username" class="text-white font-semibold truncate">User</div>
+            <div id="sidebar-email" class="text-gray-400 text-xs truncate">user@email.com</div>
+          </div>
+        </div>
+      </div>
+    </aside>
 
     <!-- overlay for mobile when sidebar open -->
     <div id="overlay" class="fixed inset-0 z-30 bg-black/40 hidden md:hidden"></div>
@@ -229,7 +273,9 @@
     <main id="main-area" class="flex-1 p-6 md:p-12 overflow-auto ml-0 md:ml-80">
       <!-- top bar for desktop: profile initials on right -->
       <div class="hidden md:flex items-center justify-end mb-6 gap-4">
-        <div id="top-initials" class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-black font-bold cursor-pointer">--</div>
+        <div id="top-initials"
+          class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-black font-bold cursor-pointer">
+          --</div>
       </div>
 
       <div id="home">
@@ -255,7 +301,7 @@
           <div class="bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl p-6 text-center shadow-2xl">
             <p class="text-2xl mb-2">Total</p>
             <p class="text-4xl font-bold" id="total">$0.00</p>
-             
+
           </div>
         </div>
 
@@ -277,62 +323,63 @@
           </div>
         </div>
       </div>
-<div id="deposit" class="hidden">
-  <h2 class="text-5xl font-bold mb-10">Deposit Funds</h2>
-  <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-12 max-w-2xl mx-auto">
+      <div id="deposit" class="hidden">
+        <h2 class="text-5xl font-bold mb-10">Deposit Funds</h2>
+        <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-12 max-w-2xl mx-auto">
 
-    <!-- Amount input -->
-    <label class="block text-2xl mb-4">Amount (USD)</label>
-    <input type="number" id="dep-amount" min="300" placeholder="1000" class="w-full px-8 py-6 bg-white/10 rounded-xl text-4xl mb-4 text-center border border-white/20 focus:border-blue-500 focus:outline-none">
-    <p class="text-gray-300 mb-6 text-center">Minimum deposit: $300</p>
+          <!-- Amount input -->
+          <label class="block text-2xl mb-4">Amount (USD)</label>
+          <input type="number" id="dep-amount" min="300" placeholder="1000"
+            class="w-full px-8 py-6 bg-white/10 rounded-xl text-4xl mb-4 text-center border border-white/20 focus:border-blue-500 focus:outline-none">
+          <p class="text-gray-300 mb-6 text-center">Minimum deposit: $300</p>
 
-    <!-- Wallet address -->
-    <div class="mb-6">
-      <label class="block text-sm font-medium mb-2">Wallet Address</label>
-      <div class="bg-slate-700/50 rounded-lg p-4 font-mono text-sm break-all">
-        
-      
-       <div class="bg-gray-700 p-4 rounded-lg">
-          <p class="font-bold mb-2">Bitcoin (BTC)</p>
-          <p class="text-sm text-gray-300 break-all">bc1q969jpm4wjq90wyz0ur959wf7029d930a256ju3</p>
-        </div>
-       
-        <div class="bg-gray-700 p-4 rounded-lg">
-          <p class="font-bold mb-2">USDT (TRC20)</p>
-          <p class="text-sm text-gray-300 break-all">0xFF263A697641c4943a58296291f7f68607Da9F05</p>
+          <!-- Wallet address -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium mb-2">Wallet Address</label>
+            <div class="bg-slate-700/50 rounded-lg p-4 font-mono text-sm break-all">
+
+
+              <div class="bg-gray-700 p-4 rounded-lg">
+                <p class="font-bold mb-2">Bitcoin (BTC)</p>
+                <p class="text-sm text-gray-300 break-all">bc1q969jpm4wjq90wyz0ur959wf7029d930a256ju3</p>
+              </div>
+
+              <div class="bg-gray-700 p-4 rounded-lg">
+                <p class="font-bold mb-2">USDT (TRC20)</p>
+                <p class="text-sm text-gray-300 break-all">0xFF263A697641c4943a58296291f7f68607Da9F05</p>
+              </div>
+            </div>
+            <p class="text-sm text-yellow-400 mt-4">⚠️ Send ONLY crypto to these addresses. Other coins may be lost!</p>
+
+          </div>
+
+          <!-- File upload -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium mb-2">Proof of Payment *</label>
+            <div
+              class="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center hover:border-blue-500 transition">
+              <input type="file" id="deposit-proof-file" accept="image/*,.pdf" class="hidden"
+                onchange="displayFileName(this, 'deposit')">
+              <label for="deposit-proof-file" class="cursor-pointer">
+                <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                <p class="text-sm text-gray-400">Click to upload proof</p>
+                <p class="text-xs text-gray-500 mt-1">PNG, JPG, PDF up to 5MB</p>
+              </label>
+            </div>
+            <p id="deposit-file-name" class="text-sm text-green-400 mt-2 hidden"></p>
+          </div>
+
+          <!-- THIS BUTTON IS SAFE -->
+          <button type="button" id="btn-deposit" onclick="submitDeposit()"
+            class="w-full bg-green-600 py-6 rounded-xl text-3xl font-bold hover:bg-green-700 transition">
+            Submit Deposit
+          </button>
+
         </div>
       </div>
-      <p class="text-sm text-yellow-400 mt-4">⚠️ Send ONLY crypto to these addresses. Other coins may be lost!</p>
-    
-    </div>
-
-    <!-- File upload -->
-    <div class="mb-6">
-      <label class="block text-sm font-medium mb-2">Proof of Payment *</label>
-      <div class="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center hover:border-blue-500 transition">
-        <input type="file" id="deposit-proof-file" accept="image/*,.pdf" class="hidden" onchange="displayFileName(this, 'deposit')">
-        <label for="deposit-proof-file" class="cursor-pointer">
-          <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-          </svg>
-          <p class="text-sm text-gray-400">Click to upload proof</p>
-          <p class="text-xs text-gray-500 mt-1">PNG, JPG, PDF up to 5MB</p>
-        </label>
-      </div>
-      <p id="deposit-file-name" class="text-sm text-green-400 mt-2 hidden"></p>
-    </div>
-
-    <!-- THIS BUTTON IS SAFE -->
-    <button 
-      type="button" 
-      id="btn-deposit" 
-      onclick="submitDeposit()" 
-      class="w-full bg-green-600 py-6 rounded-xl text-3xl font-bold hover:bg-green-700 transition">
-      Submit Deposit
-    </button>
-
-  </div>
-</div>
 
       <div id="withdraw" class="hidden">
         <h2 class="text-5xl font-bold mb-10">Withdraw Funds</h2>
@@ -342,16 +389,20 @@
           </div>
 
           <label class="block text-2xl mb-2">Amount (USD)</label>
-          <input type="number" id="withdraw-amount" min="50" placeholder="500" class="w-full px-8 py-4 bg-white/10 rounded-xl text-2xl text-center border border-white/20 focus:border-blue-500 focus:outline-none">
+          <input type="number" id="withdraw-amount" min="50" placeholder="500"
+            class="w-full px-8 py-4 bg-white/10 rounded-xl text-2xl text-center border border-white/20 focus:border-blue-500 focus:outline-none">
 
           <label class="block text-2xl mb-2">Destination Wallet </label>
-          <input type="text" id="withdraw-destination" placeholder="Wallet address" class="w-full px-6 py-4 bg-white/10 rounded-xl text-lg mb-4 border border-white/20">
+          <input type="text" id="withdraw-destination" placeholder="Wallet address"
+            class="w-full px-6 py-4 bg-white/10 rounded-xl text-lg mb-4 border border-white/20">
 
           <div class="flex gap-4">
-            <button id="btn-withdraw" class="flex-1 bg-green-600 py-4 rounded-xl text-2xl font-bold hover:bg-blue-700 transition">
+            <button id="btn-withdraw"
+              class="flex-1 bg-green-600 py-4 rounded-xl text-2xl font-bold hover:bg-blue-700 transition">
               Request Withdrawal
             </button>
-            <button id="btn-save-withdraw-info" class="bg-white/10 py-4 px-6 rounded-xl text-lg hover:bg-white/20 transition">
+            <button id="btn-save-withdraw-info"
+              class="bg-white/10 py-4 px-6 rounded-xl text-lg hover:bg-white/20 transition">
               Save as default
             </button>
           </div>
@@ -363,46 +414,51 @@
         <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-12 max-w-2xl mx-auto space-y-8">
           <div>
             <label class="block text-2xl mb-4">ID Front</label>
-            <input type="file" id="kyc-front" accept="image/*" class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
+            <input type="file" id="kyc-front" accept="image/*"
+              class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
           </div>
           <div>
             <label class="block text-2xl mb-4">ID Back</label>
-            <input type="file" id="kyc-back" accept="image/*" class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
+            <input type="file" id="kyc-back" accept="image/*"
+              class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
           </div>
 
-      
 
-<!-- Selfie with ID -->
-<div>
-  <label class="block text-2xl mb-4">Selfie with ID</label>
-  <input type="file" id="selfie" accept="image/*"  class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
-  <p class="text-xs text-gray-400 mt-1">Take a selfie holding your ID next to your face</p>
-</div>
 
-<!-- Full Name -->
-<div>
-  <label class="block text-2xl mb-4">Full Name (as on ID)</label>
-  <input type="text" id="full-name"  class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
-</div>
+          <!-- Selfie with ID -->
+          <div>
+            <label class="block text-2xl mb-4">Selfie with ID</label>
+            <input type="file" id="selfie" accept="image/*"
+              class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
+            <p class="text-xs text-gray-400 mt-1">Take a selfie holding your ID next to your face</p>
+          </div>
 
-<!-- ID Number -->
-<div>
-  <label class="block text-2xl mb-4">ID Number</label>
-  <input type="text" id="id-number"  class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
-</div>
+          <!-- Full Name -->
+          <div>
+            <label class="block text-2xl mb-4">Full Name (as on ID)</label>
+            <input type="text" id="full-name" class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
+          </div>
 
-<!-- Date of Birth -->
-<div>
-  <label class="block text-2xl mb-4">Date of Birth</label>
-  <input type="date" id="dob"  class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
-</div>
+          <!-- ID Number -->
+          <div>
+            <label class="block text-2xl mb-4">ID Number</label>
+            <input type="text" id="id-number" class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
+          </div>
 
-<!-- Address -->
-<div>
-  <label class="block text-2xl mb-4">Residential Address</label>
-  <textarea id="address" rows="3" placeholder="Enter your full address"  class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20"></textarea>
-</div>
-          <button id="btn-kyc" class="w-full bg-green-600 py-6 rounded-xl text-3xl font-bold hover:bg-green-700 transition">
+          <!-- Date of Birth -->
+          <div>
+            <label class="block text-2xl mb-4">Date of Birth</label>
+            <input type="date" id="dob" class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20">
+          </div>
+
+          <!-- Address -->
+          <div>
+            <label class="block text-2xl mb-4">Residential Address</label>
+            <textarea id="address" rows="3" placeholder="Enter your full address"
+              class="w-full px-6 py-4 bg-white/10 rounded-xl border border-white/20"></textarea>
+          </div>
+          <button id="btn-kyc"
+            class="w-full bg-green-600 py-6 rounded-xl text-3xl font-bold hover:bg-green-700 transition">
             Submit KYC
           </button>
         </div>
@@ -416,798 +472,813 @@
       </div>
 
       <!-- Account Settings Section -->
-<div id="settings" class="hidden">
-  <div class="flex items-center justify-between mb-8">
-    <h2 class="text-4xl font-bold">Account Settings</h2>
-  </div>
-
-  <!-- Profile Information Card -->
-  <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 mb-6">
-    <h3 class="text-2xl font-semibold mb-6">Profile Information</h3>
-    
-    <form id="profile-form" class="space-y-6">
-      <!-- Username -->
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Username</label>
-        <input 
-          type="text" 
-          id="settings-username" 
-          class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-500 text-white"
-          placeholder="Enter username"
-        >
-      </div>
-
-      <!-- Email (Read-only) -->
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-        <input 
-          type="email" 
-          id="settings-email" 
-          class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-gray-400 cursor-not-allowed"
-          readonly
-        >
-        <p class="text-xs text-gray-500 mt-1">Email cannot be changed</p>
-      </div>
-
-      <!-- Phone Number -->
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
-        <input 
-          type="tel" 
-          id="settings-phone" 
-          class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-500 text-white"
-          placeholder="Enter phone number"
-        >
-      </div>
-
-      <!-- Account Balance (Read-only) -->
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Account Balance</label>
-        <input 
-          type="text" 
-          id="settings-balance" 
-          class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-green-400 cursor-not-allowed font-semibold text-xl"
-          readonly
-        >
-      </div>
-
-      <!-- Save Button -->
-      <button 
-        type="submit" 
-        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
-      >
-        Save Changes
-      </button>
-    </form>
-  </div>
-
-  <!-- Change Password Card -->
-  <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 mb-6">
-    <h3 class="text-2xl font-semibold mb-6">Change Password</h3>
-    
-    <form id="password-form" class="space-y-6">
-      <!-- Current Password -->
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Current Password</label>
-        <input 
-          type="password" 
-          id="current-password" 
-          class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-500 text-white"
-          placeholder="Enter current password"
-        >
-      </div>
-
-      <!-- New Password -->
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">New Password</label>
-        <input 
-          type="password" 
-          id="new-password" 
-          class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-500 text-white"
-          placeholder="Enter new password"
-        >
-      </div>
-
-      <!-- Confirm New Password -->
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Confirm New Password</label>
-        <input 
-          type="password" 
-          id="confirm-password" 
-          class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-500 text-white"
-          placeholder="Confirm new password"
-        >
-      </div>
-
-      <!-- Change Password Button -->
-      <button 
-        type="submit" 
-        class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
-      >
-        Change Password
-      </button>
-    </form>
-  </div>
-
-  <!-- Account Info Card -->
-  <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6">
-    <h3 class="text-2xl font-semibold mb-4">Account Information</h3>
-    <div class="space-y-3 text-gray-300">
-      <div class="flex justify-between py-2 border-b border-white/10">
-        <span class="text-gray-400">Account Status:</span>
-        <span class="text-green-400 font-semibold">Active</span>
-      </div>
-      <div class="flex justify-between py-2 border-b border-white/10">
-        <span class="text-gray-400">Member Since:</span>
-        <span id="settings-joined-date">Loading...</span>
-      </div>
-      <div class="flex justify-between py-2 border-b border-white/10">
-        <span class="text-gray-400">KYC Status:</span>
-        <span id="settings-kyc-status" class="text-yellow-400">Pending</span>
-      </div>
-      <div class="flex justify-between py-2">
-        <span class="text-gray-400">User ID:</span>
-        <span id="settings-user-id" class="text-xs text-gray-500">Loading...</span>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Trade Section -->
-<div id="trade" class="tab-content hidden">
-  <div class="text-center py-20">
-    <div class="max-w-2xl mx-auto">
-      <div class="mb-8">
-        <div class="text-6xl mb-4">📊</div>
-        <h2 class="text-4xl font-bold mb-4">Live Trading</h2>
-        <p class="text-xl text-gray-300 mb-8">
-          Access real-time cryptocurrency charts and professional trading tools
-        </p>
-      </div>
-      
-      <a href="#" onclick="showLoading('Loading live trading...', 1500); setTimeout(() => window.location.href = 'live-trading.html', 1500); return false;" class="inline-block bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-6 px-12 rounded-xl text-xl transition transform hover:scale-105">
-  🚀 Go to Live Trading
-</a>
-      
-      <div class="mt-12 grid md:grid-cols-3 gap-6 text-left">
-        <div class="bg-gray-800 rounded-xl p-6">
-          <div class="text-3xl mb-3">📈</div>
-          <h3 class="font-bold text-lg mb-2">Real-Time Charts</h3>
-          <p class="text-gray-400 text-sm">TradingView charts with multiple cryptocurrencies</p>
+      <div id="settings" class="hidden">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-4xl font-bold">Account Settings</h2>
         </div>
-        <div class="bg-gray-800 rounded-xl p-6">
-          <div class="text-3xl mb-3">💰</div>
-          <h3 class="font-bold text-lg mb-2">Active Plans</h3>
-          <p class="text-gray-400 text-sm">Track your trading plan investments and returns</p>
+
+        <!-- Profile Information Card -->
+        <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 mb-6">
+          <h3 class="text-2xl font-semibold mb-6">Profile Information</h3>
+
+          <form id="profile-form" class="space-y-6">
+            <!-- Username -->
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Username</label>
+              <input type="text" id="settings-username"
+                class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-500 text-white"
+                placeholder="Enter username">
+            </div>
+
+            <!-- Email (Read-only) -->
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+              <input type="email" id="settings-email"
+                class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-gray-400 cursor-not-allowed"
+                readonly>
+              <p class="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+            </div>
+
+            <!-- Phone Number -->
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
+              <input type="tel" id="settings-phone"
+                class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-500 text-white"
+                placeholder="Enter phone number">
+            </div>
+
+            <!-- Account Balance (Read-only) -->
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Account Balance</label>
+              <input type="text" id="settings-balance"
+                class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-green-400 cursor-not-allowed font-semibold text-xl"
+                readonly>
+            </div>
+
+            <!-- Save Button -->
+            <button type="submit"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
+              Save Changes
+            </button>
+          </form>
         </div>
-        <div class="bg-gray-800 rounded-xl p-6">
-          <div class="text-3xl mb-3">📊</div>
-          <h3 class="font-bold text-lg mb-2">Trading Stats</h3>
-          <p class="text-gray-400 text-sm">Monitor your total investments and expected profits</p>
+
+        <!-- Change Password Card -->
+        <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 mb-6">
+          <h3 class="text-2xl font-semibold mb-6">Change Password</h3>
+
+          <form id="password-form" class="space-y-6">
+            <!-- Current Password -->
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Current Password</label>
+              <input type="password" id="current-password"
+                class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-500 text-white"
+                placeholder="Enter current password">
+            </div>
+
+            <!-- New Password -->
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">New Password</label>
+              <input type="password" id="new-password"
+                class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-500 text-white"
+                placeholder="Enter new password">
+            </div>
+
+            <!-- Confirm New Password -->
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Confirm New Password</label>
+              <input type="password" id="confirm-password"
+                class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-500 text-white"
+                placeholder="Confirm new password">
+            </div>
+
+            <!-- Change Password Button -->
+            <button type="submit"
+              class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
+              Change Password
+            </button>
+          </form>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Live Trade Section -->
-<div id="live-trade" class="hidden relative min-h-screen">
-  <!-- Video Background -->
-  <div class="absolute inset-0 overflow-hidden">
-    <video 
-      autoplay 
-      loop 
-      muted 
-      playsinline
-      class="w-full h-full object-cover opacity-30"
-    >
-      <source src="my-video.mp4" type="video/mp4">
-      <!-- Fallback: Replace with your own video URL -->
-      Your browser does not support the video tag.
-    </video>
-    <div class="absolute inset-0 bg-gradient-to-b from-slate-900/50 to-slate-900/90"></div>
-  </div>
-
-  <!-- Content -->
-  <div class="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
-    <!-- Header Text -->
-    <div class="text-center mb-12">
-     
-      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-        You are not yet eligible to join the livestream of ongoing trade. Kindly
-       select any of the available plans.
-      </p>
-    </div>
-
-    <!-- Subscription Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-2xl ">
-      <!-- Diamond Plan -->
-      <div class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-lg rounded-3xl p-8 border border-purple-500/30 hover:scale-105 transition transform">
-        <div class="text-center mb-6">
-          <div class="inline-block p-4 bg-purple-600/30 rounded-2xl mb-4">
-            <svg class="w-12 h-12 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
+        <!-- Account Info Card -->
+        <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6">
+          <h3 class="text-2xl font-semibold mb-4">Account Information</h3>
+          <div class="space-y-3 text-gray-300">
+            <div class="flex justify-between py-2 border-b border-white/10">
+              <span class="text-gray-400">Account Status:</span>
+              <span class="text-green-400 font-semibold">Active</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-white/10">
+              <span class="text-gray-400">Member Since:</span>
+              <span id="settings-joined-date">Loading...</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-white/10">
+              <span class="text-gray-400">KYC Status:</span>
+              <span id="settings-kyc-status" class="text-yellow-400">Pending</span>
+            </div>
+            <div class="flex justify-between py-2">
+              <span class="text-gray-400">User ID:</span>
+              <span id="settings-user-id" class="text-xs text-gray-500">Loading...</span>
+            </div>
           </div>
-          <h3 class="text-3xl font-bold text-purple-400 mb-2">Diamond</h3>
-          <p class="text-gray-400 mb-4">Premium Live Trading</p>
-          <div class="text-5xl font-semibold text-white mb-2">$300,000</div>
-          <p class="text-gray-400 text-sm">One-time payment</p>
         </div>
-        <ul class="space-y-3 mb-8">
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            24/7 Live Trading Access
-          </li>
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Priority Support
-          </li>
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Advanced Analytics
-          </li>
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Exclusive Signals
-          </li>
-        </ul>
-        <button onclick="purchasePlan('Diamond Live Trading', 300000)" class="w-full bg-purple-600 hover:bg-purple-700 py-4 rounded-xl font-bold text-lg transition">
-          Purchase Diamond
-        </button>
       </div>
+      <!-- Trade Section -->
+      <div id="trade" class="tab-content hidden">
+        <div class="text-center py-20">
+          <div class="max-w-2xl mx-auto">
+            <div class="mb-8">
+              <div class="text-6xl mb-4">📊</div>
+              <h2 class="text-4xl font-bold mb-4">Live Trading</h2>
+              <p class="text-xl text-gray-300 mb-8">
+                Access real-time cryptocurrency charts and professional trading tools
+              </p>
+            </div>
 
-      <!-- Gold Plan -->
-      <div class="bg-gradient-to-br from-yellow-600/20 to-orange-600/20 backdrop-blur-lg rounded-3xl p-8 border border-yellow-500/30 hover:scale-105 transition transform">
-        <div class="text-center mb-6">
-          <div class="inline-block p-4 bg-yellow-600/30 rounded-2xl mb-4">
-            <svg class="w-12 h-12 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
+            <a href="#"
+              onclick="showLoading('Loading live trading...', 1500); setTimeout(() => window.location.href = 'live-trading.html', 1500); return false;"
+              class="inline-block bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-6 px-12 rounded-xl text-xl transition transform hover:scale-105">
+              🚀 Go to Live Trading
+            </a>
+
+            <div class="mt-12 grid md:grid-cols-3 gap-6 text-left">
+              <div class="bg-gray-800 rounded-xl p-6">
+                <div class="text-3xl mb-3">📈</div>
+                <h3 class="font-bold text-lg mb-2">Real-Time Charts</h3>
+                <p class="text-gray-400 text-sm">TradingView charts with multiple cryptocurrencies</p>
+              </div>
+              <div class="bg-gray-800 rounded-xl p-6">
+                <div class="text-3xl mb-3">💰</div>
+                <h3 class="font-bold text-lg mb-2">Active Plans</h3>
+                <p class="text-gray-400 text-sm">Track your trading plan investments and returns</p>
+              </div>
+              <div class="bg-gray-800 rounded-xl p-6">
+                <div class="text-3xl mb-3">📊</div>
+                <h3 class="font-bold text-lg mb-2">Trading Stats</h3>
+                <p class="text-gray-400 text-sm">Monitor your total investments and expected profits</p>
+              </div>
+            </div>
           </div>
-          <h3 class="text-3xl font-bold text-yellow-400 mb-2">Gold</h3>
-          <p class="text-gray-400 mb-4">Professional Trading</p>
-          <div class="text-5xl font-semibold text-white mb-2">$100,000</div>
-          <p class="text-gray-400 text-sm">One-time payment</p>
         </div>
-        <ul class="space-y-3 mb-8">
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Live Trading Sessions
-          </li>
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Standard Support
-          </li>
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Market Analysis
-          </li>
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Trading Signals
-          </li>
-        </ul>
-        <button onclick="purchasePlan('Gold Live Trading', 100000)" class="w-full bg-yellow-600 hover:bg-yellow-700 py-4 rounded-xl font-bold text-lg transition">
-          Purchase Gold
-        </button>
       </div>
 
-      <!-- Silver Plan -->
-      <div class="bg-gradient-to-br from-gray-400/20 to-gray-600/20 backdrop-blur-lg rounded-3xl p-8 border border-gray-500/30 hover:scale-105 transition transform">
-        <div class="text-center mb-6">
-          <div class="inline-block p-4 bg-gray-600/30 rounded-2xl mb-4">
-            <svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
+      <!-- Live Trade Section -->
+      <div id="live-trade" class="hidden relative min-h-screen">
+        <!-- Video Background -->
+        <div class="absolute inset-0 overflow-hidden">
+          <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-30">
+            <source src="my-video.mp4" type="video/mp4">
+            <!-- Fallback: Replace with your own video URL -->
+            Your browser does not support the video tag.
+          </video>
+          <div class="absolute inset-0 bg-gradient-to-b from-slate-900/50 to-slate-900/90"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
+          <!-- Header Text -->
+          <div class="text-center mb-12">
+
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+              You are not yet eligible to join the livestream of ongoing trade. Kindly
+              select any of the available plans.
+            </p>
           </div>
-          <h3 class="text-3xl font-bold text-gray-400 mb-2">Silver</h3>
-          <p class="text-gray-400 mb-4">Basic Live Trading</p>
-          <div class="text-5xl font-semibold text-white mb-2">$50,000</div>
-          <p class="text-gray-400 text-sm">One-time payment</p>
-        </div>
-        <ul class="space-y-3 mb-8">
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Daily Live Sessions
-          </li>
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Email Support
-          </li>
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Basic Analytics
-          </li>
-          <li class="flex items-center text-gray-300">
-            <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Community Access
-          </li>
-        </ul>
-        <button onclick="purchasePlan('Silver Live Trading', 50000)" class="w-full bg-gray-600 hover:bg-gray-700 py-4 rounded-xl font-bold text-lg transition">
-          Purchase Silver
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Bot Section -->
-<div id="bot" class="tab-content hidden">
-  <div class="text-center py-20">
-    <div class="max-w-2xl mx-auto">
-      <div class="mb-8">
-        <div class="text-6xl mb-4">🤖</div>
-        <h2 class="text-4xl font-bold mb-4">Trading Bots</h2>
-        <p class="text-xl text-gray-300 mb-8">
-          Automated trading solutions for passive income
-        </p>
+          <!-- Subscription Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-2xl ">
+            <!-- Diamond Plan -->
+            <div
+              class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-lg rounded-3xl p-8 border border-purple-500/30 hover:scale-105 transition transform">
+              <div class="text-center mb-6">
+                <div class="inline-block p-4 bg-purple-600/30 rounded-2xl mb-4">
+                  <svg class="w-12 h-12 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                    </path>
+                  </svg>
+                </div>
+                <h3 class="text-3xl font-bold text-purple-400 mb-2">Diamond</h3>
+                <p class="text-gray-400 mb-4">Premium Live Trading</p>
+                <div class="text-5xl font-semibold text-white mb-2">$300,000</div>
+                <p class="text-gray-400 text-sm">One-time payment</p>
+              </div>
+              <ul class="space-y-3 mb-8">
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  24/7 Live Trading Access
+                </li>
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Priority Support
+                </li>
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Advanced Analytics
+                </li>
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Exclusive Signals
+                </li>
+              </ul>
+              <button onclick="purchasePlan('Diamond Live Trading', 300000)"
+                class="w-full bg-purple-600 hover:bg-purple-700 py-4 rounded-xl font-bold text-lg transition">
+                Purchase Diamond
+              </button>
+            </div>
+
+            <!-- Gold Plan -->
+            <div
+              class="bg-gradient-to-br from-yellow-600/20 to-orange-600/20 backdrop-blur-lg rounded-3xl p-8 border border-yellow-500/30 hover:scale-105 transition transform">
+              <div class="text-center mb-6">
+                <div class="inline-block p-4 bg-yellow-600/30 rounded-2xl mb-4">
+                  <svg class="w-12 h-12 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                    </path>
+                  </svg>
+                </div>
+                <h3 class="text-3xl font-bold text-yellow-400 mb-2">Gold</h3>
+                <p class="text-gray-400 mb-4">Professional Trading</p>
+                <div class="text-5xl font-semibold text-white mb-2">$100,000</div>
+                <p class="text-gray-400 text-sm">One-time payment</p>
+              </div>
+              <ul class="space-y-3 mb-8">
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Live Trading Sessions
+                </li>
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Standard Support
+                </li>
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Market Analysis
+                </li>
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Trading Signals
+                </li>
+              </ul>
+              <button onclick="purchasePlan('Gold Live Trading', 100000)"
+                class="w-full bg-yellow-600 hover:bg-yellow-700 py-4 rounded-xl font-bold text-lg transition">
+                Purchase Gold
+              </button>
+            </div>
+
+            <!-- Silver Plan -->
+            <div
+              class="bg-gradient-to-br from-gray-400/20 to-gray-600/20 backdrop-blur-lg rounded-3xl p-8 border border-gray-500/30 hover:scale-105 transition transform">
+              <div class="text-center mb-6">
+                <div class="inline-block p-4 bg-gray-600/30 rounded-2xl mb-4">
+                  <svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                    </path>
+                  </svg>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-400 mb-2">Silver</h3>
+                <p class="text-gray-400 mb-4">Basic Live Trading</p>
+                <div class="text-5xl font-semibold text-white mb-2">$50,000</div>
+                <p class="text-gray-400 text-sm">One-time payment</p>
+              </div>
+              <ul class="space-y-3 mb-8">
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Daily Live Sessions
+                </li>
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Email Support
+                </li>
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Basic Analytics
+                </li>
+                <li class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  Community Access
+                </li>
+              </ul>
+              <button onclick="purchasePlan('Silver Live Trading', 50000)"
+                class="w-full bg-gray-600 hover:bg-gray-700 py-4 rounded-xl font-bold text-lg transition">
+                Purchase Silver
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      
-      <div class="bg-gray-800 rounded-xl p-8 mb-8">
-        <h3 class="text-2xl font-bold mb-4">Coming Soon!</h3>
-        <p class="text-gray-300 mb-6">
-          We're developing advanced AI-powered trading bots that will automatically execute trades for you 24/7.
-        </p>
-        <p class="text-gray-400 text-sm">
-          Stay tuned for updates!
-        </p>
+
+      <!-- Bot Section -->
+      <div id="bot" class="tab-content hidden">
+        <div class="text-center py-20">
+          <div class="max-w-2xl mx-auto">
+            <div class="mb-8">
+              <div class="text-6xl mb-4">🤖</div>
+              <h2 class="text-4xl font-bold mb-4">Trading Bots</h2>
+              <p class="text-xl text-gray-300 mb-8">
+                Automated trading solutions for passive income
+              </p>
+            </div>
+
+            <div class="bg-gray-800 rounded-xl p-8 mb-8">
+              <h3 class="text-2xl font-bold mb-4">Coming Soon!</h3>
+              <p class="text-gray-300 mb-6">
+                We're developing advanced AI-powered trading bots that will automatically execute trades for you 24/7.
+              </p>
+              <p class="text-gray-400 text-sm">
+                Stay tuned for updates!
+              </p>
+            </div>
+
+            <a href="trading-plan.html"
+              class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition">
+              View Trading Plans Instead →
+            </a>
+          </div>
+        </div>
       </div>
-      
-      <a href="trading-plan.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition">
-        View Trading Plans Instead →
-      </a>
-    </div>
   </div>
-</div>
-</div> 
-</main>
-<!-- Purchase Confirmation Modal -->
-<div id="purchase-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
-  <div class="flex min-h-screen items-center justify-center p-4">
-    <!-- Backdrop -->
-    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closePurchaseModal()"></div>
-    
-    <!-- Modal Card - now scrollable internally if needed -->
-    <div class="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-6 max-w-2xl w-full border border-slate-700 
+  </main>
+  <!-- Purchase Confirmation Modal -->
+  <div id="purchase-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+    <div class="flex min-h-screen items-center justify-center p-4">
+      <!-- Backdrop -->
+      <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closePurchaseModal()"></div>
+
+      <!-- Modal Card - now scrollable internally if needed -->
+      <div class="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-6 max-w-2xl w-full border border-slate-700 
                 max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-600">
-      
-      <button onclick="closePurchaseModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
 
-      <h2 class="text-2xl md:text-3xl font-bold mb-3">Purchase Confirmation</h2>
-      <p class="text-gray-400 mb-6 text-sm md:text-base">
-        Send the payment amount to the wallet address below and submit your payment proof
-      </p>
-
-      <div class="bg-blue-600/10 border border-blue-600/30 rounded-xl p-5 mb-6">
-        <div class="flex items-center gap-3 mb-3">
-          <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        <button onclick="closePurchaseModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
-          <h3 class="text-lg font-semibold">Bitcoin Payment</h3>
-        </div>
-        <div class="text-center">
-          <p class="text-sm text-gray-400 mb-2">Plan: <span id="modal-plan-name" class="text-green-400 font-semibold"></span></p>
-          <p class="text-sm text-gray-400 mb-4">Amount: <span id="modal-plan-price" class="text-2xl font-bold text-white"></span></p>
-        </div>
-      </div>
-
-      <div class="mb-6">
-        <label class="block text-sm font-medium mb-2">Wallet Address</label>
-        <div class="bg-slate-700/50 rounded-lg p-4 font-mono text-sm break-all">
-          bc1q969jpm4wjq90wyz0ur959wf7029d930a256ju3
-        </div>
-        <p class="text-xs text-yellow-500 mt-2 flex items-center gap-1">
-          <span>⚠</span> Kindly verify the wallet address before sending payment
-        </p>
-      </div>
-
-      <form id="purchase-proof-form" enctype="multipart/form-data" class="space-y-6">
-        <div>
-          <label class="block text-sm font-medium mb-2">Proof of Payment *</label>
-          <div class="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center hover:border-blue-500 transition cursor-pointer">
-            <input type="file" id="purchase-proof-file" accept="image/*,.pdf" class="hidden" onchange="displayFileName(this, 'purchase')">
-            <label for="purchase-proof-file">
-              <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-              </svg>
-              <p class="text-sm text-gray-400">Click to upload or drag and drop</p>
-              <p class="text-xs text-gray-500 mt-1">PNG, JPG, PDF up to 5MB</p>
-            </label>
-          </div>
-          <p id="purchase-file-name" class="text-sm text-green-400 mt-2 hidden"></p>
-        </div>
-
-        <!-- Submit button always visible -->
-        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 py-4 rounded-xl font-bold text-lg transition sticky bottom-0">
-          Submit Payment Proof
         </button>
-      </form>
+
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">Purchase Confirmation</h2>
+        <p class="text-gray-400 mb-6 text-sm md:text-base">
+          Send the payment amount to the wallet address below and submit your payment proof
+        </p>
+
+        <div class="bg-blue-600/10 border border-blue-600/30 rounded-xl p-5 mb-6">
+          <div class="flex items-center gap-3 mb-3">
+            <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+            </svg>
+            <h3 class="text-lg font-semibold">Bitcoin Payment</h3>
+          </div>
+          <div class="text-center">
+            <p class="text-sm text-gray-400 mb-2">Plan: <span id="modal-plan-name"
+                class="text-green-400 font-semibold"></span></p>
+            <p class="text-sm text-gray-400 mb-4">Amount: <span id="modal-plan-price"
+                class="text-2xl font-bold text-white"></span></p>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm font-medium mb-2">Wallet Address</label>
+          <div class="bg-slate-700/50 rounded-lg p-4 font-mono text-sm break-all">
+            bc1q969jpm4wjq90wyz0ur959wf7029d930a256ju3
+          </div>
+          <p class="text-xs text-yellow-500 mt-2 flex items-center gap-1">
+            <span>⚠</span> Kindly verify the wallet address before sending payment
+          </p>
+        </div>
+
+        <form id="purchase-proof-form" enctype="multipart/form-data" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium mb-2">Proof of Payment *</label>
+            <div
+              class="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center hover:border-blue-500 transition cursor-pointer">
+              <input type="file" id="purchase-proof-file" accept="image/*,.pdf" class="hidden"
+                onchange="displayFileName(this, 'purchase')">
+              <label for="purchase-proof-file">
+                <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                <p class="text-sm text-gray-400">Click to upload or drag and drop</p>
+                <p class="text-xs text-gray-500 mt-1">PNG, JPG, PDF up to 5MB</p>
+              </label>
+            </div>
+            <p id="purchase-file-name" class="text-sm text-green-400 mt-2 hidden"></p>
+          </div>
+
+          <!-- Submit button always visible -->
+          <button type="submit"
+            class="w-full bg-green-600 hover:bg-green-700 py-4 rounded-xl font-bold text-lg transition sticky bottom-0">
+            Submit Payment Proof
+          </button>
+        </form>
+      </div>
     </div>
   </div>
-</div>
- <script>
-  // ========================================
-// LOADING SCREEN FUNCTIONS
-// ========================================
-function showLoading(message = 'Loading...', duration = 2000) {
-  const loadingScreen = document.getElementById('loading-screen');
-  const loadingText = document.getElementById('loading-text');
-  
-  // Set custom message
-  loadingText.textContent = message;
-  
-  // Show loading screen
-  loadingScreen.classList.remove('hidden', 'fade-out');
-  loadingScreen.classList.add('fade-in');
-  
-  // Hide after duration
-  if (duration > 0) {
-    setTimeout(() => {
-      hideLoading();
-    }, duration);
-  }
-}
+  <script>
+    // ========================================
+    // LOADING SCREEN FUNCTIONS
+    // ========================================
+    function showLoading(message = 'Loading...', duration = 2000) {
+      const loadingScreen = document.getElementById('loading-screen');
+      const loadingText = document.getElementById('loading-text');
 
-function hideLoading() {
-  const loadingScreen = document.getElementById('loading-screen');
-  
-  loadingScreen.classList.remove('fade-in');
-  loadingScreen.classList.add('fade-out');
-  
-  // Remove from DOM after animation
-  setTimeout(() => {
-    loadingScreen.classList.add('hidden');
-  }, 300);
-}
-  // ========================================
-// SESSION REDIRECT FIX
-// ========================================
- const SUPABASE_URL = "https://cgfkpokpiseaugcrqjbv.supabase.co";  // ← YOUR URL
+      // Set custom message
+      loadingText.textContent = message;
+
+      // Show loading screen
+      loadingScreen.classList.remove('hidden', 'fade-out');
+      loadingScreen.classList.add('fade-in');
+
+      // Hide after duration
+      if (duration > 0) {
+        setTimeout(() => {
+          hideLoading();
+        }, duration);
+      }
+    }
+
+    function hideLoading() {
+      const loadingScreen = document.getElementById('loading-screen');
+
+      loadingScreen.classList.remove('fade-in');
+      loadingScreen.classList.add('fade-out');
+
+      // Remove from DOM after animation
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+      }, 300);
+    }
+    // ========================================
+    // SESSION REDIRECT FIX
+    // ========================================
+    const SUPABASE_URL = "https://cgfkpokpiseaugcrqjbv.supabase.co";  // ← YOUR URL
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE";
 
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-(async function checkSession() {
-  showLoading('Loading dashboard...', 0);
-  
-  const { data: { session } } = await supabaseClient.auth.getSession(); // ✅ Changed
-  
-  if (!session) {
-    console.log('No session found, redirecting to login...');
-    window.location.href = 'login.html';
-    return;
-  }
-  
-  console.log('✅ Session valid, loading dashboard...');
-  
-  document.getElementById('dashboard')?.classList.remove('hidden');
-  showDashboard(session.user);
-  
-  setTimeout(() => {
-    hideLoading();
-  }, 2000);
-})();
+    (async function checkSession() {
+      showLoading('Loading dashboard...', 0);
 
-// Listen for session changes
-supabaseClient.auth.onAuthStateChange((event, session) => { // ✅ Changed
-  console.log('Auth event:', event);
-  
-  if (event === 'SIGNED_OUT' || !session) {
-    console.log('Session expired, redirecting to login...');
-    window.location.href = 'login.html';
-  }
-});
-// === 1. GLOBAL VARIABLES ===
-let selectedPlan = { name: '', price: 0 };
+      const { data: { session } } = await supabaseClient.auth.getSession(); // ✅ Changed
 
-// === 2. PURCHASE PLAN FUNCTIONS ===
-function purchasePlan(planName, price) {
-  selectedPlan = { name: planName, price: price };
-  
-  document.getElementById('modal-plan-name').textContent = planName;
-  document.getElementById('modal-plan-price').textContent = `$${price.toLocaleString()}`;
-  document.getElementById('purchase-modal').classList.remove('hidden');
-}
+      if (!session) {
+        console.log('No session found, redirecting to login...');
+        window.location.href = 'login.html';
+        return;
+      }
 
-function closePurchaseModal() {
-  document.getElementById('purchase-modal').classList.add('hidden');
-  document.getElementById('purchase-proof-form').reset();
-  document.getElementById('purchase-file-name').classList.add('hidden');
-}
+      console.log('✅ Session valid, loading dashboard...');
 
-// === 3. FILE NAME DISPLAY (used by both purchase & deposit) ===
-function displayFileName(input, type) {
-  const file = input.files[0];
-  const fileNameDisplay = document.getElementById(`${type}-file-name`);
-  
-  if (file) {
-    const maxSize = 5 * 1024 * 1024; // 5MB
-    if (file.size > maxSize) {
-      alert('File size must be less than 5MB');
-      input.value = '';
-      fileNameDisplay.classList.add('hidden');
-      return;
-    }
-    
-    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
-    if (!allowedTypes.includes(file.type)) {
-      alert('Only PNG, JPG, and PDF files are allowed');
-      input.value = '';
-      fileNameDisplay.classList.add('hidden');
-      return;
-    }
-    
-    fileNameDisplay.textContent = `✓ ${file.name}`;
-    fileNameDisplay.classList.remove('hidden');
-  } else {
-    fileNameDisplay.classList.add('hidden');
-  }
-}
+      document.getElementById('dashboard')?.classList.remove('hidden');
+      showDashboard(session.user);
 
-// === 4. SUBMIT PURCHASE (Plan Purchase) ===
-document.getElementById('purchase-proof-form')?.addEventListener('submit', async function(e) {
-  e.preventDefault();
+      setTimeout(() => {
+        hideLoading();
+      }, 2000);
+    })();
 
-  const fileInput = document.getElementById('purchase-proof-file');
-  const file = fileInput.files[0];
+    // Listen for session changes
+    supabaseClient.auth.onAuthStateChange((event, session) => { // ✅ Changed
+      console.log('Auth event:', event);
 
-  if (!file) {
-    alert('Please upload proof of payment');
-    return;
-  }
+      if (event === 'SIGNED_OUT' || !session) {
+        console.log('Session expired, redirecting to login...');
+        window.location.href = 'login.html';
+      }
+    });
+    // === 1. GLOBAL VARIABLES ===
+    let selectedPlan = { name: '', price: 0 };
 
-  const submitBtn = this.querySelector('button[type="submit"]');
-  const originalText = submitBtn.textContent;
-  submitBtn.textContent = 'Submitting...';
-  submitBtn.disabled = true;
+    // === 2. PURCHASE PLAN FUNCTIONS ===
+    function purchasePlan(planName, price) {
+      selectedPlan = { name: planName, price: price };
 
-  try {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) throw new Error('You must be logged in');
-
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${user.id}_${Date.now()}.${fileExt}`;
-
-    const { data: uploadData, error: uploadError } = await supabaseClient.storage
-      .from('payment-proofs')
-      .upload(`purchases/${fileName}`, file);
-
-    if (uploadError) throw uploadError;
-
-    const { error: insertError } = await supabaseClient
-      .from('live_trade_purchases')
-      .insert({
-        user_id: user.id,
-        plan_name: selectedPlan.name,
-        amount: selectedPlan.price,
-        proof_url: uploadData.path,
-        status: 'pending'
-      });
-
-    if (insertError) throw insertError;
-
-    alert('✅ Purchase submitted successfully! Admin will review.');
-    closePurchaseModal();
-
-  } catch (err) {
-    console.error(err);
-    alert('Failed: ' + err.message);
-  } finally {
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
-  }
-});
-
-
-// ========================================
-// UPDATED DEPOSIT FUNCTION WITH REFERRAL BONUS
-// Replace your existing submitDeposit() function with this
-// ========================================
-async function submitDeposit() {
-  const amount = parseFloat(document.getElementById('dep-amount').value);
-  const fileInput = document.getElementById('deposit-proof-file');
-  const file = fileInput.files[0];
-  
-  if (!amount || isNaN(amount) || amount < 300 || !file) {
-    alert('Please enter amount ≥ $300 and upload proof');
-    return;
-  }
-  
-  const submitBtn = document.getElementById('btn-deposit');
-  const originalText = submitBtn.textContent;
-  submitBtn.textContent = 'Submitting...';
-  submitBtn.disabled = true;
-  
-  try {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) throw new Error('Login required');
-    
-    console.log('👤 User:', user.email);
-    
-    // Check if this is user's first deposit
-    const { data: userData, error: userError } = await supabaseClient
-      .from('users')
-      .select('first_deposit_made, referred_by')
-      .eq('id', user.id)
-      .single();
-    
-    if (userError) {
-      console.error('Error checking user data:', userError);
-    }
-    
-    const isFirstDeposit = userData && !userData.first_deposit_made;
-    const isReferred = userData && userData.referred_by;
-    
-    console.log('💰 First deposit:', isFirstDeposit);
-    console.log('🔗 Referred:', isReferred ? 'Yes' : 'No');
-    
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${user.id}_${Date.now()}.${fileExt}`;
-    
-    console.log('📤 Uploading file...');
-    const { data: uploadData, error: uploadError } = await supabaseClient.storage
-      .from('payment-proofs')
-      .upload(`deposits/${fileName}`, file);
-    
-    if (uploadError) throw uploadError;
-    console.log('✅ File uploaded');
-    
-    const transactionId = 'TXN' + Date.now();
-    
-    console.log('💾 Saving deposit...');
-    const { error: insertError } = await supabaseClient
-      .from('deposits')
-      .insert({
-        user_id: user.id,
-        amount: amount,
-        proof_url: uploadData.path,
-        status: 'pending',
-        created_at: new Date().toISOString()
-      });
-    
-    if (insertError) throw insertError;
-    console.log('✅ Deposit saved');
-   
-    // Show appropriate success message
-    let successMessage = '✅ Deposit submitted successfully! You will receive an email confirmation shortly.';
-    
-    if (isFirstDeposit && isReferred) {
-      successMessage += '\n\n🎉 This is your first deposit! Your referrer will receive their bonus once this deposit is approved by admin.';
-    }
-    
-    alert(successMessage);
-    document.getElementById('dep-amount').value = '';
-    fileInput.value = '';
-    const fileNameDisplay = document.getElementById('deposit-file-name');
-    if (fileNameDisplay) fileNameDisplay.classList.add('hidden');
-    
-  } catch (err) {
-    console.error('❌ Deposit failed:', err);
-    alert('Deposit failed: ' + err.message);
-  } finally {
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
-  }
-}
-
-// ========================================
-// LIVE BALANCE UPDATE — FINAL VICTORY
-setInterval(async () => {
-  try {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) return;
-
-    const { data } = await supabaseClient
-      .from('users')
-      .select('balance')
-      .eq('id', user.id)
-      .single();
-
-    if (data && document.getElementById('balance')) {
-      document.getElementById('balance').textContent = 
-        '$' + Number(data.balance || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
-    }
-  } catch (e) {}
-}, 3000);
-// === CACHE HELPER (Add this at the top of your dashboard.js) ===
-const cache = {
-  data: {},
-  timestamps: {},
-  
-  set(key, value, ttl = 60000) { // Cache for 60 seconds by default
-    this.data[key] = value;
-    this.timestamps[key] = Date.now() + ttl;
-  },
-  
-  get(key) {
-    if (this.timestamps[key] && Date.now() < this.timestamps[key]) {
-      return this.data[key];
-    }
-    return null;
-  },
-  
-  clear(key) {
-    delete this.data[key];
-    delete this.timestamps[key];
-  }
-};
-
-// === OPTIMIZED DATA LOADING ===
-async function loadUserData() {
-  try {
-    // Check cache first
-    const cached = cache.get('userData');
-    if (cached) {
-      console.log('✅ Using cached data');
-      displayUserData(cached);
-      return cached;
-    }
-    
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) {
-      window.location.href = 'login.html';
-      return;
+      document.getElementById('modal-plan-name').textContent = planName;
+      document.getElementById('modal-plan-price').textContent = `$${price.toLocaleString()}`;
+      document.getElementById('purchase-modal').classList.remove('hidden');
     }
 
-    // Fetch only necessary fields
-    const { data: userData, error } = await supabaseClient
-      .from('users')
-      .select('id, email, username, balance, profit, trading_balance')
-      .eq('id', user.id)
-      .single();
-    
-    if (error) throw error;
+    function closePurchaseModal() {
+      document.getElementById('purchase-modal').classList.add('hidden');
+      document.getElementById('purchase-proof-form').reset();
+      document.getElementById('purchase-file-name').classList.add('hidden');
+    }
 
-    // Cache the result
-    cache.set('userData', userData, 30000); // Cache for 30 seconds
-    
-    displayUserData(userData);
-    return userData;
-    
-  } catch (error) {
-    console.error('Error loading user data:', error);
-  }
-}
+    // === 3. FILE NAME DISPLAY (used by both purchase & deposit) ===
+    function displayFileName(input, type) {
+      const file = input.files[0];
+      const fileNameDisplay = document.getElementById(`${type}-file-name`);
 
-// When user makes a transaction, clear cache
-async function makeDeposit(amount) {
-  // ... your deposit code ...
-  
-  // Clear cache so next load gets fresh data
-  cache.clear('userData');
-  cache.clear('transactions');
-  
-  await loadUserData(); // Reload with fresh data
-}
- 
+      if (file) {
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+          alert('File size must be less than 5MB');
+          input.value = '';
+          fileNameDisplay.classList.add('hidden');
+          return;
+        }
+
+        const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+        if (!allowedTypes.includes(file.type)) {
+          alert('Only PNG, JPG, and PDF files are allowed');
+          input.value = '';
+          fileNameDisplay.classList.add('hidden');
+          return;
+        }
+
+        fileNameDisplay.textContent = `✓ ${file.name}`;
+        fileNameDisplay.classList.remove('hidden');
+      } else {
+        fileNameDisplay.classList.add('hidden');
+      }
+    }
+
+    // === 4. SUBMIT PURCHASE (Plan Purchase) ===
+    document.getElementById('purchase-proof-form')?.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById('purchase-proof-file');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert('Please upload proof of payment');
+        return;
+      }
+
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Submitting...';
+      submitBtn.disabled = true;
+
+      try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (!user) throw new Error('You must be logged in');
+
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${user.id}_${Date.now()}.${fileExt}`;
+
+        const { data: uploadData, error: uploadError } = await supabaseClient.storage
+          .from('payment-proofs')
+          .upload(`purchases/${fileName}`, file);
+
+        if (uploadError) throw uploadError;
+
+        const { error: insertError } = await supabaseClient
+          .from('live_trade_purchases')
+          .insert({
+            user_id: user.id,
+            plan_name: selectedPlan.name,
+            amount: selectedPlan.price,
+            proof_url: uploadData.path,
+            status: 'pending'
+          });
+
+        if (insertError) throw insertError;
+
+        alert('✅ Purchase submitted successfully! Admin will review.');
+        closePurchaseModal();
+
+      } catch (err) {
+        console.error(err);
+        alert('Failed: ' + err.message);
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+
+
+    // ========================================
+    // UPDATED DEPOSIT FUNCTION WITH REFERRAL BONUS
+    // Replace your existing submitDeposit() function with this
+    // ========================================
+    async function submitDeposit() {
+      const amount = parseFloat(document.getElementById('dep-amount').value);
+      const fileInput = document.getElementById('deposit-proof-file');
+      const file = fileInput.files[0];
+
+      if (!amount || isNaN(amount) || amount < 300 || !file) {
+        alert('Please enter amount ≥ $300 and upload proof');
+        return;
+      }
+
+      const submitBtn = document.getElementById('btn-deposit');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Submitting...';
+      submitBtn.disabled = true;
+
+      try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (!user) throw new Error('Login required');
+
+        console.log('👤 User:', user.email);
+
+        // Check if this is user's first deposit
+        const { data: userData, error: userError } = await supabaseClient
+          .from('users')
+          .select('first_deposit_made, referred_by')
+          .eq('id', user.id)
+          .single();
+
+        if (userError) {
+          console.error('Error checking user data:', userError);
+        }
+
+        const isFirstDeposit = userData && !userData.first_deposit_made;
+        const isReferred = userData && userData.referred_by;
+
+        console.log('💰 First deposit:', isFirstDeposit);
+        console.log('🔗 Referred:', isReferred ? 'Yes' : 'No');
+
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${user.id}_${Date.now()}.${fileExt}`;
+
+        console.log('📤 Uploading file...');
+        const { data: uploadData, error: uploadError } = await supabaseClient.storage
+          .from('payment-proofs')
+          .upload(`deposits/${fileName}`, file);
+
+        if (uploadError) throw uploadError;
+        console.log('✅ File uploaded');
+
+        const transactionId = 'TXN' + Date.now();
+
+        console.log('💾 Saving deposit...');
+        const { error: insertError } = await supabaseClient
+          .from('deposits')
+          .insert({
+            user_id: user.id,
+            amount: amount,
+            proof_url: uploadData.path,
+            status: 'pending',
+            created_at: new Date().toISOString()
+          });
+
+        if (insertError) throw insertError;
+        console.log('✅ Deposit saved');
+
+        // Show appropriate success message
+        let successMessage = '✅ Deposit submitted successfully! You will receive an email confirmation shortly.';
+
+        if (isFirstDeposit && isReferred) {
+          successMessage += '\n\n🎉 This is your first deposit! Your referrer will receive their bonus once this deposit is approved by admin.';
+        }
+
+        alert(successMessage);
+        document.getElementById('dep-amount').value = '';
+        fileInput.value = '';
+        const fileNameDisplay = document.getElementById('deposit-file-name');
+        if (fileNameDisplay) fileNameDisplay.classList.add('hidden');
+
+      } catch (err) {
+        console.error('❌ Deposit failed:', err);
+        alert('Deposit failed: ' + err.message);
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    }
+
+    // ========================================
+    // LIVE BALANCE UPDATE — FINAL VICTORY
+    setInterval(async () => {
+      try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (!user) return;
+
+        const { data } = await supabaseClient
+          .from('users')
+          .select('balance')
+          .eq('id', user.id)
+          .single();
+
+        if (data && document.getElementById('balance')) {
+          document.getElementById('balance').textContent =
+            '$' + Number(data.balance || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+        }
+      } catch (e) { }
+    }, 3000);
+    // === CACHE HELPER (Add this at the top of your dashboard.js) ===
+    const cache = {
+      data: {},
+      timestamps: {},
+
+      set(key, value, ttl = 60000) { // Cache for 60 seconds by default
+        this.data[key] = value;
+        this.timestamps[key] = Date.now() + ttl;
+      },
+
+      get(key) {
+        if (this.timestamps[key] && Date.now() < this.timestamps[key]) {
+          return this.data[key];
+        }
+        return null;
+      },
+
+      clear(key) {
+        delete this.data[key];
+        delete this.timestamps[key];
+      }
+    };
+
+    // === OPTIMIZED DATA LOADING ===
+    async function loadUserData() {
+      try {
+        // Check cache first
+        const cached = cache.get('userData');
+        if (cached) {
+          console.log('✅ Using cached data');
+          displayUserData(cached);
+          return cached;
+        }
+
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (!user) {
+          window.location.href = 'login.html';
+          return;
+        }
+
+        // Fetch only necessary fields
+        const { data: userData, error } = await supabaseClient
+          .from('users')
+          .select('id, email, username, balance, profit, trading_balance')
+          .eq('id', user.id)
+          .single();
+
+        if (error) throw error;
+
+        // Cache the result
+        cache.set('userData', userData, 30000); // Cache for 30 seconds
+
+        displayUserData(userData);
+        return userData;
+
+      } catch (error) {
+        console.error('Error loading user data:', error);
+      }
+    }
+
+    // When user makes a transaction, clear cache
+    async function makeDeposit(amount) {
+      // ... your deposit code ...
+
+      // Clear cache so next load gets fresh data
+      cache.clear('userData');
+      cache.clear('transactions');
+
+      await loadUserData(); // Reload with fresh data
+    }
+
 
     // ---------- Helper UI ----------
     function showToast(msg) {
@@ -1227,7 +1298,7 @@ async function makeDeposit(amount) {
 
     // ---------- Page logic ----------
     document.addEventListener('DOMContentLoaded', async () => {
-   
+
       lucide.createIcons();
 
       // dashboard nav
@@ -1237,14 +1308,14 @@ async function makeDeposit(amount) {
       document.getElementById('nav-kyc').addEventListener('click', () => loadPage('kyc'));
       document.getElementById('nav-transactions').addEventListener('click', () => loadPage('transactions'));
       document.getElementById('nav-settings').addEventListener('click', () => loadPage('settings'));
-      document.getElementById('nav-trade').addEventListener('click', ()=> loadPage('trade'));
-      document.getElementById('nav-live-trade').addEventListener('click', ()=> loadPage('live-trade'));
-      document.getElementById('nav-bot').addEventListener('click', ()=> loadPage('bot'));
+      document.getElementById('nav-trade').addEventListener('click', () => loadPage('trade'));
+      document.getElementById('nav-live-trade').addEventListener('click', () => loadPage('live-trade'));
+      document.getElementById('nav-bot').addEventListener('click', () => loadPage('bot'));
       document.getElementById('btn-logout').addEventListener('click', logout);
-      
+
 
       // actions
-     
+
       document.getElementById('btn-withdraw').addEventListener('click', submitWithdraw);
       document.getElementById('btn-save-withdraw-info').addEventListener('click', saveWithdrawInfo);
       document.getElementById('btn-kyc').addEventListener('click', uploadKYC);
@@ -1254,31 +1325,31 @@ async function makeDeposit(amount) {
       document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
       document.getElementById('overlay').addEventListener('click', closeSidebar);
 
-  
+
       // realtime: subscribe to deposits/withdrawals changes so user's dashboard auto-refreshes
       setupRealtime();
 
     });
-function showPage(p) {
-  // Simply show the dashboard
-  document.getElementById('dashboard')?.classList.remove('hidden');
-  lucide.createIcons();
-}
+    function showPage(p) {
+      // Simply show the dashboard
+      document.getElementById('dashboard')?.classList.remove('hidden');
+      lucide.createIcons();
+    }
 
- function loadPage(p) {
-  ['home','deposit','withdraw','trade','live-trade','bot','kyc','transactions','settings'].forEach(x => {
-    document.getElementById(x)?.classList.add('hidden');
-  });
-  document.getElementById(p)?.classList.remove('hidden');
-  
-  // Load settings data when navigating to settings page
-  if (p === 'settings') {
-    setTimeout(() => loadSettings(), 100);
-  }
-  
-  closeSidebar();
-  lucide.createIcons();
-}
+    function loadPage(p) {
+      ['home', 'deposit', 'withdraw', 'trade', 'live-trade', 'bot', 'kyc', 'transactions', 'settings'].forEach(x => {
+        document.getElementById(x)?.classList.add('hidden');
+      });
+      document.getElementById(p)?.classList.remove('hidden');
+
+      // Load settings data when navigating to settings page
+      if (p === 'settings') {
+        setTimeout(() => loadSettings(), 100);
+      }
+
+      closeSidebar();
+      lucide.createIcons();
+    }
 
     async function logout() {
       if (!supabaseClient) return;
@@ -1301,102 +1372,102 @@ function showPage(p) {
       loadTransactions(user);
       // show initials on buttons
       function setInitialsUI(user) {
-  // This function is called by showDashboard
-  // Initials are already set in loadSidebarProfile, so this can be empty
-  // or we can use it to ensure initials are shown
-  lucide.createIcons();
-}
+        // This function is called by showDashboard
+        // Initials are already set in loadSidebarProfile, so this can be empty
+        // or we can use it to ensure initials are shown
+        lucide.createIcons();
+      }
       //ADD THIS LINE 
-      setupRealtime ();
+      setupRealtime();
     }
-async function loadUserData(user) {
-  if (!supabaseClient) return;
-  try {
-    // Fetch from users table
-    const { data: userData, error: userError } = await supabaseClient
-      .from('users')
-      .select('balance, profit, email, full_name')
-      .eq('id', user.id)
-      .single();
-    
-    if (userError) {
-      console.error('Error loading user data:', userError);
-      return;
-    }
-    
-    if (userData) {
-      const balance = parseFloat(userData.balance || 0);
-      const profit = parseFloat(userData.profit || 0);
-      const total = balance + profit;
-      
-      console.log('Balance:', balance, 'Profit:', profit, 'Total:', total);
-      
-      // Update top-right "Available Balance"
-      const balanceTop = document.getElementById('balance');
-      if (balanceTop) {
-        balanceTop.textContent = `$${balance.toFixed(2)}`;
-        console.log('Updated top balance');
-      }
-      
-      // Update Balance CARD (blue card)
-      const balanceCard = document.getElementById('balance-card');
-      if (balanceCard) {
-        balanceCard.textContent = `$${balance.toFixed(2)}`;
-        console.log('Updated balance card');
-      }
-      
-      // Update Profit card
-      const profitEl = document.getElementById('profit');
-      if (profitEl) {
-        profitEl.textContent = `$${profit.toFixed(2)}`;
-        console.log('Updated profit');
-      }
-      
-      // Update Total card
-      const totalEl = document.getElementById('total');
-      if (totalEl) {
-        totalEl.textContent = `$${total.toFixed(2)}`;
-        console.log('Updated total');
-      }
-      
-      // Update user email in sidebar
-      const userEmailEl = document.getElementById('user-email');
-      if (userEmailEl) {
-        userEmailEl.textContent = userData.email || user.email || 'user@email.com';
-      }
-    }
+    async function loadUserData(user) {
+      if (!supabaseClient) return;
+      try {
+        // Fetch from users table
+        const { data: userData, error: userError } = await supabaseClient
+          .from('users')
+          .select('balance, profit, email, full_name')
+          .eq('id', user.id)
+          .single();
 
-    // Load transactions
-    await loadRecentDeposits(user.id);
-    await loadRecentWithdrawals(user.id);
-    
-  } catch (err) {
-    console.error('Error loading user data:', err);
-  }
-}
+        if (userError) {
+          console.error('Error loading user data:', userError);
+          return;
+        }
 
-// Load deposits function
-async function loadRecentDeposits(userId) {
-  try {
-    const { data: deposits, error } = await supabaseClient
-      .from('deposits')
-      .select('*')
-      .eq('user_id', userId)
-      .eq('status', 'confirmed')
-      .order('created_at', { ascending: false })
-      .limit(5);
-    
-    if (error) throw error;
+        if (userData) {
+          const balance = parseFloat(userData.balance || 0);
+          const profit = parseFloat(userData.profit || 0);
+          const total = balance + profit;
 
-    const depositList = document.getElementById('recent-deposits-list');
-    if (!depositList) return;
+          console.log('Balance:', balance, 'Profit:', profit, 'Total:', total);
 
-    if (!deposits || deposits.length === 0) {
-      depositList.innerHTML = '<p class="text-gray-400 text-center py-4">No deposits yet.</p>';
-      return;
+          // Update top-right "Available Balance"
+          const balanceTop = document.getElementById('balance');
+          if (balanceTop) {
+            balanceTop.textContent = `$${balance.toFixed(2)}`;
+            console.log('Updated top balance');
+          }
+
+          // Update Balance CARD (blue card)
+          const balanceCard = document.getElementById('balance-card');
+          if (balanceCard) {
+            balanceCard.textContent = `$${balance.toFixed(2)}`;
+            console.log('Updated balance card');
+          }
+
+          // Update Profit card
+          const profitEl = document.getElementById('profit');
+          if (profitEl) {
+            profitEl.textContent = `$${profit.toFixed(2)}`;
+            console.log('Updated profit');
+          }
+
+          // Update Total card
+          const totalEl = document.getElementById('total');
+          if (totalEl) {
+            totalEl.textContent = `$${total.toFixed(2)}`;
+            console.log('Updated total');
+          }
+
+          // Update user email in sidebar
+          const userEmailEl = document.getElementById('user-email');
+          if (userEmailEl) {
+            userEmailEl.textContent = userData.email || user.email || 'user@email.com';
+          }
+        }
+
+        // Load transactions
+        await loadRecentDeposits(user.id);
+        await loadRecentWithdrawals(user.id);
+
+      } catch (err) {
+        console.error('Error loading user data:', err);
+      }
     }
 
-    depositList.innerHTML = deposits.map(d => `
+    // Load deposits function
+    async function loadRecentDeposits(userId) {
+      try {
+        const { data: deposits, error } = await supabaseClient
+          .from('deposits')
+          .select('*')
+          .eq('user_id', userId)
+          .eq('status', 'confirmed')
+          .order('created_at', { ascending: false })
+          .limit(5);
+
+        if (error) throw error;
+
+        const depositList = document.getElementById('recent-deposits-list');
+        if (!depositList) return;
+
+        if (!deposits || deposits.length === 0) {
+          depositList.innerHTML = '<p class="text-gray-400 text-center py-4">No deposits yet.</p>';
+          return;
+        }
+
+        depositList.innerHTML = deposits.map(d => `
       <div class="bg-gray-700/50 rounded-lg p-3 mb-2">
         <div class="flex justify-between items-center">
           <span class="text-green-400 font-bold">$${parseFloat(d.amount).toFixed(2)}</span>
@@ -1405,32 +1476,32 @@ async function loadRecentDeposits(userId) {
         <span class="text-xs px-2 py-1 bg-green-600 rounded-full">${d.status}</span>
       </div>
     `).join('');
-  } catch (err) {
-    console.error('Error loading deposits:', err);
-  }
-}
-
-// Load withdrawals function
-async function loadRecentWithdrawals(userId) {
-  try {
-    const { data: withdrawals, error } = await supabaseClient
-      .from('withdrawals')
-      .select('*')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(5);
-    
-    if (error) throw error;
-
-    const withdrawalList = document.getElementById('recent-withdrawals-list');
-    if (!withdrawalList) return;
-
-    if (!withdrawals || withdrawals.length === 0) {
-      withdrawalList.innerHTML = '<p class="text-gray-400 text-center py-4">No withdrawals yet.</p>';
-      return;
+      } catch (err) {
+        console.error('Error loading deposits:', err);
+      }
     }
 
-    withdrawalList.innerHTML = withdrawals.map(w => `
+    // Load withdrawals function
+    async function loadRecentWithdrawals(userId) {
+      try {
+        const { data: withdrawals, error } = await supabaseClient
+          .from('withdrawals')
+          .select('*')
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false })
+          .limit(5);
+
+        if (error) throw error;
+
+        const withdrawalList = document.getElementById('recent-withdrawals-list');
+        if (!withdrawalList) return;
+
+        if (!withdrawals || withdrawals.length === 0) {
+          withdrawalList.innerHTML = '<p class="text-gray-400 text-center py-4">No withdrawals yet.</p>';
+          return;
+        }
+
+        withdrawalList.innerHTML = withdrawals.map(w => `
       <div class="bg-gray-700/50 rounded-lg p-3 mb-2">
         <div class="flex justify-between items-center">
           <span class="text-red-400 font-bold">-$${parseFloat(w.amount).toFixed(2)}</span>
@@ -1439,708 +1510,708 @@ async function loadRecentWithdrawals(userId) {
         <span class="text-xs px-2 py-1 ${w.status === 'completed' ? 'bg-green-600' : w.status === 'pending' ? 'bg-yellow-600' : 'bg-red-600'} rounded-full">${w.status}</span>
       </div>
     `).join('');
-  } catch (err) {
-    console.error('Error loading withdrawals:', err);
-  }
-}
-// ========================================
-// SIDEBAR PROFILE FIX
-// ========================================
-async function loadSidebarProfile(user) {
-  try {
-    const { data: profile } = await supabaseClient
-      .from('users')
-      .select('username, email')
-      .eq('id', user.id)
-      .single();
-    
-    // ✅ FIX: Show username AND email (not email twice)
-    const username = profile?.username || user.email.split('@')[0];
-    const email = user.email;
-    
-    document.getElementById('sidebar-username').textContent = username;
-    document.getElementById('sidebar-email').textContent = email;
-    
-    // Initials
-    const initials = username.substring(0, 2).toUpperCase();
-    document.getElementById('sidebar-initials').textContent = initials;
-    document.getElementById('top-initials').textContent = initials;
-    document.getElementById('mobile-profile-btn').textContent = initials;
-    
-  } catch (err) {
-    console.error('Sidebar profile error:', err);
-  }
-}
+      } catch (err) {
+        console.error('Error loading withdrawals:', err);
+      }
+    }
+    // ========================================
+    // SIDEBAR PROFILE FIX
+    // ========================================
+    async function loadSidebarProfile(user) {
+      try {
+        const { data: profile } = await supabaseClient
+          .from('users')
+          .select('username, email')
+          .eq('id', user.id)
+          .single();
 
-// ---------- Deposits / Withdrawals lists ----------
-async function loadDepositsAndWithdrawals(user) {
-  if (!supabase || !user) return;
-  try {
-    // counts
-    const { data: deposits } = await supabaseClient.from('deposits').select('*').eq('user_id', user.id).order('created_at', {ascending: false});
-    const { data: withdrawals } = await supabaseClient.from('withdrawals').select('*').eq('user_id', user.id).order('created_at', {ascending: false});
+        // ✅ FIX: Show username AND email (not email twice)
+        const username = profile?.username || user.email.split('@')[0];
+        const email = user.email;
 
-    document.getElementById('count-deposits').textContent = deposits?.length ? deposits.length : '';
-    document.getElementById('count-withdrawals').textContent = withdrawals?.length ? withdrawals.length : '';
-    document.getElementById('count-overall').textContent = (deposits?.length || 0) + (withdrawals?.length || 0);
+        document.getElementById('sidebar-username').textContent = username;
+        document.getElementById('sidebar-email').textContent = email;
 
-    // deposits list
-    const depositList = document.getElementById('deposits-list');
-    depositList.innerHTML = '';
-    if (!deposits || deposits.length === 0) {
-      depositList.innerHTML = '<p class="text-gray-400">No deposits yet.</p>';
-    } else {
-      deposits.slice(0,5).forEach(d => {
-        const el = document.createElement('div');
-        el.className = 'p-3 bg-white/3 rounded-lg flex justify-between items-center';
-        el.innerHTML = `<div>
+        // Initials
+        const initials = username.substring(0, 2).toUpperCase();
+        document.getElementById('sidebar-initials').textContent = initials;
+        document.getElementById('top-initials').textContent = initials;
+        document.getElementById('mobile-profile-btn').textContent = initials;
+
+      } catch (err) {
+        console.error('Sidebar profile error:', err);
+      }
+    }
+
+    // ---------- Deposits / Withdrawals lists ----------
+    async function loadDepositsAndWithdrawals(user) {
+      if (!supabase || !user) return;
+      try {
+        // counts
+        const { data: deposits } = await supabaseClient.from('deposits').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+        const { data: withdrawals } = await supabaseClient.from('withdrawals').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+
+        document.getElementById('count-deposits').textContent = deposits?.length ? deposits.length : '';
+        document.getElementById('count-withdrawals').textContent = withdrawals?.length ? withdrawals.length : '';
+        document.getElementById('count-overall').textContent = (deposits?.length || 0) + (withdrawals?.length || 0);
+
+        // deposits list
+        const depositList = document.getElementById('deposits-list');
+        depositList.innerHTML = '';
+        if (!deposits || deposits.length === 0) {
+          depositList.innerHTML = '<p class="text-gray-400">No deposits yet.</p>';
+        } else {
+          deposits.slice(0, 5).forEach(d => {
+            const el = document.createElement('div');
+            el.className = 'p-3 bg-white/3 rounded-lg flex justify-between items-center';
+            el.innerHTML = `<div>
                           <div class="font-medium">${formatCurrency(d.amount)}</div>
                           <div class="text-xs text-gray-400">${new Date(d.created_at).toLocaleString()}</div>
                         </div>
                         <div class="text-sm ${d.status === 'confirmed' ? 'text-green-300' : (d.status === 'pending' ? 'text-yellow-300' : 'text-gray-400')}">
                           ${d.status}
                         </div>`;
-        depositList.appendChild(el);
-      });
-    }
-      
-       // ---------- Realtime Subscriptions ----------
-function setupRealtime() {
-  if (!currentUser) return;
-  
-  // Listen for wallet balance changes
-  supabaseClient
-    .channel('wallet-changes')
-    .on('postgres_changes', 
-      { 
-        event: 'UPDATE', 
-        schema: 'public', 
-        table: 'wallets',
-        filter: user_id=eq.$`{currentUser.id}`
-      },
-      (payload) => {
-        console.log('Wallet updated:', payload);
-        loadUserData(currentUser);
-      }
-    )
-    .subscribe();
+            depositList.appendChild(el);
+          });
+        }
 
-  // Listen for deposit status changes
-  supabaseClient
-    .channel('deposit-changes')
-    .on('postgres_changes', 
-      { 
-        event: 'UPDATE', 
-        schema: 'public', 
-        table: 'deposits',
-        filter: user_id=eq.$`{currentUser.id}`
-      },
-      (payload) => {
-        console.log('Deposit updated:', payload);
-        loadDepositsAndWithdrawals(currentUser);
-        loadTransactions(currentUser);
-      }
-    )
-    .subscribe();
-}
+        // ---------- Realtime Subscriptions ----------
+        function setupRealtime() {
+          if (!currentUser) return;
 
-    // withdrawals list
-    const withdrawalsList = document.getElementById('withdrawals-list');
-    withdrawalsList.innerHTML = '';
-    if (!withdrawals || withdrawals.length === 0) {
-      withdrawalsList.innerHTML = '<p class="text-gray-400">No withdrawals yet.</p>';
-    } else {
-      withdrawals.slice(0,5).forEach(w => {
-        const el = document.createElement('div');
-        el.className = 'p-3 bg-white/3 rounded-lg flex justify-between items-center';
-        el.innerHTML = `<div>
+          // Listen for wallet balance changes
+          supabaseClient
+            .channel('wallet-changes')
+            .on('postgres_changes',
+              {
+                event: 'UPDATE',
+                schema: 'public',
+                table: 'wallets',
+                filter: user_id = eq.$`{currentUser.id}`
+              },
+              (payload) => {
+                console.log('Wallet updated:', payload);
+                loadUserData(currentUser);
+              }
+            )
+            .subscribe();
+
+          // Listen for deposit status changes
+          supabaseClient
+            .channel('deposit-changes')
+            .on('postgres_changes',
+              {
+                event: 'UPDATE',
+                schema: 'public',
+                table: 'deposits',
+                filter: user_id = eq.$`{currentUser.id}`
+              },
+              (payload) => {
+                console.log('Deposit updated:', payload);
+                loadDepositsAndWithdrawals(currentUser);
+                loadTransactions(currentUser);
+              }
+            )
+            .subscribe();
+        }
+
+        // withdrawals list
+        const withdrawalsList = document.getElementById('withdrawals-list');
+        withdrawalsList.innerHTML = '';
+        if (!withdrawals || withdrawals.length === 0) {
+          withdrawalsList.innerHTML = '<p class="text-gray-400">No withdrawals yet.</p>';
+        } else {
+          withdrawals.slice(0, 5).forEach(w => {
+            const el = document.createElement('div');
+            el.className = 'p-3 bg-white/3 rounded-lg flex justify-between items-center';
+            el.innerHTML = `<div>
                             <div class="font-medium">${formatCurrency(w.amount)}</div>
                             <div class="text-xs text-gray-400">${new Date(w.created_at).toLocaleString()}</div>
                           </div>
                           <div class="text-sm ${w.status === 'paid' ? 'text-green-300' : (w.status === 'pending' ? 'text-yellow-300' : 'text-gray-400')}">
                             ${w.status}
                           </div>`;
-        withdrawalsList.appendChild(el);
-      });
-    }
-  } catch (err) {
-    console.error('Error loading deposits/withdrawals:', err);
-  }
-}
-// Load user settings with detailed logging
-async function loadSettings() {
-  console.log('=== loadSettings() called ===');
-  
-  try {
-    // Step 1: Get current user
-    console.log('Step 1: Getting user...');
-    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-    
-    if (userError) {
-      console.error('User error:', userError);
-      alert('Authentication error. Please log in again.');
-      return;
-    }
-    
-    if (!user) {
-      console.error('No user logged in');
-      alert('Please log in to view settings');
-      return;
-    }
-    
-   
-
-    console.log('User found:', user.id, user.email);
-    
-    // Step 2: Get user profile from database
-    console.log('Step 2: Fetching profile from database...');
-    const { data: profile, error: profileError } = await supabaseClient
-      .from('users')
-      .select('*')
-      .eq('id', user.id)
-      .single();
-    
-    if (profileError) {
-      console.error('Profile error:', profileError);
-      alert('Error loading profile: ' + profileError.message);
-      return;
-    }
-    
-    console.log('Profile data:', profile);
-    
-    // Step 3: Check if elements exist
-    const elements = {
-      username: document.getElementById('settings-username'),
-      email: document.getElementById('settings-email'),
-      phone: document.getElementById('settings-phone'),
-      balance: document.getElementById('settings-balance'),
-      userId: document.getElementById('settings-user-id'),
-      joinedDate: document.getElementById('settings-joined-date'),
-      kycStatus: document.getElementById('settings-kyc-status')
-    };
-    
-    console.log('Elements found:', {
-      username: !!elements.username,
-      email: !!elements.email,
-      phone: !!elements.phone,
-      balance: !!elements.balance,
-      userId: !!elements.userId,
-      joinedDate: !!elements.joinedDate,
-      kycStatus: !!elements.kycStatus
-    });
-    
-    // Step 4: Populate fields
-    if (elements.username) elements.username.value = profile?.username || '';
-    if (elements.email) elements.email.value = user.email || '';
-    if (elements.phone) elements.phone.value = profile?.phone || '';
-    if (elements.balance) elements.balance.value = `$${parseFloat(profile?.balance || 0).toFixed(2)}`;
-    
-    // Update Account Information
-    if (elements.userId) {
-      elements.userId.textContent = user.id;
-      console.log('User ID set:', user.id);
-    }
-    
-  // ✅ FIX: Member Since (use auth.users created_at)
-    const joinDate = new Date(user.created_at); // NOT profile.created_at
-    document.getElementById('settings-joined-date').textContent = joinDate.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-    
-   
-    
-    if (elements.kycStatus) {
-      const kycStatus = profile?.kyc_status || 'Pending';
-      elements.kycStatus.textContent = kycStatus;
-      
-      // Apply color
-      if (kycStatus === 'Verified' || kycStatus === 'verified') {
-        elements.kycStatus.className = 'text-green-400 font-semibold';
-      } else if (kycStatus === 'Rejected' || kycStatus === 'rejected') {
-        elements.kycStatus.className = 'text-red-400 font-semibold';
-      } else {
-        elements.kycStatus.className = 'text-yellow-400 font-semibold';
+            withdrawalsList.appendChild(el);
+          });
+        }
+      } catch (err) {
+        console.error('Error loading deposits/withdrawals:', err);
       }
-      console.log('KYC status set:', kycStatus);
     }
-    
-    console.log('=== loadSettings() completed successfully ===');
-    
-  } catch (err) {
-    console.error('=== loadSettings() FAILED ===');
-    console.error('Error details:', err);
-    alert('Failed to load settings: ' + err.message);
-  }
-}
+    // Load user settings with detailed logging
+    async function loadSettings() {
+      console.log('=== loadSettings() called ===');
 
-// Save profile changes
-document.getElementById('profile-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const username = document.getElementById('settings-username').value.trim();
-  const phone = document.getElementById('settings-phone').value.trim();
-  
-  if (!username) {
-    alert('Username cannot be empty');
-    return;
-  }
-  
-  try {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    
-    if (!user) {
-      alert('Please log in first');
-      return;
+      try {
+        // Step 1: Get current user
+        console.log('Step 1: Getting user...');
+        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+
+        if (userError) {
+          console.error('User error:', userError);
+          alert('Authentication error. Please log in again.');
+          return;
+        }
+
+        if (!user) {
+          console.error('No user logged in');
+          alert('Please log in to view settings');
+          return;
+        }
+
+
+
+        console.log('User found:', user.id, user.email);
+
+        // Step 2: Get user profile from database
+        console.log('Step 2: Fetching profile from database...');
+        const { data: profile, error: profileError } = await supabaseClient
+          .from('users')
+          .select('*')
+          .eq('id', user.id)
+          .single();
+
+        if (profileError) {
+          console.error('Profile error:', profileError);
+          alert('Error loading profile: ' + profileError.message);
+          return;
+        }
+
+        console.log('Profile data:', profile);
+
+        // Step 3: Check if elements exist
+        const elements = {
+          username: document.getElementById('settings-username'),
+          email: document.getElementById('settings-email'),
+          phone: document.getElementById('settings-phone'),
+          balance: document.getElementById('settings-balance'),
+          userId: document.getElementById('settings-user-id'),
+          joinedDate: document.getElementById('settings-joined-date'),
+          kycStatus: document.getElementById('settings-kyc-status')
+        };
+
+        console.log('Elements found:', {
+          username: !!elements.username,
+          email: !!elements.email,
+          phone: !!elements.phone,
+          balance: !!elements.balance,
+          userId: !!elements.userId,
+          joinedDate: !!elements.joinedDate,
+          kycStatus: !!elements.kycStatus
+        });
+
+        // Step 4: Populate fields
+        if (elements.username) elements.username.value = profile?.username || '';
+        if (elements.email) elements.email.value = user.email || '';
+        if (elements.phone) elements.phone.value = profile?.phone || '';
+        if (elements.balance) elements.balance.value = `$${parseFloat(profile?.balance || 0).toFixed(2)}`;
+
+        // Update Account Information
+        if (elements.userId) {
+          elements.userId.textContent = user.id;
+          console.log('User ID set:', user.id);
+        }
+
+        // ✅ FIX: Member Since (use auth.users created_at)
+        const joinDate = new Date(user.created_at); // NOT profile.created_at
+        document.getElementById('settings-joined-date').textContent = joinDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+
+
+
+        if (elements.kycStatus) {
+          const kycStatus = profile?.kyc_status || 'Pending';
+          elements.kycStatus.textContent = kycStatus;
+
+          // Apply color
+          if (kycStatus === 'Verified' || kycStatus === 'verified') {
+            elements.kycStatus.className = 'text-green-400 font-semibold';
+          } else if (kycStatus === 'Rejected' || kycStatus === 'rejected') {
+            elements.kycStatus.className = 'text-red-400 font-semibold';
+          } else {
+            elements.kycStatus.className = 'text-yellow-400 font-semibold';
+          }
+          console.log('KYC status set:', kycStatus);
+        }
+
+        console.log('=== loadSettings() completed successfully ===');
+
+      } catch (err) {
+        console.error('=== loadSettings() FAILED ===');
+        console.error('Error details:', err);
+        alert('Failed to load settings: ' + err.message);
+      }
     }
-    
-    // Update user profile in database
-    const { error } = await supabaseClient
-      .from('users')
-      .update({
-        username: username,
-        phone: phone
-      })
-      .eq('id', user.id);
-    
-    if (error) throw error;
-    
-    alert('Profile updated successfully!');
-    
-    // Refresh sidebar to show updated username
-    updateSidebarProfile(user);
-    
-    // Reload settings to show updated data
-    loadSettings();
-    
-  } catch (err) {
-    console.error('Error updating profile:', err);
-    alert('Failed to update profile: ' + err.message);
-  }
-})
 
-// Change password
-document.getElementById('password-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const currentPassword = document.getElementById('current-password').value;
-  const newPassword = document.getElementById('new-password').value;
-  const confirmPassword = document.getElementById('confirm-password').value;
-  
-  // Validation
-  if (!currentPassword || !newPassword || !confirmPassword) {
-    alert('Please fill in all password fields');
-    return;
-  }
-  
-  if (newPassword !== confirmPassword) {
-    alert('New passwords do not match!');
-    return;
-  }
-  
-  if (newPassword.length < 6) {
-    alert('Password must be at least 6 characters long');
-    return;
-  }
-  
-  try {
-    // Update password in Supabase
-    const { error } = await supabaseClient.auth.updateUser({
-      password: newPassword
+    // Save profile changes
+    document.getElementById('profile-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('settings-username').value.trim();
+      const phone = document.getElementById('settings-phone').value.trim();
+
+      if (!username) {
+        alert('Username cannot be empty');
+        return;
+      }
+
+      try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+
+        if (!user) {
+          alert('Please log in first');
+          return;
+        }
+
+        // Update user profile in database
+        const { error } = await supabaseClient
+          .from('users')
+          .update({
+            username: username,
+            phone: phone
+          })
+          .eq('id', user.id);
+
+        if (error) throw error;
+
+        alert('Profile updated successfully!');
+
+        // Refresh sidebar to show updated username
+        updateSidebarProfile(user);
+
+        // Reload settings to show updated data
+        loadSettings();
+
+      } catch (err) {
+        console.error('Error updating profile:', err);
+        alert('Failed to update profile: ' + err.message);
+      }
+    })
+
+    // Change password
+    document.getElementById('password-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      // Validation
+      if (!currentPassword || !newPassword || !confirmPassword) {
+        alert('Please fill in all password fields');
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        alert('New passwords do not match!');
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        alert('Password must be at least 6 characters long');
+        return;
+      }
+
+      try {
+        // Update password in Supabase
+        const { error } = await supabaseClient.auth.updateUser({
+          password: newPassword
+        });
+
+        if (error) throw error;
+
+        alert('Password changed successfully!');
+
+        // Clear the form
+        document.getElementById('password-form').reset();
+
+      } catch (err) {
+        console.error('Error changing password:', err);
+        alert('Failed to change password: ' + err.message);
+      }
     });
-    
-    if (error) throw error;
-    
-    alert('Password changed successfully!');
-    
-    // Clear the form
-    document.getElementById('password-form').reset();
-    
-  } catch (err) {
-    console.error('Error changing password:', err);
-    alert('Failed to change password: ' + err.message);
-  }
-});
 
 
 
-async function loadTransactions(user) {
-  if (!supabaseClient || !user) return;
-  try {
-    // Example: join deposits + withdrawals into transactions list
-    const { data: deposits } = await supabaseClient.from('deposits').select('*').eq('user_id', user.id);
-    const { data: withdrawals } = await supabaseClient.from('withdrawals').select('*').eq('user_id', user.id);
-    const tx = [];
-    (deposits || []).forEach(d => tx.push({ type: 'Deposit', amount: d.amount, status: d.status, created_at: d.created_at }));
-    (withdrawals || []).forEach(w => tx.push({ type: 'Withdraw', amount: w.amount, status: w.status, created_at: w.created_at }));
-    tx.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-    const list = document.getElementById('transactions-list');
-    list.innerHTML = '';
-    if (tx.length === 0) list.innerHTML = '<p class="text-gray-400">No transactions yet.</p>';
-    else {
-      tx.forEach(t => {
-        const el = document.createElement('div');
-        el.className = 'p-3 bg-white/3 rounded-lg flex justify-between items-center';
-        el.innerHTML = `<div>
+    async function loadTransactions(user) {
+      if (!supabaseClient || !user) return;
+      try {
+        // Example: join deposits + withdrawals into transactions list
+        const { data: deposits } = await supabaseClient.from('deposits').select('*').eq('user_id', user.id);
+        const { data: withdrawals } = await supabaseClient.from('withdrawals').select('*').eq('user_id', user.id);
+        const tx = [];
+        (deposits || []).forEach(d => tx.push({ type: 'Deposit', amount: d.amount, status: d.status, created_at: d.created_at }));
+        (withdrawals || []).forEach(w => tx.push({ type: 'Withdraw', amount: w.amount, status: w.status, created_at: w.created_at }));
+        tx.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        const list = document.getElementById('transactions-list');
+        list.innerHTML = '';
+        if (tx.length === 0) list.innerHTML = '<p class="text-gray-400">No transactions yet.</p>';
+        else {
+          tx.forEach(t => {
+            const el = document.createElement('div');
+            el.className = 'p-3 bg-white/3 rounded-lg flex justify-between items-center';
+            el.innerHTML = `<div>
                           <div class="font-medium">${t.type}</div>
                           <div class="text-xs text-gray-400">${new Date(t.created_at).toLocaleString()}</div>
                         </div>
                         <div class="text-sm">${formatCurrency(t.amount)} <div class="text-xs">${t.status}</div></div>`;
-        list.appendChild(el);
-      });
-    }
-  } catch (err) {
-    console.error('Error loading transactions:', err);
-  }
-}
-
-function formatCurrency(v) {
-  return `$${parseFloat(v || 0).toFixed(2)}`;
-}
-// ========================================
-// COMPLETELY FIXED WITHDRAWAL FUNCTION
-// ========================================
-async function submitWithdraw() {
-  const withdrawAmount = document.getElementById('withdraw-amount');
-  const withdrawDestination = document.getElementById('withdraw-destination');
-  
-  if (!withdrawAmount || !withdrawDestination) {
-    showToastError('Form elements not found');
-    return;
-  }
-  
-  const amount = parseFloat(withdrawAmount.value);
-  const destination = withdrawDestination.value.trim();
-  
-  // Validation
-  if (!amount || amount < 50) {
-    showToastError('Minimum withdrawal is $50');
-    return;
-  }
-  
-  if (!destination) {
-    showToastError('Please enter destination wallet address');
-    return;
-  }
-  
-  if (!supabaseClient) {
-    showToastError('Database not connected');
-    return;
-  }
-
-  try {
-    // Get current user
-    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-    
-    if (userError || !user) {
-      showToastError('Please sign in first');
-      return;
+            list.appendChild(el);
+          });
+        }
+      } catch (err) {
+        console.error('Error loading transactions:', err);
+      }
     }
 
-    console.log('User ID:', user.id);
-
-    // Check user balance
-    const { data: userData, error: balanceError } = await supabaseClient
-      .from('users')
-      .select('balance')
-      .eq('id', user.id)
-      .single();
-    
-    if (balanceError) {
-      console.error('Balance check error:', balanceError);
-      showToastError('Failed to check balance: ' + balanceError.message);
-      return;
+    function formatCurrency(v) {
+      return `$${parseFloat(v || 0).toFixed(2)}`;
     }
+    // ========================================
+    // COMPLETELY FIXED WITHDRAWAL FUNCTION
+    // ========================================
+    async function submitWithdraw() {
+      const withdrawAmount = document.getElementById('withdraw-amount');
+      const withdrawDestination = document.getElementById('withdraw-destination');
 
-    const currentBalance = parseFloat(userData.balance || 0);
-    
-    console.log('Current balance:', currentBalance);
-    console.log('Withdrawal amount:', amount);
-
-    // Check if user has sufficient balance
-    if (currentBalance < amount) {
-      showToastError(`Insufficient balance! You have $${currentBalance.toFixed(2)} but trying to withdraw $${amount.toFixed(2)}`);
-      return;
-    }
-
-    console.log('Creating withdrawal request...');
-
-    // ✅ FIXED: Only insert the exact columns that exist in your withdrawals table
-    const { data: withdrawalData, error: withdrawError } = await supabaseClient
-      .from('withdrawals')
-      .insert([{
-        user_id: user.id,
-        amount: amount,
-        destination: destination,
-        status: 'pending'
-        // ❌ REMOVED: username (doesn't exist)
-        // ❌ REMOVED: email (doesn't exist)
-        // ❌ REMOVED: Any other fields not in your table
-      }])
-      .select()
-      .single();
-    
-    if (withdrawError) {
-      console.error('Withdrawal insert error:', withdrawError);
-      throw new Error('Failed to create withdrawal: ' + withdrawError.message);
-    }
-
-    console.log('Withdrawal created:', withdrawalData);
-
-    // Show success message
-    showToast('✅ Withdrawal requested successfully! Admin will process it shortly.');
-    
-    // Clear form
-    withdrawAmount.value = '';
-    withdrawDestination.value = '';
-    
-    // Clear cache and reload data
-    cache.clear('userData');
-    
-    if (currentUser) {
-      await loadUserData(currentUser);
-      await loadDepositsAndWithdrawals(currentUser);
-      await loadTransactions(currentUser);
-    }
-
-  } catch (err) {
-    console.error('Withdrawal error:', err);
-    showToastError('Withdrawal failed: ' + (err.message || err));
-  }
-}
-
-// ========================================
-// SAVE WITHDRAWAL WALLET ADDRESS
-// ========================================
-async function saveWithdrawInfo() {
-  const withdrawDestination = document.getElementById('withdraw-destination');
-  
-  if (!withdrawDestination) {
-    showToastError('Destination field not found');
-    return;
-  }
-  
-  const dest = withdrawDestination.value.trim();
-  
-  if (!dest) {
-    showToastError('Please enter wallet address first');
-    return;
-  }
-  
-  try {
-    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-    
-    if (userError || !user) {
-      showToastError('Please sign in first');
-      return;
-    }
-    
-    console.log('Saving withdrawal wallet for user:', user.id);
-    
-    // Check if column exists first
-    const { data: checkData, error: checkError } = await supabaseClient
-      .from('users')
-      .select('id')
-      .eq('id', user.id)
-      .single();
-    
-    if (checkError) {
-      console.error('User check error:', checkError);
-      throw checkError;
-    }
-    
-    // Try to update with the wallet address
-    // Note: You may need to add this column to your users table
-    const { error: updateError } = await supabaseClient
-      .from('users')
-      .update({ 
-        default_wallet: dest  // Change this to match your actual column name
-      })
-      .eq('id', user.id);
-    
-    if (updateError) {
-      console.error('Save wallet error:', updateError);
-      
-      // If column doesn't exist, inform user
-      if (updateError.message.includes('column') && updateError.message.includes('does not exist')) {
-        showToastError('Wallet saving not available. Contact admin to enable this feature.');
+      if (!withdrawAmount || !withdrawDestination) {
+        showToastError('Form elements not found');
         return;
       }
-      
-      throw updateError;
+
+      const amount = parseFloat(withdrawAmount.value);
+      const destination = withdrawDestination.value.trim();
+
+      // Validation
+      if (!amount || amount < 50) {
+        showToastError('Minimum withdrawal is $50');
+        return;
+      }
+
+      if (!destination) {
+        showToastError('Please enter destination wallet address');
+        return;
+      }
+
+      if (!supabaseClient) {
+        showToastError('Database not connected');
+        return;
+      }
+
+      try {
+        // Get current user
+        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+
+        if (userError || !user) {
+          showToastError('Please sign in first');
+          return;
+        }
+
+        console.log('User ID:', user.id);
+
+        // Check user balance
+        const { data: userData, error: balanceError } = await supabaseClient
+          .from('users')
+          .select('balance')
+          .eq('id', user.id)
+          .single();
+
+        if (balanceError) {
+          console.error('Balance check error:', balanceError);
+          showToastError('Failed to check balance: ' + balanceError.message);
+          return;
+        }
+
+        const currentBalance = parseFloat(userData.balance || 0);
+
+        console.log('Current balance:', currentBalance);
+        console.log('Withdrawal amount:', amount);
+
+        // Check if user has sufficient balance
+        if (currentBalance < amount) {
+          showToastError(`Insufficient balance! You have $${currentBalance.toFixed(2)} but trying to withdraw $${amount.toFixed(2)}`);
+          return;
+        }
+
+        console.log('Creating withdrawal request...');
+
+        // ✅ FIXED: Only insert the exact columns that exist in your withdrawals table
+        const { data: withdrawalData, error: withdrawError } = await supabaseClient
+          .from('withdrawals')
+          .insert([{
+            user_id: user.id,
+            amount: amount,
+            destination: destination,
+            status: 'pending'
+            // ❌ REMOVED: username (doesn't exist)
+            // ❌ REMOVED: email (doesn't exist)
+            // ❌ REMOVED: Any other fields not in your table
+          }])
+          .select()
+          .single();
+
+        if (withdrawError) {
+          console.error('Withdrawal insert error:', withdrawError);
+          throw new Error('Failed to create withdrawal: ' + withdrawError.message);
+        }
+
+        console.log('Withdrawal created:', withdrawalData);
+
+        // Show success message
+        showToast('✅ Withdrawal requested successfully! Admin will process it shortly.');
+
+        // Clear form
+        withdrawAmount.value = '';
+        withdrawDestination.value = '';
+
+        // Clear cache and reload data
+        cache.clear('userData');
+
+        if (currentUser) {
+          await loadUserData(currentUser);
+          await loadDepositsAndWithdrawals(currentUser);
+          await loadTransactions(currentUser);
+        }
+
+      } catch (err) {
+        console.error('Withdrawal error:', err);
+        showToastError('Withdrawal failed: ' + (err.message || err));
+      }
     }
-    
-    showToast('✅ Wallet address saved as default!');
-    
-  } catch (err) {
-    console.error('Save failed:', err);
-    showToastError('Save failed: ' + err.message);
-  }
-}
 
-// ========================================
-// LOAD SAVED WITHDRAWAL INFO
-// ========================================
-async function loadSavedWithdrawInfo() {
-  try {
-    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-    
-    if (userError || !user) return;
-    
-    const { data: userData, error: loadError } = await supabaseClient
-      .from('users')
-      .select('default_wallet')  // Change to match your actual column name
-      .eq('id', user.id)
-      .single();
-    
-    // Ignore error if column doesn't exist
-    if (loadError && !loadError.message.includes('column')) {
-      console.error('Load saved info error:', loadError);
-      return;
-    }
-    
-    const withdrawDestination = document.getElementById('withdraw-destination');
-    if (withdrawDestination && userData?.default_wallet) {
-      withdrawDestination.value = userData.default_wallet;
-      console.log('Loaded saved wallet:', userData.default_wallet);
-    }
-    
-  } catch (err) {
-    console.error('Load saved info failed:', err);
-  }
-}
-// ========================================
-// CALL THIS WHEN NAVIGATING TO WITHDRAW PAGE
-// ========================================
-document.getElementById('nav-withdraw')?.addEventListener('click', () => {
-  loadPage('withdraw');
-  
-  // Load saved wallet info after a small delay
-  setTimeout(() => {
-    loadSavedWithdrawInfo();
-  }, 100);
-});
-// ---------- KYC UPLOAD (FIXED FOR kyc_files TABLE) ----------
-async function uploadKYC() {
-  const front = document.getElementById('kyc-front').files[0];
-  const back = document.getElementById('kyc-back').files[0];
-  
-  if (!front || !back) { 
-    showToastError('Upload both ID images'); 
-    return; 
-  }
-  if (!supabaseClient) { 
-    showToastError('Database not connected'); 
-    return; 
-  }
-  
-  try {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) { 
-      showToastError('Not signed in'); 
-      return; 
-    }
+    // ========================================
+    // SAVE WITHDRAWAL WALLET ADDRESS
+    // ========================================
+    async function saveWithdrawInfo() {
+      const withdrawDestination = document.getElementById('withdraw-destination');
 
-    const timestamp = Date.now();
-    const frontName = `users/${user.id}/front_${timestamp}.jpg`;
-    const backName = `users/${user.id}/back_${timestamp}.jpg`;
+      if (!withdrawDestination) {
+        showToastError('Destination field not found');
+        return;
+      }
 
-    // Upload files
-    const { error: frontError } = await supabaseClient.storage
-      .from('kyc')
-      .upload(frontName, front);
-    
-    if (frontError) throw new Error('Front upload failed: ' + frontError.message);
+      const dest = withdrawDestination.value.trim();
 
-    const { error: backError } = await supabaseClient.storage
-      .from('kyc')
-      .upload(backName, back);
-    
-    if (backError) throw new Error('Back upload failed: ' + backError.message);
+      if (!dest) {
+        showToastError('Please enter wallet address first');
+        return;
+      }
 
-    // Save to kyc_files table (using YOUR column names)
-    const { error: dbError } = await supabaseClient
-      .from('kyc_files')
-      .insert([{
-        user_id: user.id,
-        front_path: frontName,  // Your column name
-        back_path: backName,    // Your column name
-        status: 'pending',
-        uploaded_at: new Date().toISOString()
-      }]);
-    
-    if (dbError) throw new Error('Database save failed: ' + dbError.message);
+      try {
+        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
 
-    showToast('KYC submitted successfully!');
-    document.getElementById('kyc-front').value = '';
-    document.getElementById('kyc-back').value = '';
-    
-  } catch (err) {
-    console.error('KYC upload error:', err);
-    showToastError('KYC upload failed: ' + err.message);
-  }
-}
-// ---------- Mobile sidebar handlers ----------
-function openSidebar() {
-  document.getElementById('sidebar').classList.remove('-translate-x-full');
-  document.getElementById('overlay').classList.remove('hidden');
-  document.body.classList.add('no-scroll');
-}
-function closeSidebar() {
-  // hide only on mobile screens
-  if (window.innerWidth < 768) {
-    document.getElementById('sidebar').classList.add('-translate-x-full');
-    document.getElementById('overlay').classList.add('hidden');
-    document.body.classList.remove('no-scroll');
-  }
-}
+        if (userError || !user) {
+          showToastError('Please sign in first');
+          return;
+        }
 
-// ---------- Realtime subscription (deposits/withdrawals) ----------
-function setupRealtime() {
-  try {
-    // subscribe to changes on deposits & withdrawals (public schema)
-    // When admin updates deposit status to 'confirmed', update wallet and lists automatically.
-    const channel = supabaseClient.channel('public-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'deposits' }, payload => {
-        // If deposit changed for current user, refresh lists and wallet
-        const rec = payload.record;
-        const userId = rec?.user_id;
-        supabaseClient.auth.getUser().then(({ data: { user }}) => {
-          if (user && user.id === userId) {
-            // if confirmed, we must update wallet display (wallet update likely handled by backend - here we just re-fetch)
-            loadUserData(user);
-            loadDepositsAndWithdrawals(user);
-            loadTransactions(user);
+        console.log('Saving withdrawal wallet for user:', user.id);
+
+        // Check if column exists first
+        const { data: checkData, error: checkError } = await supabaseClient
+          .from('users')
+          .select('id')
+          .eq('id', user.id)
+          .single();
+
+        if (checkError) {
+          console.error('User check error:', checkError);
+          throw checkError;
+        }
+
+        // Try to update with the wallet address
+        // Note: You may need to add this column to your users table
+        const { error: updateError } = await supabaseClient
+          .from('users')
+          .update({
+            default_wallet: dest  // Change this to match your actual column name
+          })
+          .eq('id', user.id);
+
+        if (updateError) {
+          console.error('Save wallet error:', updateError);
+
+          // If column doesn't exist, inform user
+          if (updateError.message.includes('column') && updateError.message.includes('does not exist')) {
+            showToastError('Wallet saving not available. Contact admin to enable this feature.');
+            return;
           }
-        }).catch(()=>{});
-      })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'withdrawals' }, payload => {
-        const rec = payload.record;
-        const userId = rec?.user_id;
-        supabaseClient.auth.getUser().then(({ data: { user }}) => {
-          if (user && user.id === userId) {
-            loadDepositsAndWithdrawals(user);
-            loadTransactions(user);
-          }
-        }).catch(()=>{});
-      })
-      .subscribe(status => {
-        // status shows SUBSCRIBED etc.
-        console.log('realtime status', status);
-      });
-  } catch (err) {
-    console.warn('Realtime setup failed (check Supabase realtime config):', err);
-  }
-}
 
-// ---------- Small helpers ----------
-function formatDate(d) {
-  try { return new Date(d).toLocaleString(); } catch(e) { return d; }
-}
+          throw updateError;
+        }
+
+        showToast('✅ Wallet address saved as default!');
+
+      } catch (err) {
+        console.error('Save failed:', err);
+        showToastError('Save failed: ' + err.message);
+      }
+    }
+
+    // ========================================
+    // LOAD SAVED WITHDRAWAL INFO
+    // ========================================
+    async function loadSavedWithdrawInfo() {
+      try {
+        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+
+        if (userError || !user) return;
+
+        const { data: userData, error: loadError } = await supabaseClient
+          .from('users')
+          .select('default_wallet')  // Change to match your actual column name
+          .eq('id', user.id)
+          .single();
+
+        // Ignore error if column doesn't exist
+        if (loadError && !loadError.message.includes('column')) {
+          console.error('Load saved info error:', loadError);
+          return;
+        }
+
+        const withdrawDestination = document.getElementById('withdraw-destination');
+        if (withdrawDestination && userData?.default_wallet) {
+          withdrawDestination.value = userData.default_wallet;
+          console.log('Loaded saved wallet:', userData.default_wallet);
+        }
+
+      } catch (err) {
+        console.error('Load saved info failed:', err);
+      }
+    }
+    // ========================================
+    // CALL THIS WHEN NAVIGATING TO WITHDRAW PAGE
+    // ========================================
+    document.getElementById('nav-withdraw')?.addEventListener('click', () => {
+      loadPage('withdraw');
+
+      // Load saved wallet info after a small delay
+      setTimeout(() => {
+        loadSavedWithdrawInfo();
+      }, 100);
+    });
+    // ---------- KYC UPLOAD (FIXED FOR kyc_files TABLE) ----------
+    async function uploadKYC() {
+      const front = document.getElementById('kyc-front').files[0];
+      const back = document.getElementById('kyc-back').files[0];
+
+      if (!front || !back) {
+        showToastError('Upload both ID images');
+        return;
+      }
+      if (!supabaseClient) {
+        showToastError('Database not connected');
+        return;
+      }
+
+      try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (!user) {
+          showToastError('Not signed in');
+          return;
+        }
+
+        const timestamp = Date.now();
+        const frontName = `users/${user.id}/front_${timestamp}.jpg`;
+        const backName = `users/${user.id}/back_${timestamp}.jpg`;
+
+        // Upload files
+        const { error: frontError } = await supabaseClient.storage
+          .from('kyc')
+          .upload(frontName, front);
+
+        if (frontError) throw new Error('Front upload failed: ' + frontError.message);
+
+        const { error: backError } = await supabaseClient.storage
+          .from('kyc')
+          .upload(backName, back);
+
+        if (backError) throw new Error('Back upload failed: ' + backError.message);
+
+        // Save to kyc_files table (using YOUR column names)
+        const { error: dbError } = await supabaseClient
+          .from('kyc_files')
+          .insert([{
+            user_id: user.id,
+            front_path: frontName,  // Your column name
+            back_path: backName,    // Your column name
+            status: 'pending',
+            uploaded_at: new Date().toISOString()
+          }]);
+
+        if (dbError) throw new Error('Database save failed: ' + dbError.message);
+
+        showToast('KYC submitted successfully!');
+        document.getElementById('kyc-front').value = '';
+        document.getElementById('kyc-back').value = '';
+
+      } catch (err) {
+        console.error('KYC upload error:', err);
+        showToastError('KYC upload failed: ' + err.message);
+      }
+    }
+    // ---------- Mobile sidebar handlers ----------
+    function openSidebar() {
+      document.getElementById('sidebar').classList.remove('-translate-x-full');
+      document.getElementById('overlay').classList.remove('hidden');
+      document.body.classList.add('no-scroll');
+    }
+    function closeSidebar() {
+      // hide only on mobile screens
+      if (window.innerWidth < 768) {
+        document.getElementById('sidebar').classList.add('-translate-x-full');
+        document.getElementById('overlay').classList.add('hidden');
+        document.body.classList.remove('no-scroll');
+      }
+    }
+
+    // ---------- Realtime subscription (deposits/withdrawals) ----------
+    function setupRealtime() {
+      try {
+        // subscribe to changes on deposits & withdrawals (public schema)
+        // When admin updates deposit status to 'confirmed', update wallet and lists automatically.
+        const channel = supabaseClient.channel('public-changes')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'deposits' }, payload => {
+            // If deposit changed for current user, refresh lists and wallet
+            const rec = payload.record;
+            const userId = rec?.user_id;
+            supabaseClient.auth.getUser().then(({ data: { user } }) => {
+              if (user && user.id === userId) {
+                // if confirmed, we must update wallet display (wallet update likely handled by backend - here we just re-fetch)
+                loadUserData(user);
+                loadDepositsAndWithdrawals(user);
+                loadTransactions(user);
+              }
+            }).catch(() => { });
+          })
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'withdrawals' }, payload => {
+            const rec = payload.record;
+            const userId = rec?.user_id;
+            supabaseClient.auth.getUser().then(({ data: { user } }) => {
+              if (user && user.id === userId) {
+                loadDepositsAndWithdrawals(user);
+                loadTransactions(user);
+              }
+            }).catch(() => { });
+          })
+          .subscribe(status => {
+            // status shows SUBSCRIBED etc.
+            console.log('realtime status', status);
+          });
+      } catch (err) {
+        console.warn('Realtime setup failed (check Supabase realtime config):', err);
+      }
+    }
+
+    // ---------- Small helpers ----------
+    function formatDate(d) {
+      try { return new Date(d).toLocaleString(); } catch (e) { return d; }
+    }
 
 
- 
+
   </script>
 </body>
 

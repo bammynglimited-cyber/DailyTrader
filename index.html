@@ -1,45 +1,82 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9CKEEJKSDQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9CKEEJKSDQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-9CKEEJKSDQ');
-</script>
+    gtag('config', 'G-9CKEEJKSDQ');
+  </script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- Essential SEO -->
-<meta name="description" content="DailyTrader - Professional cryptocurrency trading platform. Trade Bitcoin, Ethereum, and earn profits with expert strategies.">
-<meta name="keywords" content="crypto trading, cryptocurrency, bitcoin, ethereum, trading platform, investment">
-<meta name="author" content="DailyTrader">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Essential SEO -->
+  <meta name="description"
+    content="DailyTrader - Professional cryptocurrency trading platform. Trade Bitcoin, Ethereum, and earn profits with expert strategies.">
+  <meta name="keywords" content="crypto trading, cryptocurrency, bitcoin, ethereum, trading platform, investment">
+  <meta name="author" content="DailyTrader">
 
-<!-- Open Graph -->
-<meta property="og:title" content="DailyTrader - Cryptocurrency Trading Platform">
-<meta property="og:description" content="Trade cryptocurrencies, earn profits, and grow your wealth">
-<meta property="og:image" content="https://dailytrader.site/og-image.jpg">
-<meta property="og:url" content="https://dailytrader.site/">
-<meta property="og:type" content="website">
+  <!-- Open Graph -->
+  <meta property="og:title" content="DailyTrader - Cryptocurrency Trading Platform">
+  <meta property="og:description" content="Trade cryptocurrencies, earn profits, and grow your wealth">
+  <meta property="og:image" content="https://dailytrader.site/og-image.jpg">
+  <meta property="og:url" content="https://dailytrader.site/">
+  <meta property="og:type" content="website">
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="DailyTrader - Crypto Trading">
-<meta name="twitter:description" content="Professional cryptocurrency trading platform">
-<meta name="twitter:image" content="https://dailytrader.site/og-image.jpg">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DailyTrader - Crypto Trading">
+  <meta name="twitter:description" content="Professional cryptocurrency trading platform">
+  <meta name="twitter:image" content="https://dailytrader.site/og-image.jpg">
 
-<!-- Canonical -->
-<link rel="canonical" href="https://dailytrader.site/">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://dailytrader.site/">
   <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/icon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/icon.png">
   <title>DAILYTRADER - Value Investing Redefined</title>
   <script src="https://cdn.tailwindcss.com"></script>
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .animate-bounce-dot {
+      animation: bounce 1s infinite;
+    }
+
+    .chat-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .chat-scrollbar::-webkit-scrollbar-thumb {
+      background: #10b981;
+      border-radius: 10px;
+    }
+
+    .chat-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #059669;
+    }
+  </style>
   <style>
     .slider-container {
       position: relative;
@@ -47,6 +84,7 @@
       overflow: hidden;
       border-radius: 12px;
     }
+
     .slide {
       position: absolute;
       top: 0;
@@ -58,18 +96,68 @@
       background-size: cover;
       background-position: center;
     }
+
     .slide.active {
       opacity: 1;
     }
-  
+
     .chart-container {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
+    /* CSS for Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background: #052873;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 8px;
+      color: white;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #3b82f6;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 15px;
+    }
+
+    .cta-button:hover {
+      background: #06b6d4;
+    }
   </style>
 </head>
+
 <body class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white ">
 
   <!-- Navigation -->
@@ -77,7 +165,7 @@
     <div class="container mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2 text-2xl font-bold">
-           <img src="icon.png" alt="DailyTrader Logo" class="w-8 h-8 rounded">
+          <img src="icon.png" alt="DailyTrader Logo" class="w-8 h-8 rounded">
           <span>DailyTrader</span>
         </div>
 
@@ -87,7 +175,8 @@
           <a href="#markets" class="text-gray-300 hover:text-white transition">Markets</a>
           <a href="about-us.html" class="text-gray-300 hover:text-white transition">About Us</a>
           <a href="#performance" class="text-gray-300 hover:text-white transition">Performance</a>
-          <button onclick="window.location.href= 'login.html'" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+          <button onclick="window.location.href= 'login.html'"
+            class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
             Get Started
           </button>
         </div>
@@ -101,12 +190,15 @@
       <!-- Mobile Menu -->
       <div id="mobile-menu" class="hidden md:hidden mt-4 bg-slate-800 rounded-lg p-4 space-y-3">
         <a href="#home" class="block text-gray-300 hover:text-white transition" onclick="toggleMobileMenu()">Home</a>
-        <a href="#markets" class="block text-gray-300 hover:text-white transition" onclick="toggleMobileMenu()">Markets</a>
+        <a href="#markets" class="block text-gray-300 hover:text-white transition"
+          onclick="toggleMobileMenu()">Markets</a>
         <a href="about-us.html" class=" block text-gray-300 hover:text-white transition">About Us</a>
-        <a href="#performance" class="block text-gray-300 hover:text-white transition" onclick="toggleMobileMenu()">Performance</a>
-      <button onclick="window.location.href= 'login.html'" class=" w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
-            Get Started
-          </button>
+        <a href="#performance" class="block text-gray-300 hover:text-white transition"
+          onclick="toggleMobileMenu()">Performance</a>
+        <button onclick="window.location.href= 'login.html'"
+          class=" w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+          Get Started
+        </button>
       </div>
     </div>
   </nav>
@@ -120,8 +212,8 @@
       <div class="slide active" style="background-image: url('invest.jpg')">
         <div class="slide-overlay w-full h-full flex items-center">
           <div class="px-8 text-white">
-            
-           
+
+
           </div>
         </div>
       </div>
@@ -131,32 +223,36 @@
         <div class="slide-overlay w-full h-full flex items-center">
           <div class="px-8 text-white">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Smart Portfolio</h1>
-          
-         
+
+
           </div>
         </div>
       </div>
 
       <!-- Slide 3 -->
-      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1635236190542-d43e4d4b9e4b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aW52ZXN0bWVudCUyMGxpdmUlMjBhbmFseXRpYyUyMGNoYXJ0fGVufDB8fDB8fHww')">
+      <div class="slide"
+        style="background-image: url('https://images.unsplash.com/photo-1635236190542-d43e4d4b9e4b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aW52ZXN0bWVudCUyMGxpdmUlMjBhbmFseXRpYyUyMGNoYXJ0fGVufDB8fDB8fHww')">
         <div class="slide-overlay w-full h-full flex items-center">
           <div class="px-8 text-white">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Live Analytics</h1>
             <p class="text-lg md:text-xl mb-6 max-w-2xl">Real-time market data and performance tracking</p>
-    
+
           </div>
         </div>
       </div>
 
       <!-- Slider Controls -->
       <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3">
-        <button class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition active" data-slide="0"></button>
-        <button class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition" data-slide="1"></button>
-        <button class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition" data-slide="2"></button>
+        <button class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition active"
+          data-slide="0"></button>
+        <button class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition"
+          data-slide="1"></button>
+        <button class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition"
+          data-slide="2"></button>
       </div>
     </section>
   </div>
-    
+
   <!-- Awards Marquee -->
   <section class="py-12 bg-black/50 backdrop-blur">
     <div class="overflow-hidden">
@@ -174,474 +270,614 @@
       </div>
     </div>
   </section>
-  
 
-    <!-- Live Crypto Charts -->
-    <section id="markets" class="mt-8">
-      <div class="chart-container rounded-xl p-6">
-        <h2 class="text-2xl font-bold mb-6 text-center">Live Market Overview</h2>
-        
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <!-- S&P 500 -->
-      <div class="bg-blue-600/30 backdrop-blur-md border border-white/20 rounded-2xl p-6">
-        <p class="text-gray-300 text-sm mb-2">S&P 500</p>
-        <h3 class="text-3xl font-bold mb-1" id="sp500-price">Loading...</h3>
-        <p class="text-sm" id="sp500-change">--</p>
+
+  <!-- Live Crypto Charts -->
+  <section id="markets" class="mt-8">
+    <div class="chart-container rounded-xl p-6">
+      <h2 class="text-2xl font-bold mb-6 text-center">Live Market Overview</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <!-- S&P 500 -->
+        <div class="bg-blue-600/30 backdrop-blur-md border border-white/20 rounded-2xl p-6">
+          <p class="text-gray-300 text-sm mb-2">S&P 500</p>
+          <h3 class="text-3xl font-bold mb-1" id="sp500-price">Loading...</h3>
+          <p class="text-sm" id="sp500-change">--</p>
+        </div>
+
+        <!-- US 100 (NASDAQ) -->
+        <div class="bg-blue-700/30 backdrop-blur-md border border-white/20 rounded-2xl p-6">
+          <p class="text-gray-300 text-sm mb-2">US 100</p>
+          <h3 class="text-3xl font-bold mb-1" id="nasdaq-price">Loading...</h3>
+          <p class="text-sm" id="nasdaq-change">--</p>
+        </div>
+
+        <!-- EUR/USD -->
+        <div class="bg-blue-800/30 backdrop-blur-md border border-white/20 rounded-2xl p-6">
+          <p class="text-gray-300 text-sm mb-2">EUR/USD</p>
+          <h3 class="text-3xl font-bold mb-1" id="eurusd-price">Loading...</h3>
+          <p class="text-sm" id="eurusd-change">--</p>
+        </div>
       </div>
 
-      <!-- US 100 (NASDAQ) -->
-      <div class="bg-blue-700/30 backdrop-blur-md border border-white/20 rounded-2xl p-6">
-        <p class="text-gray-300 text-sm mb-2">US 100</p>
-        <h3 class="text-3xl font-bold mb-1" id="nasdaq-price">Loading...</h3>
-        <p class="text-sm" id="nasdaq-change">--</p>
+      <!-- Crypto Charts Row -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Bitcoin -->
+        <div class="bg-slate-800/50 backdrop-blur-md border border-white/20 rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-xl">₿</div>
+            <div>
+              <h3 class="text-xl font-bold">BTC/USD</h3>
+              <p class="text-2xl font-bold" id="btc-price">Loading...</p>
+              <p class="text-sm" id="btc-change">--</p>
+            </div>
+          </div>
+          <div class="h-48">
+            <canvas id="btc-chart"></canvas>
+          </div>
+          <p class="text-center text-gray-400 mt-4">Live Bitcoin Chart</p>
+        </div>
+
+        <!-- Ethereum -->
+        <div class="bg-slate-800/50 backdrop-blur-md border border-white/20 rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-xl">Ξ</div>
+            <div>
+              <h3 class="text-xl font-bold">ETH/USD</h3>
+              <p class="text-2xl font-bold" id="eth-price">Loading...</p>
+              <p class="text-sm" id="eth-change">--</p>
+            </div>
+          </div>
+          <div class="h-48">
+            <canvas id="eth-chart"></canvas>
+          </div>
+          <p class="text-center text-gray-400 mt-4">Live Ethereum Chart</p>
+        </div>
       </div>
 
-      <!-- EUR/USD -->
-      <div class="bg-blue-800/30 backdrop-blur-md border border-white/20 rounded-2xl p-6">
-        <p class="text-gray-300 text-sm mb-2">EUR/USD</p>
-        <h3 class="text-3xl font-bold mb-1" id="eurusd-price">Loading...</h3>
-        <p class="text-sm" id="eurusd-change">--</p>
-      </div>
-    </div>
-
-    <!-- Crypto Charts Row -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Bitcoin -->
-      <div class="bg-slate-800/50 backdrop-blur-md border border-white/20 rounded-2xl p-6">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-xl">₿</div>
-          <div>
-            <h3 class="text-xl font-bold">BTC/USD</h3>
-            <p class="text-2xl font-bold" id="btc-price">Loading...</p>
-            <p class="text-sm" id="btc-change">--</p>
+      <!-- Why Choose CryptoVest -->
+      <section class="px-6 md:px-12 py-20">
+        <div class="max-w-7xl mx-auto text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-bold mb-4">Why Choose Us?</h2>
+          <p class="text-xl text-gray-400">Everything you need to succeed in crypto trading</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div
+            class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
+            <div
+              class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i class="fas fa-bolt text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Instant Deposits</h3>
+            <p class="text-gray-400">Fund your account in seconds</p>
+          </div>
+          <div
+            class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
+            <div
+              class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i class="fas fa-robot text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">AI Trading Bot</h3>
+            <p class="text-gray-400">24/7 automated profit generation</p>
+          </div>
+          <div
+            class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
+            <div
+              class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i class="fas fa-lock text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Bank-Level Security</h3>
+            <p class="text-gray-400">Military-grade encryption</p>
+          </div>
+          <div
+            class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
+            <div
+              class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i class="fas fa-chart-line text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Passive Income</h3>
+            <p class="text-gray-400">Earn monthly returns without active trading - we do it for you</p>
+          </div>
+          <div
+            class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
+            <div
+              class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i class="fas fa-copy text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Copy Trading</h3>
+            <p class="text-gray-400">Mirror successful traders</p>
+          </div>
+          <div
+            class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
+            <div
+              class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i class="fas fa-money-bill-wave text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Instant Withdrawals</h3>
+            <p class="text-gray-400">Access your profits anytime</p>
           </div>
         </div>
-        <div class="h-48">
-          <canvas id="btc-chart"></canvas>
-        </div>
-        <p class="text-center text-gray-400 mt-4">Live Bitcoin Chart</p>
-      </div>
+      </section>
 
-      <!-- Ethereum -->
-      <div class="bg-slate-800/50 backdrop-blur-md border border-white/20 rounded-2xl p-6">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-xl">Ξ</div>
-          <div>
-            <h3 class="text-xl font-bold">ETH/USD</h3>
-            <p class="text-2xl font-bold" id="eth-price">Loading...</p>
-            <p class="text-sm" id="eth-change">--</p>
-          </div>
-        </div>
-        <div class="h-48">
-          <canvas id="eth-chart"></canvas>
-        </div>
-        <p class="text-center text-gray-400 mt-4">Live Ethereum Chart</p>
-      </div>
-    </div>
+      <!-- Performance Section -->
+      <section id="performance" class="py-12">
+        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/10">
+          <h2 class="text-3xl font-bold text-center mb-8">Portfolio Performance</h2>
 
-  <!-- Why Choose CryptoVest -->
-  <section class="px-6 md:px-12 py-20">
-    <div class="max-w-7xl mx-auto text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4">Why Choose Us?</h2>
-      <p class="text-xl text-gray-400">Everything you need to succeed in crypto trading</p>
-    </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-      <div class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
-        <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-          <i class="fas fa-bolt text-xl"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-2">Instant Deposits</h3>
-        <p class="text-gray-400">Fund your account in seconds</p>
-      </div>
-      <div class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
-        <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-          <i class="fas fa-robot text-xl"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-2">AI Trading Bot</h3>
-        <p class="text-gray-400">24/7 automated profit generation</p>
-      </div>
-      <div class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
-        <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-          <i class="fas fa-lock text-xl"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-2">Bank-Level Security</h3>
-        <p class="text-gray-400">Military-grade encryption</p>
-      </div>
-      <div class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
-        <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-          <i class="fas fa-chart-line text-xl"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-2">Passive Income</h3>
-        <p class="text-gray-400">Earn monthly returns without active trading - we do it for you</p>
-      </div>
-      <div class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
-        <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-          <i class="fas fa-copy text-xl"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-2">Copy Trading</h3>
-        <p class="text-gray-400">Mirror successful traders</p>
-      </div>
-      <div class="bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition group">
-        <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition">
-          <i class="fas fa-money-bill-wave text-xl"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-2">Instant Withdrawals</h3>
-        <p class="text-gray-400">Access your profits anytime</p>
-      </div>
-    </div>
-  </section>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">Real-Time Analytics</h3>
+              <p class="text-gray-300 mb-6">Monitor your investments with advanced analytics and AI-powered insights.
+              </p>
 
+              <div class="space-y-4">
+                <div class="flex items-center gap-4">
+                  <i data-lucide="bar-chart" class="w-6 h-6 text-green-400"></i>
+                  <div>
+                    <h4 class="font-bold">Live Performance</h4>
+                    <p class="text-gray-400">Real-time portfolio tracking</p>
+                  </div>
+                </div>
 
-    <!-- Performance Section -->
-    <section id="performance" class="py-12">
-      <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/10">
-        <h2 class="text-3xl font-bold text-center mb-8">Portfolio Performance</h2>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div>
-            <h3 class="text-2xl font-bold mb-4">Real-Time Analytics</h3>
-            <p class="text-gray-300 mb-6">Monitor your investments with advanced analytics and AI-powered insights.</p>
-            
-            <div class="space-y-4">
-              <div class="flex items-center gap-4">
-                <i data-lucide="bar-chart" class="w-6 h-6 text-green-400"></i>
-                <div>
-                  <h4 class="font-bold">Live Performance</h4>
-                  <p class="text-gray-400">Real-time portfolio tracking</p>
+                <div class="flex items-center gap-4">
+                  <i data-lucide="shield" class="w-6 h-6 text-blue-400"></i>
+                  <div>
+                    <h4 class="font-bold">Risk Management</h4>
+                    <p class="text-gray-400">Advanced risk assessment tools</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                  <i data-lucide="trending-up" class="w-6 h-6 text-purple-400"></i>
+                  <div>
+                    <h4 class="font-bold">Growth Projections</h4>
+                    <p class="text-gray-400">AI-powered investment forecasts</p>
+                  </div>
                 </div>
               </div>
-              
-              <div class="flex items-center gap-4">
-                <i data-lucide="shield" class="w-6 h-6 text-blue-400"></i>
-                <div>
-                  <h4 class="font-bold">Risk Management</h4>
-                  <p class="text-gray-400">Advanced risk assessment tools</p>
-                </div>
-              </div>
-              
-              <div class="flex items-center gap-4">
-                <i data-lucide="trending-up" class="w-6 h-6 text-purple-400"></i>
-                <div>
-                  <h4 class="font-bold">Growth Projections</h4>
-                  <p class="text-gray-400">AI-powered investment forecasts</p>
+            </div>
+
+            <div class="bg-slate-800 rounded-xl p-6">
+              <div class="text-center">
+                <div class="text-3xl font-bold text-green-400 mb-2">+15.8%</div>
+                <div class="text-gray-400 mb-6">Average Annual Return</div>
+
+                <div class="space-y-3">
+                  <div class="flex justify-between">
+                    <span class="text-gray-300">Starter Plan</span>
+                    <span class="font-bold text-green-400">+8.2%</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-300">Growth Plan</span>
+                    <span class="font-bold text-green-400">+12.5%</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-300">Premium Plan</span>
+                    <span class="font-bold text-green-400">+18.3%</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          
-          <div class="bg-slate-800 rounded-xl p-6">
-            <div class="text-center">
-              <div class="text-3xl font-bold text-green-400 mb-2">+15.8%</div>
-              <div class="text-gray-400 mb-6">Average Annual Return</div>
-              
-              <div class="space-y-3">
-                <div class="flex justify-between">
-                  <span class="text-gray-300">Starter Plan</span>
-                  <span class="font-bold text-green-400">+8.2%</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-300">Growth Plan</span>
-                  <span class="font-bold text-green-400">+12.5%</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-300">Premium Plan</span>
-                  <span class="font-bold text-green-400">+18.3%</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
       <!-- Success Stories (Testimonials) -->
-  <section class="px-6 md:px-12 py-20 bg-black/20">
-    <div class="max-w-6xl mx-auto text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4">Success Stories</h2>
-      <p class="text-xl text-gray-400">Real profits from real people</p>
-    </div>
-
-    <div class="max-w-4xl mx-auto">
-      <div id="testimonial-card" class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20">
-        <!-- Content injected by JS -->
-      </div>
-
-      <div class="flex justify-center gap-3 mt-8">
-        <button class="w-3 h-3 rounded-full bg-white/30 hover:bg-blue-500 transition" onclick="setTestimonial(0)"></button>
-        <button class="w-3 h-3 rounded-full bg-white/30 hover:bg-blue-500 transition" onclick="setTestimonial(1)"></button>
-        <button class="w-3 h-3 rounded-full bg-white/30 hover:bg-blue-500 transition" onclick="setTestimonial(2)"></button>
-        <button class="w-3 h-3 rounded-full bg-white/30 hover:bg-blue-500 transition" onclick="setTestimonial(3)"></button>
-      </div>
-    </div>
-  </section>
-
-
-    <!-- CTA Section -->
-    <section class="py-16">
-      <div class="bg-gradient-to-r from-green-600 to-blue-600 rounded-xl p-8 text-center">
-        <h2 class="text-3xl font-bold mb-4">Ready to Start Investing?</h2>
-        <p class="text-lg text-green-100 mb-6 max-w-2xl mx-auto">Join DailyTrader today and experience value investing redefined with cutting-edge technology and expert strategies.</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button onclick="window.location.href='signup.html'" class="bg-white text-slate-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
-            Create Account
-          </button>
-          <button onclick="window.location.href='about-us.html'" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition">
-            Learn More
-          </button>
+      <section class="px-6 md:px-12 py-20 bg-black/20">
+        <div class="max-w-6xl mx-auto text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-bold mb-4">Success Stories</h2>
+          <p class="text-xl text-gray-400">Real profits from real people</p>
         </div>
-      </div>
-    </section>
 
-  
+        <div class="max-w-4xl mx-auto">
+          <div id="testimonial-card"
+            class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20">
+            <!-- Content injected by JS -->
+          </div>
 
-    <!-- Footer -->
-    <footer class="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/10">
-      <div class="px-4">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div>
-            <div class="flex items-center gap-2 text-xl font-bold mb-4">
-              <i data-lucide="trending-up" class="w-6 h-6 text-blue-400"></i>
-              <span>DailyTrader</span>
+          <div class="flex justify-center gap-3 mt-8">
+            <button class="w-3 h-3 rounded-full bg-white/30 hover:bg-blue-500 transition"
+              onclick="setTestimonial(0)"></button>
+            <button class="w-3 h-3 rounded-full bg-white/30 hover:bg-blue-500 transition"
+              onclick="setTestimonial(1)"></button>
+            <button class="w-3 h-3 rounded-full bg-white/30 hover:bg-blue-500 transition"
+              onclick="setTestimonial(2)"></button>
+            <button class="w-3 h-3 rounded-full bg-white/30 hover:bg-blue-500 transition"
+              onclick="setTestimonial(3)"></button>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- CTA Section -->
+      <section class="py-16">
+        <div class="bg-gradient-to-r from-green-600 to-blue-600 rounded-xl p-8 text-center">
+          <h2 class="text-3xl font-bold mb-4">Ready to Start Investing?</h2>
+          <p class="text-lg text-green-100 mb-6 max-w-2xl mx-auto">Join DailyTrader today and experience value investing
+            redefined with cutting-edge technology and expert strategies.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button onclick="window.location.href='signup.html'"
+              class="bg-white text-slate-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+              Create Account
+            </button>
+            <button onclick="window.location.href='about-us.html'"
+              class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition">
+              Learn More
+            </button>
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- Footer -->
+      <footer class="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/10">
+        <div class="px-4">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div>
+              <div class="flex items-center gap-2 text-xl font-bold mb-4">
+                <i data-lucide="trending-up" class="w-6 h-6 text-blue-400"></i>
+                <span>DailyTrader</span>
+              </div>
+              <p class="text-gray-400 text-sm">Building wealth through smart investments and expert guidance.</p>
             </div>
-            <p class="text-gray-400 text-sm">Building wealth through smart investments and expert guidance.</p>
+
+            <div>
+              <h4 class="font-bold mb-3">Products</h4>
+              <ul class="space-y-2 text-gray-400 text-sm">
+                <li><a href="#" class="hover:text-white transition">Stocks</a></li>
+                <li><a href="#" class="hover:text-white transition">Real Estate</a></li>
+                <li><a href="#" class="hover:text-white transition">Cryptocurrency</a></li>
+
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-bold mb-3">Company</h4>
+              <ul class="space-y-2 text-gray-400 text-sm">
+                <li><a href="about-us.html" class="hover:text-white transition">About</a></li>
+                <li><a href="#" class="hover:text-white transition">Careers</a></li>
+              </ul>
+            </div>
+            <div class="space-y-2">
+              <div>
+                <h4 class="font-semibold text-gray-100 mb-1">Contact Information</h4>
+                <p class="text-gray-300">Email: <a href="mailto:support@dailytrader.site">support@dailytrader.site</a>
+                </p>
+
+              </div>
+            </div>
           </div>
-          
-          <div>
-            <h4 class="font-bold mb-3">Products</h4>
-            <ul class="space-y-2 text-gray-400 text-sm">
-              <li><a href="#" class="hover:text-white transition">Stocks</a></li>
-              <li><a href="#" class="hover:text-white transition">Real Estate</a></li>
-              <li><a href="#" class="hover:text-white transition">Cryptocurrency</a></li>
-          
-            </ul>
-          </div>
-          
-          <div>
-            <h4 class="font-bold mb-3">Company</h4>
-            <ul class="space-y-2 text-gray-400 text-sm">
-              <li><a href="about-us.html" class="hover:text-white transition">About</a></li>
-              <li><a href="#" class="hover:text-white transition">Careers</a></li>
-              <li><a href="#" class="hover:text-white transition">Contact</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 class="font-bold mb-3">Legal</h4>
-            <ul class="space-y-2 text-gray-400 text-sm">
-              <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
-              <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
-              <li><a href="#" class="hover:text-white transition">Disclosures</a></li>
-            </ul>
+
+          <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400 text-sm">
+            <p>&copy; 2025 DailyTrader. All rights reserved.</p>
           </div>
         </div>
-        
-        <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400 text-sm">
-          <p>&copy; 2025 DailyTrader. All rights reserved.</p>
+      </footer>
+    </div>
+    <div id="proof-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 class=" text-xl font-semibold mb-4">Welcome! Join thousands of successful investors who are already earning
+          profits</h2>
+
+        <a href="proof.html" class="cta-button">Check it Out!</a>
+      </div>
+    </div>
+    <!-- Chat Widget Container -->
+    <div id="chatWidget" class="fixed bottom-4 right-4 z-50 font-sans max-h-screen">
+
+      <!-- Chat Window (Hidden by default) -->
+      <div id="chatWindow"
+        class="hidden mb-4 bg-white rounded-2xl shadow-2xl flex flex-col w-[380px] max-h-[calc(100vh-100px)] h-[600px]">
+
+        <!-- Header -->
+
+        <div
+          class="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900  text-white p-4 rounded-t-2xl flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+                </path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-base">Support Assistant</h3>
+              <p class="text-xs text-blue-100">We're here to help!</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="minimizeBtn" class="hover:bg-blue-600 p-2 rounded-lg transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+              </svg>
+            </button>
+            <button id="closeBtn" class="hover:bg-blue-600 p-2 rounded-lg transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages Container -->
+        <div id="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 chat-scrollbar">
+          <!-- Welcome message -->
+          <div class="flex justify-start">
+            <div class="max-w-[80%] rounded-2xl rounded-bl-sm px-4 py-2 bg-white text-gray-800 shadow-sm">
+              <p class="text-sm">Hi! 👋 How can I help you today?</p>
+              <p class="text-xs mt-1 text-gray-400" id="welcomeTime"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-4 bg-white text-black border-t rounded-b-2xl">
+          <div class="flex gap-2">
+            <input type="text" id="messageInput" placeholder="Type your message..."
+              class="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" />
+            <button id="sendBtn"
+              class="bg-blue-500 text-white p-3 rounded-xl hover:bg-blue-600 transition disabled:opacity-50 disabled:cursor-not-allowed">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+              </svg>
+            </button>
+          </div>
+          <p class="text-xs text-gray-400 mt-2 text-center">DailyTrader Support Assistant</p>
         </div>
       </div>
-    </footer>
-</div>
- <script>
-    // Chart configurations
-    let btcChart, ethChart;
-    let btcData = [];
-    let ethData = [];
-    const maxDataPoints = 20;
 
-    // Initialize charts
-    function initCharts() {
-      const chartConfig = {
-        type: 'line',
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false }
-          },
-          scales: {
-            x: { display: false },
-            y: { 
-              display: true,
-              grid: { color: 'rgba(255,255,255,0.1)' },
-              ticks: { color: 'rgba(255,255,255,0.7)' }
+      <!-- Chat Button -->
+      <button id="chatBtn"
+        class="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900  text-white p-4 rounded-full shadow-2xl hover:shadow-3xl hover:scale-110 transition-all duration-300 flex items-center gap-2 group">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+          </path>
+        </svg>
+        <span
+          class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap text-sm font-medium">
+          Need Help?
+        </span>
+      </button>
+    </div>
+
+
+    <script>
+      // Show modal every 2 minute (60000 milliseconds)
+      const SHOW_INTERVAL = 120000; // 2 minute in milliseconds
+
+      function showModal() {
+        document.getElementById('proof-modal').style.display = 'block';
+      }
+
+      function closeModal() {
+        document.getElementById('proof-modal').style.display = 'none';
+      }
+
+      // Show modal on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        showModal();
+
+        // Set up recurring interval to show modal every 1 minute
+        setInterval(showModal, SHOW_INTERVAL);
+
+        // Close button functionality
+        document.querySelector('.close').onclick = closeModal;
+
+        // Close modal when clicking outside of it
+        window.onclick = function (event) {
+          const modal = document.getElementById('proof-modal');
+          if (event.target === modal) {
+            closeModal();
+          }
+        };
+      });
+    </script>
+    <script>
+      // Chart configurations
+      let btcChart, ethChart;
+      let btcData = [];
+      let ethData = [];
+      const maxDataPoints = 20;
+
+      // Initialize charts
+      function initCharts() {
+        const chartConfig = {
+          type: 'line',
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              x: { display: false },
+              y: {
+                display: true,
+                grid: { color: 'rgba(255,255,255,0.1)' },
+                ticks: { color: 'rgba(255,255,255,0.7)' }
+              }
             }
           }
-        }
-      };
+        };
 
-      btcChart = new Chart(document.getElementById('btc-chart'), {
-        ...chartConfig,
-        data: {
-          labels: [],
-          datasets: [{
-            data: [],
-            borderColor: '#f97316',
-            backgroundColor: 'rgba(249, 115, 22, 0.1)',
-            tension: 0.4,
-            fill: true
-          }]
-        }
-      });
+        btcChart = new Chart(document.getElementById('btc-chart'), {
+          ...chartConfig,
+          data: {
+            labels: [],
+            datasets: [{
+              data: [],
+              borderColor: '#f97316',
+              backgroundColor: 'rgba(249, 115, 22, 0.1)',
+              tension: 0.4,
+              fill: true
+            }]
+          }
+        });
 
-      ethChart = new Chart(document.getElementById('eth-chart'), {
-        ...chartConfig,
-        data: {
-          labels: [],
-          datasets: [{
-            data: [],
-            borderColor: '#3b82f6',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-            tension: 0.4,
-            fill: true
-          }]
-        }
-      });
-    }
-
-    // Fetch crypto prices from CoinGecko
-    async function fetchCryptoPrices() {
-      try {
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true');
-        const data = await response.json();
-        
-        // Update Bitcoin
-        const btcPrice = data.bitcoin.usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        const btcChange = data.bitcoin.usd_24h_change.toFixed(2);
-        document.getElementById('btc-price').textContent = '$' + btcPrice;
-        document.getElementById('btc-change').textContent = `${btcChange >= 0 ? '+' : ''}${btcChange}%`;
-        document.getElementById('btc-change').className = btcChange >= 0 ? 'text-green-400' : 'text-red-400';
-        
-        // Update Ethereum
-        const ethPrice = data.ethereum.usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        const ethChange = data.ethereum.usd_24h_change.toFixed(2);
-        document.getElementById('eth-price').textContent = '$' + ethPrice;
-        document.getElementById('eth-change').textContent = `${ethChange >= 0 ? '+' : ''}${ethChange}%`;
-        document.getElementById('eth-change').className = ethChange >= 0 ? 'text-green-400' : 'text-red-400';
-
-        // Update charts
-        updateChart(btcChart, btcData, data.bitcoin.usd);
-        updateChart(ethChart, ethData, data.ethereum.usd);
-
-        // Update timestamp
-        const now = new Date().toLocaleTimeString();
-        document.getElementById('last-update').textContent = now;
-
-      } catch (error) {
-        console.error('Error fetching crypto prices:', error);
+        ethChart = new Chart(document.getElementById('eth-chart'), {
+          ...chartConfig,
+          data: {
+            labels: [],
+            datasets: [{
+              data: [],
+              borderColor: '#3b82f6',
+              backgroundColor: 'rgba(59, 130, 246, 0.1)',
+              tension: 0.4,
+              fill: true
+            }]
+          }
+        });
       }
-    }
 
-    // Fetch stock market data (mock data - you'd need a real API with key)
-    async function fetchStockPrices() {
-      // For demo purposes, using random variations
-      // In production, use a real API like Alpha Vantage, IEX Cloud, etc.
-      
-      const sp500Base = 4567.89;
-      const nasdaqBase = 25255.3;
-      const eurUsdBase = 1.16029;
+      // Fetch crypto prices from CoinGecko
+      async function fetchCryptoPrices() {
+        try {
+          const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true');
+          const data = await response.json();
 
-      const sp500Price = (sp500Base + (Math.random() - 0.5) * 10).toFixed(2);
-      const sp500Change = ((Math.random() - 0.5) * 0.5).toFixed(2);
-      
-      document.getElementById('sp500-price').textContent = sp500Price;
-      document.getElementById('sp500-change').textContent = `${sp500Change >= 0 ? '+' : ''}${sp500Change} (${((sp500Change/sp500Base)*100).toFixed(2)}%)`;
-      document.getElementById('sp500-change').className = sp500Change >= 0 ? 'text-green-400' : 'text-red-400';
+          // Update Bitcoin
+          const btcPrice = data.bitcoin.usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const btcChange = data.bitcoin.usd_24h_change.toFixed(2);
+          document.getElementById('btc-price').textContent = '$' + btcPrice;
+          document.getElementById('btc-change').textContent = `${btcChange >= 0 ? '+' : ''}${btcChange}%`;
+          document.getElementById('btc-change').className = btcChange >= 0 ? 'text-green-400' : 'text-red-400';
 
-      const nasdaqPrice = (nasdaqBase + (Math.random() - 0.5) * 50).toFixed(1);
-      const nasdaqChange = ((Math.random() - 0.5) * 0.5).toFixed(2);
-      
-      document.getElementById('nasdaq-price').textContent = nasdaqPrice;
-      document.getElementById('nasdaq-change').textContent = `${nasdaqChange >= 0 ? '+' : ''}${nasdaqChange} (${((nasdaqChange/nasdaqBase)*100).toFixed(2)}%)`;
-      document.getElementById('nasdaq-change').className = nasdaqChange >= 0 ? 'text-green-400' : 'text-red-400';
+          // Update Ethereum
+          const ethPrice = data.ethereum.usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const ethChange = data.ethereum.usd_24h_change.toFixed(2);
+          document.getElementById('eth-price').textContent = '$' + ethPrice;
+          document.getElementById('eth-change').textContent = `${ethChange >= 0 ? '+' : ''}${ethChange}%`;
+          document.getElementById('eth-change').className = ethChange >= 0 ? 'text-green-400' : 'text-red-400';
 
-      const eurUsdPrice = (eurUsdBase + (Math.random() - 0.5) * 0.01).toFixed(5);
-      const eurUsdChange = ((Math.random() - 0.5) * 0.5).toFixed(2);
-      
-      document.getElementById('eurusd-price').textContent = eurUsdPrice;
-      document.getElementById('eurusd-change').textContent = `${eurUsdChange >= 0 ? '+' : ''}${eurUsdChange}%`;
-      document.getElementById('eurusd-change').className = eurUsdChange >= 0 ? 'text-green-400' : 'text-red-400';
-    }
+          // Update charts
+          updateChart(btcChart, btcData, data.bitcoin.usd);
+          updateChart(ethChart, ethData, data.ethereum.usd);
 
-    // Update chart with new data
-    function updateChart(chart, dataArray, newValue) {
-      dataArray.push(newValue);
-      if (dataArray.length > maxDataPoints) {
-        dataArray.shift();
+          // Update timestamp
+          const now = new Date().toLocaleTimeString();
+          document.getElementById('last-update').textContent = now;
+
+        } catch (error) {
+          console.error('Error fetching crypto prices:', error);
+        }
       }
-      
-      chart.data.labels = dataArray.map((_, i) => i);
-      chart.data.datasets[0].data = dataArray;
-      chart.update('none'); // Update without animation for smoother real-time feel
-    }
 
-    // Initialize and start updates
-    initCharts();
-    fetchCryptoPrices();
-    fetchStockPrices();
+      // Fetch stock market data (mock data - you'd need a real API with key)
+      async function fetchStockPrices() {
+        // For demo purposes, using random variations
+        // In production, use a real API like Alpha Vantage, IEX Cloud, etc.
 
-    // Update crypto prices every 30 seconds
-    setInterval(fetchCryptoPrices, 30000);
+        const sp500Base = 4567.89;
+        const nasdaqBase = 25255.3;
+        const eurUsdBase = 1.16029;
 
-    // Update stock prices every 5 seconds (using mock data)
-    setInterval(fetchStockPrices, 5000);
-  </script>
-  <script>
-    // Initialize Lucide icons
-    lucide.createIcons();
+        const sp500Price = (sp500Base + (Math.random() - 0.5) * 10).toFixed(2);
+        const sp500Change = ((Math.random() - 0.5) * 0.5).toFixed(2);
 
-    // Mobile Menu Function
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      const icon = document.getElementById('mobile-menu-icon');
-      menu.classList.toggle('hidden');
-      if (menu.classList.contains('hidden')) {
-        icon.setAttribute('data-lucide', 'menu');
-      } else {
-        icon.setAttribute('data-lucide', 'x');
+        document.getElementById('sp500-price').textContent = sp500Price;
+        document.getElementById('sp500-change').textContent = `${sp500Change >= 0 ? '+' : ''}${sp500Change} (${((sp500Change / sp500Base) * 100).toFixed(2)}%)`;
+        document.getElementById('sp500-change').className = sp500Change >= 0 ? 'text-green-400' : 'text-red-400';
+
+        const nasdaqPrice = (nasdaqBase + (Math.random() - 0.5) * 50).toFixed(1);
+        const nasdaqChange = ((Math.random() - 0.5) * 0.5).toFixed(2);
+
+        document.getElementById('nasdaq-price').textContent = nasdaqPrice;
+        document.getElementById('nasdaq-change').textContent = `${nasdaqChange >= 0 ? '+' : ''}${nasdaqChange} (${((nasdaqChange / nasdaqBase) * 100).toFixed(2)}%)`;
+        document.getElementById('nasdaq-change').className = nasdaqChange >= 0 ? 'text-green-400' : 'text-red-400';
+
+        const eurUsdPrice = (eurUsdBase + (Math.random() - 0.5) * 0.01).toFixed(5);
+        const eurUsdChange = ((Math.random() - 0.5) * 0.5).toFixed(2);
+
+        document.getElementById('eurusd-price').textContent = eurUsdPrice;
+        document.getElementById('eurusd-change').textContent = `${eurUsdChange >= 0 ? '+' : ''}${eurUsdChange}%`;
+        document.getElementById('eurusd-change').className = eurUsdChange >= 0 ? 'text-green-400' : 'text-red-400';
       }
+
+      // Update chart with new data
+      function updateChart(chart, dataArray, newValue) {
+        dataArray.push(newValue);
+        if (dataArray.length > maxDataPoints) {
+          dataArray.shift();
+        }
+
+        chart.data.labels = dataArray.map((_, i) => i);
+        chart.data.datasets[0].data = dataArray;
+        chart.update('none'); // Update without animation for smoother real-time feel
+      }
+
+      // Initialize and start updates
+      initCharts();
+      fetchCryptoPrices();
+      fetchStockPrices();
+
+      // Update crypto prices every 30 seconds
+      setInterval(fetchCryptoPrices, 30000);
+
+      // Update stock prices every 5 seconds (using mock data)
+      setInterval(fetchStockPrices, 5000);
+    </script>
+    <script>
+      // Initialize Lucide icons
       lucide.createIcons();
-    }
 
-    // Image Slider Functionality
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.slider-dot');
-    const slideInterval = 3000; // 3 seconds
+      // Mobile Menu Function
+      function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('mobile-menu-icon');
+        menu.classList.toggle('hidden');
+        if (menu.classList.contains('hidden')) {
+          icon.setAttribute('data-lucide', 'menu');
+        } else {
+          icon.setAttribute('data-lucide', 'x');
+        }
+        lucide.createIcons();
+      }
 
-    function showSlide(n) {
-      slides.forEach(slide => slide.classList.remove('active'));
-      dots.forEach(dot => dot.classList.remove('active'));
-      
-      slides[n].classList.add('active');
-      dots[n].classList.add('active');
-    }
+      // Image Slider Functionality
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.slider-dot');
+      const slideInterval = 3000; // 3 seconds
 
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    }
+      function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
 
-    // Auto-slide
-    let slideTimer = setInterval(nextSlide, slideInterval);
+        slides[n].classList.add('active');
+        dots[n].classList.add('active');
+      }
 
-    // Dot click events
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        currentSlide = index;
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
         showSlide(currentSlide);
-        clearInterval(slideTimer);
+      }
+
+      // Auto-slide
+      let slideTimer = setInterval(nextSlide, slideInterval);
+
+      // Dot click events
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          currentSlide = index;
+          showSlide(currentSlide);
+          clearInterval(slideTimer);
+          slideTimer = setInterval(nextSlide, slideInterval);
+        });
+      });
+
+      // Pause slider on hover
+      const slider = document.querySelector('.slider-container');
+      slider.addEventListener('mouseenter', () => clearInterval(slideTimer));
+      slider.addEventListener('mouseleave', () => {
         slideTimer = setInterval(nextSlide, slideInterval);
       });
-    });
-
-    // Pause slider on hover
-    const slider = document.querySelector('.slider-container');
-    slider.addEventListener('mouseenter', () => clearInterval(slideTimer));
-    slider.addEventListener('mouseleave', () => {
-      slideTimer = setInterval(nextSlide, slideInterval);
-    });
-     // Marquee Animation
-    const style = document.createElement('style');
-    style.innerHTML = `
+      // Marquee Animation
+      const style = document.createElement('style');
+      style.innerHTML = `
       @keyframes marquee {
         0% { transform: translateX(0%); }
         100% { transform: translateX(-50%); }
@@ -650,22 +886,22 @@
       @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
       .animate-fadeIn { animation: fadeIn 0.8s ease-out; }
     `;
-    document.head.appendChild(style);
-    
-    // Testimonials Data
-    const testimonials = [
-      { name: "Sarah Mitchell", role: "Professional Trader", initials: "SM", rating: 5, text: "DailyTrader changed my life! I started with $500 and turned it into $15,000 in just 6 months. The AI trading bot is incredible!", profit: "$14,500" },
-      { name: "David Chen", role: "Tech Entrepreneur", initials: "DC", rating: 5, text: "Best crypto platform I've used. The live trading feature and instant withdrawals make this stand out from competitors.", profit: "$23,400" },
-      { name: "Maria Rodriguez", role: "Financial Analyst", initials: "MR", rating: 5, text: "Transparent, secure, and profitable. I've been with DailyTrader for 2 years and my portfolio has grown 340%!", profit: "$67,800" },
-      { name: "James Thompson", role: "Investor", initials: "JT", rating: 5, text: "The customer support is amazing and the platform is so easy to use. I'm making passive income daily!", profit: "$12,300" }
-    ];
+      document.head.appendChild(style);
 
-    let currentTestimonial = 0;
-    const card = document.getElementById('testimonial-card');
+      // Testimonials Data
+      const testimonials = [
+        { name: "Sarah Mitchell", role: "Professional Trader", initials: "SM", rating: 5, text: "DailyTrader changed my life! I started with $500 and turned it into $15,000 in just 6 months. The AI trading bot is incredible!", profit: "$14,500" },
+        { name: "David Chen", role: "Tech Entrepreneur", initials: "DC", rating: 5, text: "Best crypto platform I've used. The live trading feature and instant withdrawals make this stand out from competitors.", profit: "$23,400" },
+        { name: "Maria Rodriguez", role: "Financial Analyst", initials: "MR", rating: 5, text: "Transparent, secure, and profitable. I've been with DailyTrader for 2 years and my portfolio has grown 340%!", profit: "$67,800" },
+        { name: "James Thompson", role: "Investor", initials: "JT", rating: 5, text: "The customer support is amazing and the platform is so easy to use. I'm making passive income daily!", profit: "$12,300" }
+      ];
 
-    function renderTestimonial(idx) {
-      const t = testimonials[idx];
-      card.innerHTML = `
+      let currentTestimonial = 0;
+      const card = document.getElementById('testimonial-card');
+
+      function renderTestimonial(idx) {
+        const t = testimonials[idx];
+        card.innerHTML = `
         <div class="flex flex-col md:flex-row items-center gap-8">
           <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-3xl font-bold text-white">
             ${t.initials}
@@ -688,28 +924,477 @@
           </div>
         </div>
       `;
-      document.querySelectorAll('#testimonial-card ~ div button').forEach((dot, i) => {
-        dot.classList.toggle('bg-blue-500', i === idx);
-        dot.classList.toggle('w-8', i === idx);
-        dot.classList.toggle('w-3', i !== idx);
+        document.querySelectorAll('#testimonial-card ~ div button').forEach((dot, i) => {
+          dot.classList.toggle('bg-blue-500', i === idx);
+          dot.classList.toggle('w-8', i === idx);
+          dot.classList.toggle('w-3', i !== idx);
+        });
+      }
+
+      function setTestimonial(idx) {
+        currentTestimonial = idx;
+        renderTestimonial(idx);
+      }
+
+      // Auto rotate testimonials
+      setInterval(() => {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        renderTestimonial(currentTestimonial);
+      }, 6000);
+
+      renderTestimonial(0);
+    </script>
+    <script>
+      // ============================================
+      // CONFIGURATION - Customize your responses here!
+      // ============================================
+
+      const botResponses = {
+        // Greetings
+        greetings: {
+          keywords: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening', 'greetings'],
+          responses: [
+            "Hello! 👋 I'm here to help you. What can I assist you with today?",
+            "Hi there! How can I help you today?",
+            "Hey! Welcome to DailyTrader Support! What would you like to know?"
+          ]
+        },
+
+        // Platform Overview
+        platform: {
+          keywords: ['what is', 'about platform', 'explain', 'how does it work', 'overview', 'dailytrader'],
+          responses: [
+            "DailyTrader is a comprehensive investment trading platform that helps you trade stocks, crypto, forex, and more. Our platform offers:\n• Real-time market data\n• Advanced charting tools\n• Portfolio management\n• Educational resources\n• 24/7 trading support\n\nWhat would you like to know more about?",
+            "Welcome to DailyTrader! We're a modern trading platform designed for both beginners and experienced traders. You can trade multiple asset classes, access real-time analytics, and manage your portfolio all in one place. How can I help you get started?"
+          ]
+        },
+
+        // Getting Started
+        getting_started: {
+          keywords: ['start', 'begin', 'new user', 'first time', 'beginner', 'how to use', 'tutorial'],
+          responses: [
+            "Getting started is easy! Here's what you need to do:\n\n1️⃣ Create your account\n2️⃣ Verify your identity (KYC)\n3️⃣ Fund your account\n4️⃣ Explore our demo mode to practice\n5️⃣ Start trading!\n\nWould you like detailed guidance on any of these steps?",
+            "Welcome aboard! 🎉 For new users, I recommend:\n• Start with our demo account to practice\n• Watch our tutorial videos\n• Read our beginner's guide\n• Join our trading community\n\nNeed help with account setup?"
+          ]
+        },
+
+        // Account Verification/KYC
+        verification: {
+          keywords: ['verify', 'verification', 'kyc', 'identity', 'document', 'id', 'passport', 'driver license'],
+          responses: [
+            "Account verification (KYC) is required for security and regulatory compliance. You'll need:\n\n📄 Government-issued ID (passport, driver's license, or national ID)\n📍 Proof of address (utility bill or bank statement, less than 3 months old)\n🤳 Selfie for identity confirmation\n\nVerification typically takes 24-48 hours. Having issues? Contact support@dailytrader.com",
+            "KYC verification helps protect your account and complies with financial regulations. Upload your documents in the 'Account Settings' section. Our team reviews submissions within 1-2 business days. Still pending after 48 hours? Let us know!"
+          ]
+        },
+
+        // Deposits
+        deposits: {
+          keywords: ['deposit', 'fund', 'add money', 'payment method', 'credit card', 'bank transfer', 'wire'],
+          responses: [
+            "You can fund your account using:\n\n💳 Credit/Debit Card (instant)\n🏦 Bank Transfer (1-3 business days)\n💰 Crypto Transfer (5-20 minutes)\n🌐 Wire Transfer (1-2 business days)\n\nMinimum deposit: $300\nNo deposit fees on most methods!\n\nWhich payment method works best for you?",
+            "Ready to fund your account? Go to 'Wallet' → 'Deposit' and choose your preferred method. Deposits are usually processed within minutes for cards and crypto. Bank transfers take 1-3 days. Need help with a specific payment method?"
+          ]
+        },
+
+        // Withdrawals
+        withdrawals: {
+          keywords: ['withdraw', 'withdrawal', 'cash out', 'take out money', 'remove funds', 'payout'],
+          responses: [
+            "Withdrawals are processed quickly and securely:\n\n⏱️ Processing time: 24hrs max. \n💵 Minimum withdrawal: $50\n📊 Withdrawal methods: Bank transfer, crypto, wire\n\nImportant: Withdrawals go to verified payment methods only. First withdrawal may take longer for security verification. Questions about a pending withdrawal?",
+            "To withdraw funds:\n1. Go to 'Wallet' → 'Withdraw'\n2. Enter amount and select method\n3. Confirm with 2FA\n4. Receive funds in 24hrs max.\n\nNote: All accounts must be verified before withdrawal. Having trouble? Let me know!"
+          ]
+        },
+
+        // Trading Fees
+        fees: {
+          keywords: ['fee', 'fees', 'commission', 'charge', 'cost', 'expensive'],
+          responses: [
+            "Our fee structure is transparent and competitive:\n\n📈 Trading fees: 0.1% - 0.5% per trade\n💰 Deposit fees: Free (most methods)\n💸 Withdrawal fees: $2 flat fee\n📊 Inactivity fee: None\n\nVolume discounts available for active traders! Want to see the complete fee schedule?",
+            "We keep fees low and transparent. Trading commissions range from 0.1% to 0.5% depending on your trading volume. No hidden charges! Check 'Settings' → 'Fees' for your personalized rate."
+          ]
+        },
+
+        // Asset Types
+        assets: {
+          keywords: ['trade', 'stock', 'crypto', 'forex', 'currency', 'bitcoin', 'cryptocurrency', 'commodities'],
+          responses: [
+            "You can trade multiple asset classes on DailyTrader:\n\n📈 Stocks (US & International)\n₿ Cryptocurrencies (50+ coins)\n💱 Forex (major currency pairs)\n🛢️ Commodities (gold, oil, etc.)\n📊 Indices (S&P 500, NASDAQ, etc.)\n\nWhat are you interested in trading?",
+            "We offer diverse trading opportunities! Popular options include:\n• Major stocks (AAPL, TSLA, GOOGL, etc.)\n• Crypto (BTC, ETH, USDT, etc.)\n• Forex pairs (EUR/USD, GBP/USD, etc.)\n• Commodities and more\n\nNeed help finding a specific asset?"
+          ]
+        },
+
+        // Demo Account
+        demo: {
+          keywords: ['demo', 'practice', 'trial', 'test', 'virtual money', 'paper trading'],
+          responses: [
+            "Great idea to start with our demo account! 🎯\n\n✅ $10,000 virtual money\n✅ Real market data\n✅ All platform features\n✅ No risk, perfect for learning\n✅ Unlimited practice time\n\nSwitch between demo and live account anytime in Settings. Ready to practice?",
+            "Our demo mode is perfect for learning! You get virtual funds to trade with real market conditions. No risk involved. Practice strategies, test features, and build confidence before going live. Access it from your dashboard!"
+          ]
+        },
+
+        // Security
+        security: {
+          keywords: ['safe', 'secure', 'security', 'hack', 'protection', 'scam', 'fraud', 'trust', '2fa', 'two factor'],
+          responses: [
+            "Your security is our top priority! 🔒\n\n✅ Bank-level encryption (SSL/TLS)\n✅ Two-factor authentication (2FA)\n✅ Cold storage for crypto assets\n✅ Regular security audits\n✅ Insurance protection\n\nWe never ask for passwords via email or chat. Always enable 2FA for maximum security!",
+            "We take security seriously:\n• All data is encrypted\n• 2FA authentication available\n• Funds held in segregated accounts\n• Licensed and regulated platform\n\nTo enable 2FA: Settings → Security → Enable 2FA. Recommended for all users!"
+          ]
+        },
+
+        // Trading Issues/Complaints
+        trading_issues: {
+          keywords: ['not working', 'cant trade', 'order failed', 'error', 'bug', 'glitch', 'frozen', 'stuck'],
+          responses: [
+            "I'm sorry you're experiencing issues! Let's troubleshoot:\n\n1️⃣ Refresh your browser/app\n2️⃣ Check your internet connection\n3️⃣ Ensure sufficient funds in account\n4️⃣ Verify market is open for that asset\n\nStill having problems? Please contact our technical support at support@dailytrader.com or use the 'Report Issue' button. Include:\n• What you were trying to do\n• Error message (if any)\n• Screenshot if possible",
+            "Technical issues can be frustrating! Quick fixes:\n• Clear browser cache\n• Try different browser\n• Update the app to latest version\n• Check if asset trading is suspended\n\nIf issue persists, our tech team is available 24/7 at support@dailytrader.com. Response time: Under 1 hour!"
+          ]
+        },
+
+        // Withdrawal Issues
+        withdrawal_issues: {
+          keywords: ['withdrawal pending', 'withdrawal rejected', 'withdrawal declined', 'cant withdraw', 'withdrawal problem'],
+          responses: [
+            "I understand withdrawal delays are concerning. Common reasons:\n\n❗ Account not fully verified (KYC pending)\n❗ Incorrect payment details\n❗ Security review in progress\n❗ Trading requirements not met\n\nYour funds are safe! Check 'Wallet' → 'Transaction History' for status. For urgent issues, contact support@dailytrader.com with your transaction ID.",
+            "Withdrawal issues? Let's resolve it:\n• First withdrawal takes longer (security)\n• Verify all KYC documents submitted\n• Check withdrawal goes to verified method\n• Wait 24-72 hours for processing\n\nStill waiting beyond 3 days? Email support@dailytrader.com immediately with your withdrawal request ID."
+          ]
+        },
+
+        // Lost Money/Trading Losses
+        losses: {
+          keywords: ['lost money', 'losing', 'loss', 'negative', 'down', 'bad trade'],
+          responses: [
+            "I'm sorry to hear about your trading losses. Remember that trading involves risk, and losses are part of the journey. Here's what can help:\n\n📚 Review our risk management guides\n📊 Use stop-loss orders to limit losses\n🎓 Take our free trading courses\n💬 Join our trading community for advice\n\nConsider using the demo account to refine your strategy. Never invest more than you can afford to lose. Need educational resources?",
+            "Trading can be challenging. Important reminders:\n• All trading involves risk\n• Past performance doesn't guarantee future results\n• Use risk management tools (stop-loss, take-profit)\n• Consider consulting our educational materials\n\nWant to learn better trading strategies? Check our 'Education' section or speak with our trading coaches!"
+          ]
+        },
+
+        // Leverage/Margin
+        leverage: {
+          keywords: ['leverage', 'margin', 'margin trading', 'margin call', 'liquidation'],
+          responses: [
+            "Leverage trading amplifies both profits AND losses! ⚠️\n\nAvailable leverage: Up to 1:100\nMargin requirements vary by asset\n\n⚠️ Important warnings:\n• Can lose more than initial investment\n• Margin calls if equity falls below maintenance\n• Positions may be liquidated automatically\n• Only for experienced traders\n\nNew to leverage? Start small and use our demo account first. Need leverage explained in detail?",
+            "Margin trading allows you to trade with borrowed funds. Key points:\n• Higher potential returns (and risks)\n• Maintenance margin must be maintained\n• Risk of liquidation if market moves against you\n\nCheck 'Trading' → 'Margin Calculator' to see requirements. Consider taking our leverage trading course first!"
+          ]
+        },
+
+        // Market Hours
+        market_hours: {
+          keywords: ['market hours', 'when open', 'trading hours', 'market closed', 'open time'],
+          responses: [
+            "Trading hours vary by asset:\n\n📈 US Stocks: Mon-Fri 9:30 AM - 4:00 PM EST\n₿ Crypto: 24/7 (always open!)\n💱 Forex: Sun 5 PM - Fri 5 PM EST\n🛢️ Commodities: Varies by exchange\n\nNote: Some extended hours trading available. Check specific asset info for exact hours. Market closed for holidays.",
+            "Markets have different schedules:\n• Stock markets: Weekdays only\n• Crypto markets: Never close\n• Forex: 24/5 (closed weekends)\n\nCan't place order? Check if market is open for that asset. View market hours in the 'Markets' section."
+          ]
+        },
+
+        // Charts/Analysis
+        charts: {
+          keywords: ['chart', 'charting', 'technical analysis', 'indicator', 'graph', 'candlestick'],
+          responses: [
+            "Our advanced charting tools include:\n\n📊 Multiple chart types (candlestick, line, bar)\n📈 100+ technical indicators\n🎨 Drawing tools (trendlines, channels)\n⏰ Multiple timeframes (1m to 1M)\n💾 Save custom chart layouts\n\nAccess charts from any asset page. Need help with technical analysis? Check our tutorial videos!",
+            "Professional charting at your fingertips! Features:\n• Real-time data feeds\n• Popular indicators (RSI, MACD, Bollinger Bands)\n• Compare multiple assets\n• Mobile & desktop optimized\n\nFind charting tools in 'Trade' → 'Advanced Charts'. Want a charting tutorial?"
+          ]
+        },
+
+        // Referral/Bonus
+        referral: {
+          keywords: ['referral', 'bonus', 'promotion', 'promo', 'reward', 'invite', 'refer friend'],
+          responses: [
+            "Earn rewards by referring friends! 🎁\n\n💰 You get: $50 bonus per referral\n💰 Friend gets: $25 welcome bonus\n\nHow it works:\n1. Share your referral link (in Settings)\n2. Friend signs up & makes first deposit\n3. Both receive bonuses!\n\nNo limit on referrals. Check current promotions in 'Rewards' section!",
+            "Love DailyTrader? Share with friends and earn! Both you and your friend get bonuses when they start trading. Find your unique referral link in Settings → Referral Program. Terms apply."
+          ]
+        },
+
+        // Customer Complaints
+        complaints: {
+          keywords: ['complaint', 'complain', 'unhappy', 'disappointed', 'terrible', 'worst', 'angry', 'frustrated'],
+          responses: [
+            "I'm truly sorry you're having a negative experience. Your satisfaction matters to us. 🙏\n\nFor formal complaints:\n📧 Email: complaints@dailytrader.com\n📞 Call: 1-800-XXX-XXXX\n📝 Submit via: Settings → Help → File Complaint\n\nWe review all complaints within 24 hours and aim to resolve within 5 business days. Please provide details so we can make this right. What specifically can I help with right now?",
+            "I sincerely apologize for your frustration. We take all feedback seriously and want to resolve this. Please share details of your issue and I'll escalate to our management team immediately. You can also file an official complaint at complaints@dailytrader.com for priority handling. How can we improve your experience?"
+          ]
+        },
+
+        // Tax/Reporting
+        tax: {
+          keywords: ['tax', 'taxes', '1099', 'tax report', 'irs', 'tax document', 'capital gains'],
+          responses: [
+            "Tax season made easier! 📄\n\nWe provide:\n• Annual tax reports (1099 forms for US)\n• Transaction history exports\n• Realized gains/losses summaries\n• CSV exports for accountants\n\nAccess: Settings → Documents → Tax Reports\nAvailable after January 31st each year\n\nNote: Consult a tax professional for advice. We provide reports but not tax guidance. Need help downloading?",
+            "Tax documents are available in your account! Download your annual statement showing all trades, gains, and losses. Go to Settings → Tax Center. Remember: You're responsible for reporting crypto gains/losses. Consider consulting a tax professional for guidance."
+          ]
+        },
+
+        // Regulation/License
+        regulation: {
+          keywords: ['regulated', 'license', 'legal', 'legitimate', 'licensed', 'regulator', 'compliance'],
+          responses: [
+            "DailyTrader is fully licensed and regulated! ✅\n\n🏛️ Regulated by: SEC/FCA\n📜 License Number: IN0727I01084\n🔐 Client funds protection\n📊 Regular audits\n\nWe comply with all financial regulations in our operating jurisdictions. View our licenses and certifications at: About → Regulatory Information. Operating since [Year].",
+            "Yes, we're a legitimate, regulated trading platform! Our licenses and regulatory compliance info is available on our website footer. We adhere to strict financial standards to protect our users. Have specific regulatory questions? Email compliance@dailytrader.com"
+          ]
+        },
+        // Product/Service Questions
+        products: {
+          keywords: ['product', 'service', 'live trading', 'investment', 'sell', 'buy', 'purchase', 'price', 'cost', 'pricing'],
+          responses: [
+            "We offer a range of products and services tailored to your needs. Would you like to know about:\n• Our main products\n• Pricing information\n• Current offers\n\nWhat interests you most?",
+            "Great question! We have several options available. Could you tell me which product or service you're interested in specifically?",
+          ]
+        },
+
+        // Pricing
+        pricing: {
+          keywords: ['how much', 'price', 'cost', 'expensive', 'withdrawal', 'cheap', 'affordable', 'payment', 'pay'],
+          responses: [
+            "Our pricing varies based on your specific needs. For detailed pricing information, I'd recommend:\n• Checking our pricing page\n• Speaking with our sales team at sales@example.com\n• Scheduling a demo\n\nWould you like me to connect you with someone?",
+            "Pricing depends on the plan you choose. We have options for every budget! Would you like to schedule a call to discuss your specific requirements?"
+          ]
+        },
+
+        // Support/Help
+        support: {
+          keywords: ['help', 'support', 'open an account', 'issue', 'problem', 'not working', 'error', 'bug', 'broken', 'fix'],
+          responses: [
+            "I'm sorry you're experiencing issues! I'm here to help. Could you describe the problem in more detail? What specifically isn't working?",
+            "Let me help you with that! To better assist you, could you tell me:\n• What you were trying to do\n• What happened instead\n• Any error messages you saw",
+            "I understand you need support. For urgent issues, you can also reach our support team at support@example.com or call us at 1-800-XXX-XXXX."
+          ]
+        },
+
+        // Hours/Contact
+        contact: {
+          keywords: ['contact', 'reach', 'call', 'email', 'phone', 'hours', 'open', 'available', 'location', 'address'],
+          responses: [
+            "You can reach us:\n📧 Email: support@dailytrader.site\n📞 Phone: 1-941-276-0630\n🕐 Hours: Mon-Fri 9AM-6PM EST\n\nHow else can I help you?",
+            "We're available Monday through Friday, 9 AM to 6 PM EST. You can contact us at support@dailytrader.site or call 1-800-XXX-XXXX  24/7. What else would you like to know?"
+          ]
+        },
+
+        // Account/Login
+        account: {
+          keywords: ['account', 'login', 'password', 'sign in', 'register', 'forgot', 'reset', 'username'],
+          responses: [
+            "For account-related issues:\n• Forgot password? Click 'Reset Password' on the login page\n• New user? Click 'Sign Up' to create an account\n• Still having trouble? Email us at support@example.com",
+            "I can help with account issues! Are you trying to:\n• Reset your password\n• Create a new account\n• Access your existing account\n\nLet me know and I'll guide you!"
+          ]
+        },
+
+        // Thanks
+        thanks: {
+          keywords: ['thank', 'thanks', 'appreciate', 'helpful', 'great'],
+          responses: [
+            "You're welcome! 😊 Is there anything else I can help you with?",
+            "Happy to help! Let me know if you need anything else!",
+            "My pleasure! Feel free to ask if you have more questions."
+          ]
+        },
+
+        // Goodbye
+        goodbye: {
+          keywords: ['bye', 'goodbye', 'see you', 'later', 'exit', 'quit'],
+          responses: [
+            "Goodbye! Have a great day! Feel free to come back anytime you need help. 👋",
+            "Thanks for chatting! If you need anything else, I'm always here. Take care! 😊",
+          ]
+        },
+
+        // Features
+        features: {
+          keywords: ['feature', 'functionality', 'can it', 'does it', 'capability', 'what can'],
+          responses: [
+            "Our platform offers many great features! Some highlights include:\n• Easy-to-use interface\n• Advanced analytics\n• 24/7 support\n• Regular updates\n\nWhat specific feature are you interested in?",
+            "We have tons of features! What would you like to know about specifically? I can tell you about functionality, integrations, or specific capabilities."
+          ]
+        },
+
+        // Default fallback
+        default: {
+          keywords: [],
+          responses: [
+            "That's a great question! While I can help with general inquiries, for detailed information I'd recommend:\n• Checking our FAQ page\n• Emailing support@dailytrader.com\n• Calling us at 1-941-276-0630\n\nIs there anything else I can help clarify?",
+            "I'm here to help! Could you rephrase your question or tell me more about what you're looking for? I can assist with:\n• Products & services\n• Pricing\n• Technical support\n• Account issues",
+            "I want to make sure I give you the best answer. Could you provide a bit more detail about what you need? Or would you like me to connect you with our support team?"
+          ]
+        }
+      };
+
+      // ============================================
+      // Chat Widget JavaScript
+      // ============================================
+      const chatBtn = document.getElementById('chatBtn');
+      const chatWindow = document.getElementById('chatWindow');
+      const closeBtn = document.getElementById('closeBtn');
+      const minimizeBtn = document.getElementById('minimizeBtn');
+      const messageInput = document.getElementById('messageInput');
+      const sendBtn = document.getElementById('sendBtn');
+      const messagesContainer = document.getElementById('messagesContainer');
+
+      let isMinimized = false;
+      let isLoading = false;
+      let lastCategory = null;
+
+      // Initialize welcome message time
+      document.getElementById('welcomeTime').textContent = formatTime(new Date());
+
+      // Toggle chat window
+      chatBtn.addEventListener('click', () => {
+        chatWindow.classList.remove('hidden');
+        chatBtn.classList.add('hidden');
+        messageInput.focus();
       });
-    }
 
-    function setTestimonial(idx) {
-      currentTestimonial = idx;
-      renderTestimonial(idx);
-    }
+      closeBtn.addEventListener('click', () => {
+        chatWindow.classList.add('hidden');
+        chatBtn.classList.remove('hidden');
+      });
 
-    // Auto rotate testimonials
-    setInterval(() => {
-      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-      renderTestimonial(currentTestimonial);
-    }, 6000);
+      minimizeBtn.addEventListener('click', () => {
+        isMinimized = !isMinimized;
+        if (isMinimized) {
+          chatWindow.style.height = '64px';
+          chatWindow.style.maxHeight = '64px';
+          messagesContainer.style.display = 'none';
+          document.querySelector('.border-t').style.display = 'none';
+        } else {
+          chatWindow.style.height = '600px';
+          chatWindow.style.maxHeight = 'calc(100vh - 100px)';
+          messagesContainer.style.display = 'block';
+          document.querySelector('.border-t').style.display = 'block';
+        }
+      });
 
-    renderTestimonial(0);
+      // Format time
+      function formatTime(date) {
+        return date.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      }
 
-  </script>
+      // Add message to chat
+      function addMessage(role, content) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+
+        const time = formatTime(new Date());
+        const bgColor = role === 'user' ? 'bg-blue-500 text-white rounded-br-sm' : 'bg-white text-gray-800 shadow-sm rounded-bl-sm';
+        const timeColor = role === 'user' ? 'text-blue-100' : 'text-gray-400';
+
+        messageDiv.innerHTML = `
+                <div class="max-w-[80%] rounded-2xl ${bgColor} px-4 py-2">
+                    <p class="text-sm whitespace-pre-wrap break-words">${escapeHtml(content)}</p>
+                    <p class="text-xs mt-1 ${timeColor}">${time}</p>
+                </div>
+            `;
+
+        messagesContainer.appendChild(messageDiv);
+        scrollToBottom();
+      }
+
+      // Show typing indicator
+      function showTyping() {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.id = 'typingIndicator';
+        loadingDiv.className = 'flex justify-start';
+        loadingDiv.innerHTML = `
+                <div class="bg-white rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
+                    <div class="flex gap-1">
+                        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dot"></div>
+                        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dot" style="animation-delay: 0.2s"></div>
+                        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dot" style="animation-delay: 0.4s"></div>
+                    </div>
+                </div>
+            `;
+        messagesContainer.appendChild(loadingDiv);
+        scrollToBottom();
+      }
+
+      function hideTyping() {
+        const typingDiv = document.getElementById('typingIndicator');
+        if (typingDiv) typingDiv.remove();
+      }
+
+      // Scroll to bottom
+      function scrollToBottom() {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      // Escape HTML to prevent XSS
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // Find best matching response
+      function findResponse(userMessage) {
+        const message = userMessage.toLowerCase().trim();
+
+        let bestMatch = null;
+        let highestScore = 0;
+
+        // Check each category
+        for (const [category, data] of Object.entries(botResponses)) {
+          if (category === 'default') continue;
+
+          let score = 0;
+          for (const keyword of data.keywords) {
+            if (message.includes(keyword)) {
+              score += keyword.length; // Longer keywords = more specific
+            }
+          }
+
+          if (score > highestScore) {
+            highestScore = score;
+            bestMatch = category;
+          }
+        }
+
+        // If no match, use default
+        const category = bestMatch || 'default';
+        const responses = botResponses[category].responses;
+
+        // Return random response from matched category
+        return responses[Math.floor(Math.random() * responses.length)];
+      }
+
+      // Send message
+      async function sendMessage() {
+        const message = messageInput.value.trim();
+        if (!message || isLoading) return;
+
+        // Add user message
+        addMessage('user', message);
+        messageInput.value = '';
+
+        isLoading = true;
+        sendBtn.disabled = true;
+        messageInput.disabled = true;
+        showTyping();
+
+        // Simulate thinking time (makes it feel more natural)
+        await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 700));
+
+        hideTyping();
+
+        // Get response
+        const response = findResponse(message);
+        addMessage('assistant', response);
+
+        isLoading = false;
+        sendBtn.disabled = false;
+        messageInput.disabled = false;
+        messageInput.focus();
+      }
+
+      // Send button click
+      sendBtn.addEventListener('click', sendMessage);
+
+      // Enter key to send
+      messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+    </script>
 </body>
 
 </html>
-

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* CSS for Modal */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.5); 
+        }
+        .modal-content { 
+            background: #052873; 
+            margin: 15% auto; 
+            padding: 20px; 
+            border: 1px solid #888; 
+            width: 80%; 
+            max-width: 600px; 
+            border-radius: 8px;
+            color: white;
+        }
+        .close { 
+            color: #aaa; 
+            float: right; 
+            font-size: 28px; 
+            font-weight: bold; 
+            cursor: pointer; 
+        }
+        .close:hover { color: #000; }
+        .cta-button {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .cta-button:hover {
+            background: #06b6d4;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+    <!-- HTML for Modal -->
+    <div id="proof-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class=" text-2xl font-bold mb-4">Welcome! Join thousands of successful investors who are already earning profits</h2>
+            
+            <a href="proof.html" class="cta-button">Check it Out!</a>
+        </div>
+    </div>
+
+    <script>
+        // Show modal every 1 minute (60000 milliseconds)
+        const SHOW_INTERVAL = 60000; // 1 minute in milliseconds
+        
+        function showModal() {
+            document.getElementById('proof-modal').style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('proof-modal').style.display = 'none';
+        }
+        
+        // Show modal on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            showModal();
+            
+            // Set up recurring interval to show modal every 1 minute
+            setInterval(showModal, SHOW_INTERVAL);
+            
+            // Close button functionality
+            document.querySelector('.close').onclick = closeModal;
+            
+            // Close modal when clicking outside of it
+            window.onclick = function(event) {
+                const modal = document.getElementById('proof-modal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            };
+        });
+    </script>
+</body>
+</html>

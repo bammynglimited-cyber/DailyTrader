@@ -1,49 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9CKEEJKSDQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9CKEEJKSDQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-9CKEEJKSDQ');
-</script>
+    gtag('config', 'G-9CKEEJKSDQ');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Essential SEO -->
-<meta name="description" content="DailyTrader - Professional cryptocurrency trading platform. Trade Bitcoin, Ethereum, and earn profits with expert strategies.">
-<meta name="keywords" content="crypto trading, cryptocurrency, bitcoin, ethereum, trading platform, investment">
-<meta name="author" content="DailyTrader">
+  <!-- Essential SEO -->
+  <meta name="description"
+    content="DailyTrader - Professional cryptocurrency trading platform. Trade Bitcoin, Ethereum, and earn profits with expert strategies.">
+  <meta name="keywords" content="crypto trading, cryptocurrency, bitcoin, ethereum, trading platform, investment">
+  <meta name="author" content="DailyTrader">
 
-<!-- Open Graph -->
-<meta property="og:title" content="DailyTrader - Cryptocurrency Trading Platform">
-<meta property="og:description" content="Trade cryptocurrencies, earn profits, and grow your wealth">
-<meta property="og:image" content="https://dailytrader.site/og-image.jpg">
-<meta property="og:url" content="https://dailytrader.site/">
-<meta property="og:type" content="website">
+  <!-- Open Graph -->
+  <meta property="og:title" content="DailyTrader - Cryptocurrency Trading Platform">
+  <meta property="og:description" content="Trade cryptocurrencies, earn profits, and grow your wealth">
+  <meta property="og:image" content="https://dailytrader.site/og-image.jpg">
+  <meta property="og:url" content="https://dailytrader.site/">
+  <meta property="og:type" content="website">
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="DailyTrader - Crypto Trading">
-<meta name="twitter:description" content="Professional cryptocurrency trading platform">
-<meta name="twitter:image" content="https://dailytrader.site/og-image.jpg">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DailyTrader - Crypto Trading">
+  <meta name="twitter:description" content="Professional cryptocurrency trading platform">
+  <meta name="twitter:image" content="https://dailytrader.site/og-image.jpg">
 
-<!-- Canonical -->
-<link rel="canonical" href="https://dailytrader.site/">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://dailytrader.site/">
   <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/icon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/icon.png">
   <title>Login - DailyTrader</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen flex items-center justify-center p-6">
-  
+
+<body
+  class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen flex items-center justify-center p-6">
+
   <div class="w-full max-w-md">
     <!-- Logo -->
     <div class="text-center mb-8">
-      <h1 class="text-5xl font-bold mb-2" style="background: linear-gradient(to right, #10b981, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">DailyTrader</h1>
+      <h1 class="text-5xl font-bold mb-2"
+        style="background: linear-gradient(to right, #10b981, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        DailyTrader</h1>
       <p class="text-gray-300">Welcome back! Login to your account</p>
     </div>
 
@@ -51,7 +57,7 @@
     <div class="bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-3xl p-8 shadow-2xl">
       <h2 class="text-3xl font-bold mb-4 text-center">Login to your account</h2>
       <p class="text-gray-300 text-sm mb-6 text-center">You can sign in to your account using email or username</p>
-      
+
       <!-- Status Message -->
       <div id="status" class="mb-4 p-3 rounded-lg hidden"></div>
 
@@ -60,13 +66,17 @@
         <!-- Username or Email -->
         <div>
           <label class="block text-sm font-medium mb-2">Email</label>
-          <input type="text" id="login-email" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="Enter email or username">
+          <input type="text" id="login-email" required
+            class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400"
+            placeholder="Enter email or username">
         </div>
 
         <!-- Password -->
         <div>
           <label class="block text-sm font-medium mb-2">Password</label>
-          <input type="password" id="login-password" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="••••••••">
+          <input type="password" id="login-password" required
+            class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400"
+            placeholder="••••••••">
         </div>
 
         <!-- Keep me logged in & Forgot Password -->
@@ -84,39 +94,46 @@
             <canvas id="captcha-canvas" width="280" height="60" class="mx-auto"></canvas>
           </div>
           <label class="block text-sm font-medium mb-2">Captcha<span class="text-red-500">*</span></label>
-          <input type="text" id="captcha-input" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400" placeholder="Enter captcha code">
+          <input type="text" id="captcha-input" required
+            class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400"
+            placeholder="Enter captcha code">
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-blue-500 py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-blue-600 transition">
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-green-500 to-blue-500 py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-blue-600 transition">
           Login Account
         </button>
       </form>
 
       <div class="mt-6 text-center">
-        <p class="text-gray-300">Don't have any account? <a href="signup.html" class="text-blue-400 hover:underline font-bold">Create Account</a></p>
+        <p class="text-gray-300">Don't have any account? <a href="signup.html"
+            class="text-blue-400 hover:underline font-bold">Create Account</a></p>
       </div>
     </div>
     <!-- 2FA Code Section (Hidden by default) -->
-<div id="twofa-section" class="hidden">
-  <h2 class="text-3xl font-bold mb-6 text-center">Enter Verification Code</h2>
-  <p class="text-gray-300 text-sm mb-6 text-center">We've sent a 6-digit code to your email</p>
-  
-  <form id="twofa-form" class="space-y-4">
-    <div>
-      <label class="block text-sm font-medium mb-2">Verification Code</label>
-      <input type="text" id="twofa-code" maxlength="6" required class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400 text-center text-2xl tracking-widest" placeholder="000000">
+    <div id="twofa-section" class="hidden">
+      <h2 class="text-3xl font-bold mb-6 text-center">Enter Verification Code</h2>
+      <p class="text-gray-300 text-sm mb-6 text-center">We've sent a 6-digit code to your email</p>
+
+      <form id="twofa-form" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-2">Verification Code</label>
+          <input type="text" id="twofa-code" maxlength="6" required
+            class="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl focus:border-blue-500 focus:outline-none text-white placeholder-gray-400 text-center text-2xl tracking-widest"
+            placeholder="000000">
+        </div>
+
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-green-500 to-blue-500 py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-blue-600 transition">
+          Verify & Login
+        </button>
+
+        <button type="button" id="resend-2fa-btn" class="w-full text-blue-400 hover:underline text-sm">
+          Resend Code
+        </button>
+      </form>
     </div>
-
-    <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-blue-500 py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-blue-600 transition">
-      Verify & Login
-    </button>
-
-    <button type="button" id="resend-2fa-btn" class="w-full text-blue-400 hover:underline text-sm">
-      Resend Code
-    </button>
-  </form>
-</div>
 
     <div class="text-center mt-6">
       <a href="index.html" class="text-gray-400 hover:text-white transition">← Back to Home</a>
@@ -124,210 +141,210 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
-  let supabaseClient = null;
-  let captchaText = '';
-  let pendingSession = null;
+  <script>
+    const supabaseUrl = 'https://cgfkpokpiseaugcrqjbv.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE';
+    let supabaseClient = null;
+    let captchaText = '';
+    let pendingSession = null;
 
-  // Generate Captcha
-  function generateCaptcha() {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
-    captchaText = '';
-    for (let i = 0; i < 6; i++) {
-      captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
+    // Generate Captcha
+    function generateCaptcha() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+      captchaText = '';
+      for (let i = 0; i < 6; i++) {
+        captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+
+      const canvas = document.getElementById('captcha-canvas');
+      const ctx = canvas.getContext('2d');
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < 5; i++) {
+        ctx.strokeStyle = `rgba(${Math.random() * 100 + 100}, ${Math.random() * 100 + 100}, ${Math.random() * 100 + 100}, 0.3)`;
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+        ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+        ctx.stroke();
+      }
+
+      ctx.font = 'bold 32px Arial';
+      for (let i = 0; i < captchaText.length; i++) {
+        ctx.fillStyle = `hsl(${Math.random() * 360}, 70%, 60%)`;
+        ctx.save();
+        ctx.translate(20 + i * 40, 40);
+        ctx.rotate((Math.random() - 0.5) * 0.4);
+        ctx.fillText(captchaText[i], 0, 0);
+        ctx.restore();
+      }
     }
-    
-    const canvas = document.getElementById('captcha-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#1e293b';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    for (let i = 0; i < 5; i++) {
-      ctx.strokeStyle = `rgba(${Math.random()*100+100}, ${Math.random()*100+100}, ${Math.random()*100+100}, 0.3)`;
-      ctx.beginPath();
-      ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
-      ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-      ctx.stroke();
+
+    function showStatus(message, type = 'info') {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = `mb-4 p-3 rounded-lg ${type === 'error' ? 'bg-red-600/20 border-2 border-red-500' : type === 'success' ? 'bg-green-600/20 border-2 border-green-500' : 'bg-blue-600/20 border-2 border-blue-500'}`;
+      status.classList.remove('hidden');
     }
-    
-    ctx.font = 'bold 32px Arial';
-    for (let i = 0; i < captchaText.length; i++) {
-      ctx.fillStyle = `hsl(${Math.random() * 360}, 70%, 60%)`;
-      ctx.save();
-      ctx.translate(20 + i * 40, 40);
-      ctx.rotate((Math.random() - 0.5) * 0.4);
-      ctx.fillText(captchaText[i], 0, 0);
-      ctx.restore();
+
+    function waitForSupabase(callback) {
+      if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+        callback();
+      } else {
+        setTimeout(() => waitForSupabase(callback), 100);
+      }
     }
-  }
-
-  function showStatus(message, type = 'info') {
-    const status = document.getElementById('status');
-    status.textContent = message;
-    status.className = `mb-4 p-3 rounded-lg ${type === 'error' ? 'bg-red-600/20 border-2 border-red-500' : type === 'success' ? 'bg-green-600/20 border-2 border-green-500' : 'bg-blue-600/20 border-2 border-blue-500'}`;
-    status.classList.remove('hidden');
-  }
-
-  function waitForSupabase(callback) {
-    if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
-      callback();
-    } else {
-      setTimeout(() => waitForSupabase(callback), 100);
-    }
-  }
-waitForSupabase(() => {
-    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-    generateCaptcha();
-});
-
-  document.getElementById('captcha-canvas').addEventListener('click', generateCaptcha);
-
-  // ✅ SINGLE LOGIN FORM HANDLER
-  document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const email = document.getElementById('login-email').value.trim();
-    const password = document.getElementById('login-password').value;
-    const captchaInput = document.getElementById('captcha-input').value;
-
-    if (captchaInput !== captchaText) {
-      showStatus('Incorrect captcha!', 'error');
+    waitForSupabase(() => {
+      supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
       generateCaptcha();
-      document.getElementById('captcha-input').value = '';
-      return;
-    }
-
-    showStatus('Logging in...', 'info');
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password
     });
 
-    if (error) {
-      showStatus('Login failed: ' + error.message, 'error');
-      generateCaptcha();
-      document.getElementById('captcha-input').value = '';
-      return;
-    }
+    document.getElementById('captcha-canvas').addEventListener('click', generateCaptcha);
 
-    // Check if email is verified
-    if (!data.user.email_confirmed_at) {
-      showStatus('Please verify your email first!', 'error');
+    // ✅ SINGLE LOGIN FORM HANDLER
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const captchaInput = document.getElementById('captcha-input').value;
+
+      if (captchaInput !== captchaText) {
+        showStatus('Incorrect captcha!', 'error');
+        generateCaptcha();
+        document.getElementById('captcha-input').value = '';
+        return;
+      }
+
+      showStatus('Logging in...', 'info');
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+        showStatus('Login failed: ' + error.message, 'error');
+        generateCaptcha();
+        document.getElementById('captcha-input').value = '';
+        return;
+      }
+
+      // Check if email is verified
+      if (!data.user.email_confirmed_at) {
+        showStatus('Please verify your email first!', 'error');
+        setTimeout(() => {
+          window.location.href = `verify-email.html?email=${encodeURIComponent(email)}`;
+        }, 2000);
+        return;
+      }
+
+      // Generate and send 2FA code
+      showStatus('Sending verification code...', 'info');
+
+      const twoFACode = Math.floor(100000 + Math.random() * 900000).toString();
+
+      // Store 2FA code in database
+      const { error: codeError } = await supabase.rpc('store_2fa_code', {
+        p_user_id: data.user.id,
+        p_code: twoFACode
+      });
+
+      if (codeError) {
+        console.error('2FA code storage error:', codeError);
+        showStatus('Error generating verification code', 'error');
+        return;
+      }
+
+
+      // Send 2FA code via email
+      console.log('📧 Attempting to send 2FA code to:', email);
+      console.log('🔢 Code:', twoFACode);
+
+      const { data: emailResult, error: emailError } = await supabase.rpc('send_2fa_code', {
+        p_user_email: email,
+        p_code: twoFACode
+      });
+
+      console.log('📬 Email send result:', emailResult);
+      console.log('❌ Email error:', emailError);
+
+      if (emailError) {
+        console.error('Email send error details:', emailError);
+        showStatus('Warning: Code sent but email may be delayed', 'info');
+      } else {
+        console.log('✅ Email function completed successfully');
+      }
+      // Store session for after 2FA verification
+      pendingSession = data.session;
+
+      // Hide login form, show 2FA form
+      document.getElementById('login-form').classList.add('hidden');
+      document.getElementById('twofa-section').classList.remove('hidden');
+      showStatus('Code sent to your email!', 'success');
+    });
+
+    // Handle 2FA verification
+    document.getElementById('twofa-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const code = document.getElementById('twofa-code').value;
+
+      if (!pendingSession) {
+        showStatus('Session expired. Please login again.', 'error');
+        window.location.reload();
+        return;
+      }
+
+      showStatus('Verifying code...', 'info');
+
+      const { data: { user } } = await supabase.auth.getUser();
+
+      const { data: isValid, error } = await supabase.rpc('verify_2fa_code', {
+        p_user_id: user.id,
+        p_code: code
+      });
+
+      if (error || !isValid) {
+        showStatus('Invalid or expired code!', 'error');
+        return;
+      }
+
+      showStatus('Login successful!', 'success');
+
       setTimeout(() => {
-        window.location.href = `verify-email.html?email=${encodeURIComponent(email)}`;
-      }, 2000);
-      return;
-    }
-
-    // Generate and send 2FA code
-    showStatus('Sending verification code...', 'info');
-    
-    const twoFACode = Math.floor(100000 + Math.random() * 900000).toString();
-    
-    // Store 2FA code in database
-    const { error: codeError } = await supabase.rpc('store_2fa_code', {
-      p_user_id: data.user.id,
-      p_code: twoFACode
+        window.location.href = 'dashboard.html';
+      }, 1000);
     });
 
-    if (codeError) {
-      console.error('2FA code storage error:', codeError);
-      showStatus('Error generating verification code', 'error');
-      return;
-    }
+    // Resend 2FA code
+    document.getElementById('resend-2fa-btn').addEventListener('click', async () => {
+      const btn = document.getElementById('resend-2fa-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
 
+      const { data: { user } } = await supabase.auth.getUser();
+      const twoFACode = Math.floor(100000 + Math.random() * 900000).toString();
 
-// Send 2FA code via email
-console.log('📧 Attempting to send 2FA code to:', email);
-console.log('🔢 Code:', twoFACode);
+      await supabase.rpc('store_2fa_code', {
+        p_user_id: user.id,
+        p_code: twoFACode
+      });
 
-const { data: emailResult, error: emailError } = await supabase.rpc('send_2fa_code', {
-  p_user_email: email,
-  p_code: twoFACode
-});
+      await supabase.rpc('send_2fa_code', {
+        p_user_email: user.email,
+        p_code: twoFACode
+      });
 
-console.log('📬 Email send result:', emailResult);
-console.log('❌ Email error:', emailError);
-
-if (emailError) {
-  console.error('Email send error details:', emailError);
-  showStatus('Warning: Code sent but email may be delayed', 'info');
-} else {
-  console.log('✅ Email function completed successfully');
-}
-    // Store session for after 2FA verification
-    pendingSession = data.session;
-
-    // Hide login form, show 2FA form
-    document.getElementById('login-form').classList.add('hidden');
-    document.getElementById('twofa-section').classList.remove('hidden');
-    showStatus('Code sent to your email!', 'success');
-  });
-
-  // Handle 2FA verification
-  document.getElementById('twofa-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const code = document.getElementById('twofa-code').value;
-    
-    if (!pendingSession) {
-      showStatus('Session expired. Please login again.', 'error');
-      window.location.reload();
-      return;
-    }
-
-    showStatus('Verifying code...', 'info');
-
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    const { data: isValid, error } = await supabase.rpc('verify_2fa_code', {
-      p_user_id: user.id,
-      p_code: code
+      btn.textContent = '✓ Code Sent!';
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = 'Resend Code';
+      }, 5000);
     });
-
-    if (error || !isValid) {
-      showStatus('Invalid or expired code!', 'error');
-      return;
-    }
-
-    showStatus('Login successful!', 'success');
-    
-    setTimeout(() => {
-      window.location.href = 'dashboard.html';
-    }, 1000);
-  });
-
-  // Resend 2FA code
-  document.getElementById('resend-2fa-btn').addEventListener('click', async () => {
-    const btn = document.getElementById('resend-2fa-btn');
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-
-    const { data: { user } } = await supabase.auth.getUser();
-    const twoFACode = Math.floor(100000 + Math.random() * 900000).toString();
-
-    await supabase.rpc('store_2fa_code', {
-      p_user_id: user.id,
-      p_code: twoFACode
-    });
-
-    await supabase.rpc('send_2fa_code', {
-      p_user_email: user.email,
-      p_code: twoFACode
-    });
-
-    btn.textContent = '✓ Code Sent!';
-    setTimeout(() => {
-      btn.disabled = false;
-      btn.textContent = 'Resend Code';
-    }, 5000);
-  });
-</script>
+  </script>
 </body>
-</html>
 
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Users, Real Results - Investment Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'blue': {
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                        },
+                        'cyan': {
+                            300: '#67e8f9',
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                        },
+                        'purple': {
+                            500: '#a855f7',
+                            600: '#9333ea',
+                        },
+                        'pink': {
+                            500: '#ec4899',
+                            600: '#db2777',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            overflow-x: hidden;
+        }
+        .modal-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+    <div id="app" class="p-6">
+        <!-- Content will be loaded here -->
+    </div>
+
+    <!-- Lucide Icons as SVGs (inline) -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <!-- Check Icon -->
+        <symbol id="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </symbol>
+        
+        <!-- TrendingUp Icon -->
+        <symbol id="trending-up-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+        </symbol>
+        
+        <!-- Users Icon -->
+        <symbol id="users-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </symbol>
+        
+        <!-- Wallet Icon -->
+        <symbol id="wallet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
+            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
+            <path d="M18 12a2 2 0 0 0 0 4h4v-4z"></path>
+        </symbol>
+        
+        <!-- ArrowRight Icon -->
+        <symbol id="arrow-right-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+        </symbol>
+        
+        <!-- ExternalLink Icon -->
+        <symbol id="external-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+        </symbol>
+        
+        <!-- Copy Icon -->
+        <symbol id="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </symbol>
+        
+        <!-- X Icon -->
+        <symbol id="x-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </symbol>
+    </svg>
+
+    <script>
+        // Application state
+        const state = {
+            selectedUser: null,
+            activeTab: 'all',
+            copiedHash: ''
+        };
+
+        // Sample user data - same as React component
+        const successStories = [
+            {
+                id: 1,
+                name: "Leighton Kramer ",
+                avatar: "LK",
+                joinDate: "Aug 2024",
+                plan: "Gold Plan",
+                initialDeposit: 5000,
+                currentValue: 6750,
+                profit: 1750,
+                profitPercent: 65,
+                withdrawals: 2,
+                referralEarnings: 450,
+                referrals: 3,
+                depositHash: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+                withdrawHash: "0x8f5d89Ba7456d1245Cc6634C0532925a3b844Bc",
+                wallet: "0x1a2b...3c4d",
+                testimonial: "Started with the Gold Plan and couldn't be happier. Withdrew my first profit after 90 days, and the process was seamless. My referrals are also earning!",
+                verified: true
+            },
+            {
+                id: 2,
+                name: "Sarah Michell",
+                avatar: "SM",
+                joinDate: "Sep 2024",
+                plan: "Platinum Plan",
+                initialDeposit: 10000,
+                currentValue: 12500,
+                profit: 2500,
+                profitPercent: 55,
+                withdrawals: 3,
+                referralEarnings: 890,
+                referrals: 5,
+                depositHash: "0x9a3c47Dd7745C0532925a3b844Bc9e7595f1cFg",
+                withdrawHash: "0x2b4e78Fc8956d2356Dd7745C0532925a3b844Bd",
+                wallet: "0x5e6f...7g8h",
+                testimonial: "The platform is transparent and reliable. I've made 3 successful withdrawals to my personal wallet. The referral program is a great bonus!",
+                verified: true
+            },
+            {
+                id: 3,
+                name: "Maria Rodriguez",
+                avatar: "MR",
+                joinDate: "Jun 2025",
+                plan: "Diamond Plan",
+                initialDeposit: 25000,
+                currentValue: 28750,
+                profit: 3750,
+                profitPercent: 75,
+                withdrawals: 5,
+                referralEarnings: 1250,
+                referrals: 7,
+                depositHash: "0x3f7a89Ce9867D0532925a3b844Bc9e7595f2dHi",
+                withdrawHash: "0x6c8d12Gf1078e3467Ce9867D0532925a3b844Ce",
+                wallet: "0x9i0j...1k2l",
+                testimonial: "Been here since July. Multiple successful withdrawals, real profits. The team is professional and responsive. Highly recommend!",
+                verified: true
+            },
+            {
+                id: 4,
+                name: "James Thompson",
+                avatar: "JT",
+                joinDate: "Oct 2024",
+                plan: "Silver Plan",
+                initialDeposit: 6500,
+                currentValue: 7625,
+                profit: 1125,
+                profitPercent: 45,
+                withdrawals: 1,
+                referralEarnings: 180,
+                referrals: 2,
+                depositHash: "0x5h9b01Df0189F0532925a3b844Bc9e7595f3eJk",
+                withdrawHash: "0x8k2m45Hi3201g5678Df0189F0532925a3b844Df",
+                wallet: "0x3m4n...5o6p",
+                testimonial: "Started small with Silver Plan to test the waters. Got my first withdrawal last month. Everything works as promised. Growing my portfolio now!",
+                verified: true
+            },
+            {
+                id: 5,
+                name: "David Chen",
+                avatar: "DC",
+                joinDate: "Apr 2025",
+                plan: "Gold Plan",
+                initialDeposit: 7500,
+                currentValue: 9375,
+                profit: 1875,
+                profitPercent: 60,
+                withdrawals: 2,
+                referralEarnings: 625,
+                referrals: 4,
+                depositHash: "0x7l1c23Eg4312H0532925a3b844Bc9e7595f4fLm",
+                withdrawHash: "0x0n5p67Jk6534i7890Eg4312H0532925a3b844Eg",
+                wallet: "0x7q8r...9s0t",
+                testimonial: "Best Crypto platform i,ve used. Real platform, real profits. Already made 2 withdrawals and earned good money from referrals. The dashboard is easy to use!",
+                verified: true
+            }
+        ];
+
+        const platformSteps = [
+            { 
+                step: 1, 
+                title: "Create Account & Deposit", 
+                desc: "Sign up and make your initial deposit via crypto wallet",
+                icon: "wallet" 
+            },
+            { 
+                step: 2, 
+                title: "Choose Trading Plan", 
+                desc: "Select from Silver, Gold, Platinum, or Diamond plans",
+                icon: "trending-up" 
+            },
+            { 
+                step: 3, 
+                title: "Earn & Track Profits", 
+                desc: "Watch your portfolio grow with real-time tracking",
+                icon: "trending-up" 
+            },
+            { 
+                step: 4, 
+                title: "Withdraw Anytime", 
+                desc: "Request withdrawal to your personal wallet seamlessly",
+                icon: "check" 
+            }
+        ];
+
+        // Helper function to render icons
+        function renderIcon(iconName, className = "w-6 h-6") {
+            const iconMap = {
+                'check': 'check-icon',
+                'trending-up': 'trending-up-icon',
+                'users': 'users-icon',
+                'wallet': 'wallet-icon',
+                'arrow-right': 'arrow-right-icon',
+                'external-link': 'external-link-icon',
+                'copy': 'copy-icon',
+                'x': 'x-icon'
+            };
+            
+            if (iconMap[iconName]) {
+                return `<svg class="${className}"><use href="#${iconMap[iconName]}"></use></svg>`;
+            }
+            return '';
+        }
+
+        // Function to copy text to clipboard
+        function copyToClipboard(text, type) {
+            navigator.clipboard.writeText(text).then(() => {
+                state.copiedHash = type;
+                renderModal(); // Re-render modal to show check icon
+                
+                setTimeout(() => {
+                    state.copiedHash = '';
+                    renderModal(); // Re-render modal to revert to copy icon
+                }, 2000);
+            });
+        }
+
+        // Function to filter stories based on active tab
+        function getFilteredStories() {
+            if (state.activeTab === 'all') {
+                return successStories;
+            }
+            return successStories.filter(s => s.plan.toLowerCase().includes(state.activeTab));
+        }
+
+        // Function to set active tab
+        function setActiveTab(tab) {
+            state.activeTab = tab;
+            renderApp();
+        }
+
+        // Function to select a user for the modal
+        function selectUser(user) {
+            state.selectedUser = user;
+            document.body.classList.add('modal-open');
+            renderModal();
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            state.selectedUser = null;
+            document.body.classList.remove('modal-open');
+            renderModal(); // This will remove the modal from DOM
+        }
+
+        // Function to render the modal
+        function renderModal() {
+            const modalContainer = document.getElementById('modal-container');
+            
+            if (!state.selectedUser) {
+                if (modalContainer) {
+                    modalContainer.remove();
+                }
+                return;
+            }
+            
+            const user = state.selectedUser;
+            
+            // If modal container doesn't exist, create it
+            if (!modalContainer) {
+                const newModalContainer = document.createElement('div');
+                newModalContainer.id = 'modal-container';
+                document.body.appendChild(newModalContainer);
+            }
+            
+            const modalHTML = `
+                <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                    <div class="bg-slate-900 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-white/20">
+                        <div class="sticky top-0 bg-slate-900 border-b border-white/20 p-6 flex justify-between items-center">
+                            <h2 class="text-2xl font-bold">Investment Proof - ${user.name}</h2>
+                            <button
+                                onclick="closeModal()"
+                                class="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                            >
+                                ${renderIcon('x', 'w-6 h-6')}
+                            </button>
+                        </div>
+
+                        <div class="p-6 space-y-6">
+                            <!-- User Info -->
+                            <div class="flex items-center gap-4 bg-white/5 p-4 rounded-lg">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center font-bold text-2xl">
+                                    ${user.avatar}
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-xl flex items-center gap-2">
+                                        ${user.name}
+                                        ${user.verified ? renderIcon('check', 'w-5 h-5 text-green-400') : ''}
+                                    </div>
+                                    <div class="text-gray-400">Member since ${user.joinDate}</div>
+                                </div>
+                                <div class="bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2 rounded-full font-semibold">
+                                    ${user.plan}
+                                </div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="bg-white/5 p-4 rounded-lg">
+                                    <div class="text-gray-400 text-sm mb-1">Initial Deposit</div>
+                                    <div class="text-2xl font-bold">$${user.initialDeposit.toLocaleString()}</div>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-lg">
+                                    <div class="text-gray-400 text-sm mb-1">Current Value</div>
+                                    <div class="text-2xl font-bold text-green-400">$${user.currentValue.toLocaleString()}</div>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-lg">
+                                    <div class="text-gray-400 text-sm mb-1">Total Profit</div>
+                                    <div class="text-2xl font-bold text-cyan-400">$${user.profit.toLocaleString()}</div>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-lg">
+                                    <div class="text-gray-400 text-sm mb-1">ROI</div>
+                                    <div class="text-2xl font-bold text-yellow-400">+${user.profitPercent}%</div>
+                                </div>
+                            </div>
+
+                            <!-- Transaction Proof -->
+                            <div class="space-y-4">
+                                <h3 class="text-xl font-bold">Transaction Proofs</h3>
+                                
+                                <div class="bg-white/5 p-4 rounded-lg space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-semibold text-green-400">✓ Deposit Transaction</span>
+                                        ${renderIcon('external-link', 'w-4 h-4 text-gray-400')}
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-gray-400 mb-1">Transaction Hash</div>
+                                        <div class="flex items-center gap-2">
+                                            <code class="bg-black/30 px-3 py-2 rounded text-sm flex-1 truncate">
+                                                ${user.depositHash}
+                                            </code>
+                                            <button
+                                                onclick="copyToClipboard('${user.depositHash}', 'deposit')"
+                                                class="p-2 hover:bg-white/10 rounded transition-colors"
+                                            >
+                                                ${state.copiedHash === 'deposit' ? 
+                                                    renderIcon('check', 'w-4 h-4 text-green-400') : 
+                                                    renderIcon('copy', 'w-4 h-4')}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white/5 p-4 rounded-lg space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-semibold text-blue-400">✓ Withdrawal Transaction</span>
+                                        ${renderIcon('external-link', 'w-4 h-4 text-gray-400')}
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-gray-400 mb-1">Transaction Hash</div>
+                                        <div class="flex items-center gap-2">
+                                            <code class="bg-black/30 px-3 py-2 rounded text-sm flex-1 truncate">
+                                                ${user.withdrawHash}
+                                            </code>
+                                            <button
+                                                onclick="copyToClipboard('${user.withdrawHash}', 'withdraw')"
+                                                class="p-2 hover:bg-white/10 rounded transition-colors"
+                                            >
+                                                ${state.copiedHash === 'withdraw' ? 
+                                                    renderIcon('check', 'w-4 h-4 text-green-400') : 
+                                                    renderIcon('copy', 'w-4 h-4')}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-gray-400 mb-1">Destination Wallet</div>
+                                        <code class="bg-black/30 px-3 py-2 rounded text-sm block">
+                                            ${user.wallet}
+                                        </code>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Referral Earnings -->
+                            <div class="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 p-4 rounded-lg">
+                                <h3 class="font-bold mb-3 flex items-center gap-2">
+                                    ${renderIcon('users', 'w-5 h-5')}
+                                    Referral Earnings
+                                </h3>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <div class="text-gray-400 text-sm">Total Referrals</div>
+                                        <div class="text-2xl font-bold">${user.referrals}</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-400 text-sm">Earnings</div>
+                                        <div class="text-2xl font-bold text-green-400">$${user.referralEarnings}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Testimonial -->
+                            <div class="bg-white/5 p-4 rounded-lg">
+                                <h3 class="font-bold mb-3">User Testimonial</h3>
+                                <p class="text-gray-300 italic">"${user.testimonial}"</p>
+                            </div>
+
+                            <!-- Activity Summary -->
+                            <div class="bg-white/5 p-4 rounded-lg">
+                                <h3 class="font-bold mb-3">Activity Summary</h3>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Total Withdrawals:</span>
+                                        <span class="font-semibold">${user.withdrawals} times</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Account Status:</span>
+                                        <span class="font-semibold text-green-400">✓ Verified & Active</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Investment Period:</span>
+                                        <span class="font-semibold">Since ${user.joinDate}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modal-container').innerHTML = modalHTML;
+        }
+
+        // Function to render the main app
+        function renderApp() {
+            const filteredStories = getFilteredStories();
+            
+            const appHTML = `
+                <div class="max-w-7xl mx-auto">
+                    <!-- Header -->
+                    <div class="text-center mb-12">
+                        <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                            Check Some Of Our Investor Portfolio
+                        </h1>
+                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                            Join thousands of successful investors who are already earning profits. 
+                            See verified testimonials and transaction proofs from our community.
+                        </p>
+                    </div>
+
+                    <!-- Stats Overview -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                            <div class="text-3xl font-bold text-cyan-400 mb-2">4,000+</div>
+                            <div class="text-gray-300">Active Users</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                            <div class="text-3xl font-bold text-green-400 mb-2">$1.5M+</div>
+                            <div class="text-gray-300">Total Withdrawn</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                            <div class="text-3xl font-bold text-purple-400 mb-2">15,000+</div>
+                            <div class="text-gray-300">Successful Trades</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                            <div class="text-3xl font-bold text-yellow-400 mb-2">78%</div>
+                            <div class="text-gray-300">Satisfaction Rate</div>
+                        </div>
+                    </div>
+
+                    <!-- How It Works -->
+                    <div class="mb-16">
+                        <h2 class="text-3xl font-bold text-center mb-8">How It Works</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            ${platformSteps.map((item, idx) => `
+                                <div class="relative">
+                                    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 h-full">
+                                        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                                            ${renderIcon(item.icon, 'w-6 h-6')}
+                                        </div>
+                                        <div class="text-sm text-cyan-400 mb-2">Step ${item.step}</div>
+                                        <h3 class="text-lg font-bold mb-2">${item.title}</h3>
+                                        <p class="text-gray-300 text-sm">${item.desc}</p>
+                                    </div>
+                                    ${idx < platformSteps.length - 1 ? 
+                                        `${renderIcon('arrow-right', 'hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 text-cyan-400 w-6 h-6')}` : 
+                                        ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap gap-3 justify-center mb-8">
+                        ${['all', 'silver', 'gold', 'platinum', 'diamond'].map(tab => `
+                            <button
+                                onclick="setActiveTab('${tab}')"
+                                class="px-6 py-2 rounded-full font-semibold transition-all ${state.activeTab === tab ?
+                                    'bg-gradient-to-r from-blue-500 to-cyan-500 text-white' :
+                                    'bg-white/10 text-gray-300 hover:bg-white/20'}"
+                            >
+                                ${tab.charAt(0).toUpperCase() + tab.slice(1)} Plan
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <!-- Success Stories Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                        ${filteredStories.map(user => `
+                            <div
+                                class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 hover:border-cyan-400 transition-all cursor-pointer hover:scale-105"
+                                onclick="selectUser(${JSON.stringify(user).replace(/"/g, '&quot;')})"
+                            >
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center font-bold">
+                                            ${user.avatar}
+                                        </div>
+                                        <div>
+                                            <div class="font-bold flex items-center gap-2">
+                                                ${user.name}
+                                                ${user.verified ? renderIcon('check', 'w-4 h-4 text-green-400') : ''}
+                                            </div>
+                                            <div class="text-xs text-gray-400">${user.joinDate}</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 px-3 py-1 rounded-full text-xs font-semibold">
+                                        ${user.plan}
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <div class="text-xs text-gray-400 mb-1">Invested</div>
+                                        <div class="font-bold text-lg">$${user.initialDeposit.toLocaleString()}</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-gray-400 mb-1">Current Value</div>
+                                        <div class="font-bold text-lg text-green-400">$${user.currentValue.toLocaleString()}</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-gray-400 mb-1">Profit</div>
+                                        <div class="font-bold text-cyan-400">+$${user.profit.toLocaleString()}</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-gray-400 mb-1">ROI</div>
+                                        <div class="font-bold text-yellow-400">+${user.profitPercent}%</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between pt-4 border-t border-white/20">
+                                    <div class="flex items-center gap-2 text-sm text-gray-300">
+                                        ${renderIcon('users', 'w-4 h-4')}
+                                        <span>${user.referrals} referrals</span>
+                                    </div>
+                                    <div class="text-sm text-green-400 font-semibold">
+                                        $${user.referralEarnings} earned
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 text-sm text-gray-300 italic">
+                                    "${user.testimonial.slice(0, 80)}..."
+                                </div>
+
+                                <button class="mt-4 w-full bg-gradient-to-r from-blue-500 to-cyan-500 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                                    View Full Proof
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Referral Program Highlight -->
+                    <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-8 text-center mb-12">
+                        ${renderIcon('users', 'w-16 h-16 mx-auto mb-4')}
+                        <h2 class="text-3xl font-bold mb-4">Earn with Referrals</h2>
+                        <p class="text-xl mb-6 max-w-2xl mx-auto">
+                            Get 5-10% commission on every deposit made by users who join with your referral code. 
+                            Unlimited earning potential!
+                        </p>
+                        <div class="flex gap-4 justify-center">
+                            <div class="bg-white/20 px-6 py-4 rounded-lg">
+                                <div class="text-3xl font-bold">5-10%</div>
+                                <div class="text-sm">Commission Rate</div>
+                            </div>
+                            <div class="bg-white/20 px-6 py-4 rounded-lg">
+                                <div class="text-3xl font-bold">Instant</div>
+                                <div class="text-sm">Credit to Wallet</div>
+                            </div>
+                            <div class="bg-white/20 px-6 py-4 rounded-lg">
+                                <div class="text-3xl font-bold">∞</div>
+                                <div class="text-sm">No Limit</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-6 text-center text-sm text-gray-300">
+                        <p class="font-semibold text-yellow-400 mb-2">⚠️ Investment Disclaimer</p>
+                        <p>
+                            All investments involve risk. Past performance does not guarantee future results. 
+                            These testimonials represent individual experiences and results may vary. 
+                            Please invest responsibly and only risk capital you can afford to lose.
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('app').innerHTML = appHTML;
+            
+            // If there's a modal open, re-render it too
+            if (state.selectedUser) {
+                renderModal();
+            }
+        }
+
+        // Initialize the app when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            renderApp();
+            
+            // Close modal on ESC key press
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && state.selectedUser) {
+                    closeModal();
+                }
+            });
+            
+            // Close modal when clicking outside of it
+            document.addEventListener('click', (e) => {
+                const modalContainer = document.getElementById('modal-container');
+                if (state.selectedUser && modalContainer && 
+                    e.target.classList.contains('fixed') && 
+                    e.target.classList.contains('inset-0')) {
+                    closeModal();
+                }
+            });
+        });
+
+        // Expose functions to global scope for onclick handlers
+        window.setActiveTab = setActiveTab;
+        window.selectUser = selectUser;
+        window.closeModal = closeModal;
+        window.copyToClipboard = copyToClipboard;
+    </script>
+</body>
+</html>
