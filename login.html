@@ -196,10 +196,22 @@
         setTimeout(() => waitForSupabase(callback), 100);
       }
     }
-    waitForSupabase(() => {
-      supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-      generateCaptcha();
-    });
+   waitForSupabase(() => {
+  supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+  generateCaptcha();
+});
+
+// ✅ ADD THIS CODE HERE (PART 4)
+// Check for session expired message
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('msg') === 'session_expired') {
+  const statusDiv = document.getElementById('status');
+  if (statusDiv) {
+    statusDiv.textContent = '⏰ Your session has expired. Please login again.';
+    statusDiv.className = 'mb-4 p-3 rounded-lg bg-yellow-600/20 border-2 border-yellow-500';
+    statusDiv.classList.remove('hidden');
+  }
+}
 
     document.getElementById('captcha-canvas').addEventListener('click', generateCaptcha);
 
@@ -313,6 +325,13 @@
       }
 
       showStatus('Login successful!', 'success');
+      // Set session timeout metadata
+    const { error: metaError } = await supabase.auth.updateUser({
+    data: {
+    last_activity: Date.now(),
+    session_created: Date.now()
+  }
+});
 
       setTimeout(() => {
         window.location.href = 'dashboard.html';

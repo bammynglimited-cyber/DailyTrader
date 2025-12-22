@@ -965,37 +965,126 @@
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnZmtwb2twaXNlYXVnY3JxamJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwMTI0NDYsImV4cCI6MjA3OTU4ODQ0Nn0.C2PpzbzplAG5WOgZbhgqrXi8FD41k8SWpg21utEEvIE";
 
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+(async function checkSession() {
+  showLoading('Loading dashboard...', 0);
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (!session) {
+    console.log('No session found, redirecting to login...');
+    window.location.href = 'login.html';
+    return;
+  }
+  console.log('✅ Session valid, loading dashboard...');
+  document.getElementById('dashboard')?.classList.remove('hidden');
+  showDashboard(session.user);
+  setTimeout(() => {
+    hideLoading();
+  }, 2000);
+})();
 
-    (async function checkSession() {
-      showLoading('Loading dashboard...', 0);
+// Listen for session changes
+supabaseClient.auth.onAuthStateChange((event, session) => {
+  console.log('Auth event:', event);
+  if (event === 'SIGNED_OUT' || !session) {
+    console.log('Session expired, redirecting to login...');
+    window.location.href = 'login.html';
+  }
+});
 
-      const { data: { session } } = await supabaseClient.auth.getSession(); // ✅ Changed
+// ========================================
+// ✅ ADD THIS ENTIRE SECTION HERE (PART 2)
+// AUTO LOGOUT AFTER 2 HOURS OR INACTIVITY
+// ========================================
+const SESSION_CONFIG = {
+  MAX_SESSION_TIME: 2 * 60 * 60 * 1000,     // 2 hours total
+  INACTIVITY_TIMEOUT: 30 * 60 * 1000,        // 30 minutes inactive
+  CHECK_INTERVAL: 60 * 1000                   // Check every minute
+};
 
-      if (!session) {
-        console.log('No session found, redirecting to login...');
-        window.location.href = 'login.html';
-        return;
-      }
+let activityTimeout;
 
-      console.log('✅ Session valid, loading dashboard...');
+async function checkSessionValidity() {
+  try {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    
+    if (!user) {
+      console.log('No user found');
+      return;
+    }
 
-      document.getElementById('dashboard')?.classList.remove('hidden');
-      showDashboard(session.user);
+    const lastActivity = user.user_metadata?.last_activity || Date.now();
+    const sessionCreated = user.user_metadata?.session_created || Date.now();
+    const now = Date.now();
 
-      setTimeout(() => {
-        hideLoading();
-      }, 2000);
-    })();
+    // Check if session exceeded 2 hours
+    if (now - sessionCreated > SESSION_CONFIG.MAX_SESSION_TIME) {
+      console.log('Session expired: 2 hours exceeded');
+      await forceLogout('Your session has expired after 2 hours');
+      return;
+    }
 
-    // Listen for session changes
-    supabaseClient.auth.onAuthStateChange((event, session) => { // ✅ Changed
-      console.log('Auth event:', event);
+    // Check if inactive for 30 minutes
+    if (now - lastActivity > SESSION_CONFIG.INACTIVITY_TIMEOUT) {
+      console.log('Session expired: 30 minutes inactivity');
+      await forceLogout('You were logged out due to inactivity');
+      return;
+    }
 
-      if (event === 'SIGNED_OUT' || !session) {
-        console.log('Session expired, redirecting to login...');
-        window.location.href = 'login.html';
-      }
-    });
+  } catch (err) {
+    console.error('Session check error:', err);
+  }
+}
+
+async function updateActivity() {
+  try {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    
+    if (user) {
+      await supabaseClient.auth.updateUser({
+        data: {
+          last_activity: Date.now()
+        }
+      });
+    }
+  } catch (err) {
+    console.error('Activity update error:', err);
+  }
+}
+
+async function forceLogout(message) {
+  alert(message);
+  
+  try {
+    await supabaseClient.auth.signOut();
+  } catch (err) {
+    console.error('Logout error:', err);
+  }
+  
+  window.location.href = 'login.html?msg=session_expired';
+}
+
+// Track user activity
+const activityEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+
+activityEvents.forEach(event => {
+  document.addEventListener(event, () => {
+    clearTimeout(activityTimeout);
+    activityTimeout = setTimeout(updateActivity, 5000); // Update every 5 seconds of activity
+  }, true);
+});
+
+// Check session every minute
+setInterval(checkSessionValidity, SESSION_CONFIG.CHECK_INTERVAL);
+
+// Initial check
+checkSessionValidity();
+
+console.log('✅ Session timeout enabled: 2 hours max, 30 min inactivity');
+
+// ========================================
+// END OF SESSION TIMEOUT CODE
+// ========================================
+
+
     // === 1. GLOBAL VARIABLES ===
     let selectedPlan = { name: '', price: 0 };
 
@@ -1351,15 +1440,30 @@
       lucide.createIcons();
     }
 
-    async function logout() {
-      if (!supabaseClient) return;
-      try {
-        await supabaseClient.auth.signOut();
-        location.href = 'index.html';// redirect to login page
-      } catch (err) {
-        showToastError('Logout failed');
-      }
-    }
+// Find this function (search for "async function logout()")
+// and REPLACE it with this:
+
+async function logout() {
+  if (!supabaseClient) return;
+  
+  try {
+    showLoading('Logging out...', 0);
+    
+    await supabaseClient.auth.signOut();
+    
+    // Clear any stored data
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    hideLoading();
+    window.location.href = 'login.html';
+    
+  } catch (err) {
+    console.error('Logout error:', err);
+    hideLoading();
+    showToastError('Logout failed');
+  }
+}
 
     // ---------- Dashboard + user data ----------
     let currentUser = null;
