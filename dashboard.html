@@ -1051,7 +1051,10 @@ async function updateActivity() {
 }
 
 async function forceLogout(message) {
-  alert(message);
+  console.log('🚪 Force logout:', message);
+  
+  // Show loading screen instead of alert
+  showLoading('Session expired. Redirecting...', 0);
   
   try {
     await supabaseClient.auth.signOut();
@@ -1059,7 +1062,10 @@ async function forceLogout(message) {
     console.error('Logout error:', err);
   }
   
-  window.location.href = 'login.html?msg=session_expired';
+  // Small delay so user sees the loading message
+  setTimeout(() => {
+    window.location.href = 'login.html?msg=session_expired';
+  }, 1500);
 }
 
 // Track user activity
@@ -2318,5 +2324,6 @@ async function logout() {
 
   </script>
 </body>
+
 
 </html>
